@@ -1105,18 +1105,16 @@
         font-size: 0.78rem !important;
         padding: 0.4rem 0.6rem !important;
     }
-    /* --- 7. TELA EXCLUSIVA PARA PLANEJAMENTO SEMANAL NO MOBILE --- */
-    
-    /* Quando você clicar na aba Planejamento Semanal no celular... */
-    body.modo-planejamento .estudos-area {
-        display: none !important; /* ...esconde totalmente as matérias e resumos da tela! */
+    /* --- TELA EXCLUSIVA PARA PLANEJAMENTO SEMANAL NO MOBILE --- */
+    body.modo-planejamento .estudos-area,
+    body.modo-planejamento .agenda-sidebar {
+        display: none !important; /* Esconde as anotações E TAMBÉM a agenda lateral no modo planejamento! */
     }
 
-    /* O quadro de planejamento e a agenda assumem o espaço total com um visual limpo */
-    body.modo-planejamento .agenda-sidebar {
+    body.modo-planejamento #view-quadro {
+        display: block !important;
         width: 100% !important;
-        margin-top: 0 !important;
-        margin-bottom: 2rem !important;
+        margin-top: 1rem !important;
     }
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE) -->
