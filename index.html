@@ -4,8 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Estudos & Planejamento</title>
-    <!-- ÍCONE DE LÂMPADA AMARELA PARA A ABA DO NAVEGADOR -->
+    <!-- ÍCONE PARA ABA DO NAVEGADOR (COMPUTADOR) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F5D742'><path d='M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z'/></svg>">
+    
+    <!-- ÍCONE PERSONALIZADO PARA A TELA DE INÍCIO DO CELULAR (APPLE / ANDROID) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='180' height='180' style='background-color:%23121212;'><path d='M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z' fill='%23F5D742'/></svg>">
+    
+    <!-- FORÇA O MODO TELA CHEIA (SEM BARRA DE NAVEGADOR) NO IPHONE -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Estudos">
     <style>
         /* ESTILOS MINIMALISTAS & TEMA ESCURO COM ACENTOS AMARELOS */
         :root {
@@ -632,7 +640,9 @@
 
         .lista-tarefas {
             list-style: none;
-            min-height: 150px;
+            min-height: 0 !important; /* Remove a altura mínima obrigatória */
+            height: auto !important;  /* Cresce e diminui conforme as tarefas */
+            margin-bottom: 0.5rem;    /* Dá só um respiro leve antes do quadro de água */
         }
 
         .lista-tarefas li {
@@ -712,7 +722,7 @@
             text-align: center;
             color: var(--cor-texto-mutado);
             font-size: 0.85rem;
-            margin-top: 2rem;
+            margin: 0.8rem 0; /* Espaço pequeno e equilibrado em cima e embaixo */
             font-style: italic;
         }
 
@@ -926,7 +936,90 @@
             }
         }
     @media (max-width: 900px) {
-    /* 1. Coloca a grade em coluna única (um embaixo do outro) */
+    /* --- 1. CABEÇALHO COMPACTO E BEM DISTRIBUÍDO --- */
+    header {
+        padding: 0.6rem 0.8rem !important;
+    }
+
+    .header-content {
+        gap: 0.6rem !important; /* Aumenta ligeiramente o espaço entre as linhas */
+        justify-content: center !important;
+    }
+
+    header h1 {
+        font-size: 1rem !important; /* Título mais delicado */
+        margin-bottom: 0.1rem !important;
+        width: 100% !important;
+        text-align: center !important;
+        justify-content: center !important;
+    }
+
+    /* --- 2. CAIXA DOS BOTÕES PRINCIPAIS (ESTUDOS / PLANEJAMENTO) --- */
+    .main-tabs {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        padding: 0.2rem !important;
+        margin-top: 0.2rem !important;
+        margin-bottom: 0.5rem !important; /* O SEGREDO: Empurra a linha de baixo para não encavalar! */
+    }
+
+    .main-tab-btn {
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 0.45rem 0.2rem !important; /* Botão um pouco mais fino na altura */
+        font-size: 0.78rem !important; /* Letra mais compacta e moderna */
+        white-space: nowrap !important;
+    }
+
+    /* --- 3. LINHA DESLIZANTE DE MATÉRIAS (SEM ENCAVALAR E SEM BARRA) --- */
+    #nav-modulos {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-top: 0.2rem !important; /* Respiro na parte de cima das pílulas */
+        padding-bottom: 0.4rem !important;
+        margin: 0 !important;
+        scrollbar-width: none !important;
+        -ms-overflow-style: none !important;
+    }
+
+    #nav-modulos::-webkit-scrollbar,
+    #nav-modulos ul::-webkit-scrollbar {
+        display: none !important;
+        width: 0px !important;
+        height: 0px !important;
+        background: transparent !important;
+        -webkit-appearance: none !important;
+    }
+
+    #nav-modulos ul {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        gap: 0.5rem !important;
+        width: max-content !important;
+        margin: 0 !important;
+    }
+
+    #nav-modulos a {
+        padding: 0.35rem 0.75rem !important; /* Pílula mais compacta */
+        font-size: 0.75rem !important; /* Fonte reduzida para caber melhor na tela */
+        white-space: nowrap !important;
+        background-color: var(--cor-card) !important;
+        border: 1px solid var(--cor-borda) !important;
+        border-radius: 20px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    #nav-modulos a.sub-nav-active {
+        background-color: var(--cor-acento) !important;
+        color: #121212 !important;
+        border-color: var(--cor-acento) !important;
+        font-weight: 600 !important;
+        box-shadow: 0 2px 6px rgba(245, 215, 66, 0.2) !important;
+    }
+
+    /* --- 4. MANTÉM SUA AGENDA LATERAL PARADA NO TOPO AO ROLAR --- */
     .container-estudos {
         display: flex !important;
         flex-direction: column !important;
@@ -934,31 +1027,21 @@
         padding: 0 1rem !important;
     }
 
-    /* 2. Coloca a Agenda no topo e REMOVE O EFEITO FLUTUANTE/COLANTE */
     .agenda-sidebar {
         order: 1 !important; 
         width: 100% !important;
         margin-top: 0 !important;
-        
-        /* O SEGREDO ESTÁ AQUI: static faz o quadro ficar fixo no topo do documento 
-           e não acompanhar a tela quando você rolar para baixo */
         position: static !important; 
         top: auto !important;
     }
 
-    /* 3. Coloca a Área de Estudos logo abaixo da agenda */
     .estudos-area {
         order: 2 !important;
         width: 100% !important;
     }
 
-    /* Ajustes visuais para a tela do celular */
     .quadro-grid {
         grid-template-columns: 1fr !important;
-    }
-    
-    header {
-        padding: 0.8rem 1rem !important;
     }
     }
 
@@ -967,6 +1050,70 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* --- 5. QUADRO DE AFAZERES COM ALTURA DINÂMICA (CRESCE COM AS TAREFAS) --- */
+    .agenda-sidebar,
+    .agenda-sidebar > div,
+    .agenda-sidebar .card,
+    .agenda-sidebar ul,
+    #lista-tarefas,
+    .todo-list,
+    .lista-afazeres {
+        height: auto !important; /* Libera a altura fixa */
+        max-height: none !important; /* Remove o limite/trava de crescimento */
+        overflow: visible !important; /* Remove qualquer barra de rolagem interna do quadro */
+    }
+
+    /* Dá um respiro e um visual mais limpo entre uma tarefa e outra no toque */
+    .agenda-sidebar li,
+    #lista-tarefas li {
+        padding: 0.6rem 0.4rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+ /* --- 6. CORREÇÃO DEFINITIVA: QUEBRA DE LINHA PARA OS DIAS E CONCLUÍDAS --- */
+    
+    /* 1. Trava a largura máxima de TODOS os cards e blocos da agenda para 100% da tela */
+    .agenda-sidebar,
+    .agenda-sidebar * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Força QUALQUER linha de botões (dias da semana/concluídas) a quebrar linha */
+    .agenda-sidebar div[class*="dias"],
+    .agenda-sidebar div[class*="semana"],
+    .agenda-sidebar ul,
+    .agenda-sidebar .card > div {
+        display: flex !important;
+        flex-wrap: wrap !important; /* O SEGREDO: Se não couber, joga para a linha de baixo! */
+        justify-content: center !important; /* Centraliza bem bonito na tela */
+        gap: 0.35rem !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* 3. Garante que os botões (Seg, Ter, ..., Concluídas) fiquem em tamanho compacto */
+    .agenda-sidebar button,
+    .agenda-sidebar a {
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        flex: 0 0 auto !important;
+        font-size: 0.78rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+    /* --- 7. TELA EXCLUSIVA PARA PLANEJAMENTO SEMANAL NO MOBILE --- */
+    
+    /* Quando você clicar na aba Planejamento Semanal no celular... */
+    body.modo-planejamento .estudos-area {
+        display: none !important; /* ...esconde totalmente as matérias e resumos da tela! */
+    }
+
+    /* O quadro de planejamento e a agenda assumem o espaço total com um visual limpo */
+    body.modo-planejamento .agenda-sidebar {
+        width: 100% !important;
+        margin-top: 0 !important;
+        margin-bottom: 2rem !important;
+    }
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE) -->
     <script type="module">
@@ -3139,6 +3286,7 @@
                 btnEstudos.classList.remove('ativo');
                 btnQuadro.classList.add('ativo');
                 navModulos.style.display = 'none';
+                document.body.classList.add('modo-planejamento'); // <-- MÁGICA ADICIONADA AQUI!
                 renderizarQuadroSemanal();
             } else {
                 viewEstudos.style.display = 'grid';
@@ -3146,6 +3294,7 @@
                 btnEstudos.classList.add('ativo');
                 btnQuadro.classList.remove('ativo');
                 navModulos.style.display = 'block';
+                document.body.classList.remove('modo-planejamento'); // <-- REMOVE A MÁGICA AO VOLTAR!
                 renderizarAbasLateral();
                 renderizarTarefasLateral();
             }
