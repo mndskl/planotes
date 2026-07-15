@@ -638,22 +638,24 @@
             background-color: var(--cor-acento-hover);
         }
 
-        .lista-tarefas {
+.lista-tarefas {
             list-style: none;
-            min-height: 0 !important; /* Remove a altura mínima obrigatória */
-            height: auto !important;  /* Cresce e diminui conforme as tarefas */
-            margin-bottom: 0.5rem;    /* Dá só um respiro leve antes do quadro de água */
+            min-height: 0 !important;
+            height: auto !important;
+            margin-bottom: 0.5rem;
+            padding: 0 !important;
         }
 
         .lista-tarefas li {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            align-items: flex-start; /* Força início no topo */
+            justify-content: flex-start; /* Força início na esquerda */
             font-size: 0.9rem;
             padding: 0.7rem 0.5rem;
             border-bottom: 1px solid var(--cor-borda);
             transition: all 0.4s ease;
             border-radius: 6px;
+            width: 100%; /* Garante que a linha ocupe toda a largura */
         }
 
         .lista-tarefas li:hover {
@@ -662,10 +664,13 @@
 
         .lista-tarefas li span {
             cursor: pointer;
-            flex: 1;
+            flex-grow: 1; /* Faz o texto consumir todo o espaço disponível à esquerda */
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.6rem;
+            text-align: left;
+            word-break: break-word;
+            margin-right: 10px; /* Garante distância do botão */
         }
 
         .lista-tarefas li span::before {
@@ -675,33 +680,8 @@
             height: 14px;
             border: 1px solid #666666;
             border-radius: 4px;
-            transition: all 0.2s;
             flex-shrink: 0;
-        }
-
-        .lista-tarefas li.concluindo {
-            opacity: 0;
-            transform: translateX(20px);
-            pointer-events: none;
-        }
-
-        .lista-tarefas li.concluida {
-            background: transparent;
-            border-color: transparent;
-            opacity: 0.7;
-        }
-
-        .lista-tarefas li.concluida span {
-            text-decoration: line-through;
-            color: #666666;
-        }
-
-        .lista-tarefas li.concluida span::before {
-            background-color: var(--cor-acento);
-            border-color: var(--cor-acento);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23121212' width='10px' height='10px'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
-            background-position: center;
-            background-repeat: no-repeat;
+            margin-top: 3px;
         }
 
         .lista-tarefas li button {
@@ -710,13 +690,25 @@
             color: #666666;
             cursor: pointer;
             font-size: 0.9rem;
-            padding: 0.2rem 0.5rem;
-            transition: color 0.2s;
+            flex-shrink: 0; /* Impede que o botão encolha */
+            padding: 0;
+            margin-top: 2px;
+            align-self: flex-start;
         }
+        
 
-        .lista-tarefas li button:hover {
-            color: #FF6B6B;
+        /* Classes auxiliares (conclusão) */
+        .lista-tarefas li.concluindo { opacity: 0; transform: translateX(20px); pointer-events: none; }
+        .lista-tarefas li.concluida { background: transparent; border-color: transparent; opacity: 0.7; }
+        .lista-tarefas li.concluida span { text-decoration: line-through; color: #666666; }
+        .lista-tarefas li.concluida span::before {
+            background-color: var(--cor-acento);
+            border-color: var(--cor-acento);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23121212' width='10px' height='10px'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+            background-position: center;
+            background-repeat: no-repeat;
         }
+        .lista-tarefas li button:hover { color: #FF6B6B; }
 
         .agenda-vazia {
             text-align: center;
@@ -2999,6 +2991,47 @@
                     </ul>
                 </li>
             </ul>
+        </div>
+        <div class="content-block">
+            <p style="margin-top: 0.6rem; margin-bottom: 0.6rem;"><strong>Síntese comparativa</strong></p>
+             <table class="tabela-personalidade" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+        <thead>
+            <tr style="background: #a7a01c; color: #000000;">
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Síndrome</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Comportamento da vítima</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Relação com o agressor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Estocolmo</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Complacência, vínculo afetivo, proteção</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Aproximação emocional</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Lima</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Comportamento complacente ou afetivo do agressor em relação à vítima</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Aproximação recíproca (agente-vítima)</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Londres</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Confronto, agressividade, defesa ativa</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Enfrentamento direto</td>
+            </tr>
+             <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Mulher de Potifar</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Acusação falsa (após humilhação)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Retaliação por meio da denúncia</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+        <div class="content-block">
+            <p style="margin-top: 0.6rem; color: var(--cor-acento);"><strong>Conlusão clínico-forense</strong></p>
+            <ul class="estudos-lista">
+            <li>As síndromes da vitimização devem ser compreendidas como respostas adaptativas (ainda que disfuncionais) a situações de estresse extremo, e não como psicopatologias</li>
+            <li>Sua identificação requer sensibilidade cultural, isenção de julgamento moral e rigor técnico para evitar que o próprio diagnóstico se torne instrumento de revitimização</li>
+        </ul>
         </div>
     </section>
             
