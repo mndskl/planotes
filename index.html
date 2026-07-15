@@ -1155,7 +1155,7 @@
                 <ul>
                     <li><a href="#" onclick="abrirTema('home'); return false;" class="sub-nav-active" id="btn-sub-home">Principal</a></li>
                     <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">Psicologia Forense</a></li>
-                    <li><a href="#" onclick="abrirTema('avaliacao'); return false;" id="btn-sub-avaliacao">Avaliação Psicológica</a></li>
+                    <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">Perícia Judicial Psicológica</a></li>
                     <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">Hipnoterapia</a></li>
                 </ul>
             </nav>
@@ -1192,16 +1192,16 @@
                         </div>
                     </div>
 
-                    <!-- Resumo Avaliação Psicológica -->
-                    <div class="card-resumo" id="card-resumo-avaliacao" onclick="abrirTema('avaliacao')">
+                    <!-- Resumo Perícia Judicial Psicológica -->
+                    <div class="card-resumo" id="card-resumo-pericia" onclick="abrirTema('pericia')">
                         <div class="card-resumo-top">
-                            <h3>Avaliação Psicológica</h3>
+                            <h3>Perícia Judicial Psicológica</h3>
                             <span class="badge-recente">Último Tópico Adicionado</span>
                         </div>
-                        <h4 id="card-titulo-avaliacao">Carregando última anotação...</h4>
-                        <p id="card-texto-avaliacao">Aguarde enquanto o sistema lê o seu caderno.</p>
+                        <h4 id="card-titulo-pericia">Carregando última anotação...</h4>
+                        <p id="card-texto-pericia">Aguarde enquanto o sistema lê o seu caderno.</p>
                         <div class="card-resumo-footer">
-                            <span class="btn-acessar">Ler todas as anotações de Avaliação ➔</span>
+                            <span class="btn-acessar">Ler todas as anotações de Perícia ➔</span>
                         </div>
                     </div>
 
@@ -3035,14 +3035,40 @@
         </div>
     </section>
             
-            <!-- SEÇÃO 2: AVALIAÇÃO PSICOLÓGICA -->
-            <section id="avaliacao" class="tema-section">
-                <h2>Avaliação Psicológica</h2>
-                <h3>Conceitos Gerais</h3>
+            <!-- SEÇÃO 2: PERÍCIAJUDICIALPSICOLÓGICA -->
+            <section id="pericia" class="tema-section">
+                <h2>Perícia Judicial Psicológica</h2>
+                <h3>Elevity</h3>
+                <h4>Tópico 1 - Análise de prontuários médicos</h4>
                 <div class="content-block">
-                    <p>A avaliação psicológica é o processo de coleta e análise de informações sobre o funcionamento psicológico de um indivíduo. Envolve a utilização de testes, entrevistas e observações para compreender aspectos como personalidade, inteligência, habilidades cognitivas e saúde mental. Os resultados da avaliação psicológica podem ser utilizados para diagnóstico, planejamento de tratamento e tomada de decisões em contextos clínicos, educacionais e organizacionais.</p>  
+                    <p style="margin-top: 0.6rem;"><strong>Natureza jurídica:</strong> o prontuário é uma prova documental objetiva = oferece cronologia fidedigna dos fatos que auxilia o perito a reconstruir o estado mental e físico do periciado antes e depois do evento em litígio</p>
+                    <p style="margin-top: 0.6rem;">Permite validar o relato do periciado, identificar inconsistências e fundamentar a estratégia do laudo</p>
+                    <p style="margin-top: 0.6rem;"><strong>Componentes críticos para a análise forense:</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Histórico e saúde basal: permite identificar condições preexistentes (como transtornos de humor ou déficits cognitivos prévios) que podem auxiliar  a avaliação atual</li>
+                        <li>Exames diagnósticos (neuroimagem): resultados de TC, RM ou RMf são vitais para correlacionar danos estruturais com os sintomas comportamentais observados</li>
+                    </ul>
                 </div>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem; color: var(--cor-acento);"><strong>Processo de revisão e triangulação</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Organização cronológica: construir uma linha do tempo desde o evento gerador do litígio até o estado atual</li>
+                        <li>Identificação nexo causal: verificar se os sintomas relatados surgiram de forma consistente após o trauma registrado</li>
+                        <li>Tradução técnica: o psicólogo forense atua como um tradutor, transformando códigos de diagnóstico (CID) e termos médicos complexos em explicações claras sobre o impacto funcional na vida do periciado</li>
+                        <li><strong>Triangulação:</strong> confrontar o que está escrito no prontuário com os resultados dos testes neuropsicológicos e o relato de informantes colaterais</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong>Fortalecimento da estratégia pericial</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Estabelecer danos reais: apoiar reinvidicações de incapacidade a longo prazo e sofrimento emocional com dados objetivos</li>
+                        <li>Detectar sinais de alerta (simulação): identificar lacunas no tratamento, falta de correlação clínica entre a lesão e a queixa, ou declarações contraditórias que sugiram simulação (malingering)</li>
+                        <li>Validar o prognóstico: usar o histórico de resposta aos tratamentos para fundamentar a probabilidade de recuperação ou cronicidade do dano</li>
+                    </ul>
+                </div>
+                <h4>Tópico 2 - Psicopatia primária x secundária</h4>
             </section>
+
 
             <!-- SEÇÃO 3: HIPNOTERAPIA -->
             <section id="hipnoterapia" class="tema-section">
@@ -3160,7 +3186,7 @@
 
         // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
         function atualizarResumosAutomaticamente() {
-            const materias = ['psicologiaforense', 'avaliacao', 'hipnoterapia'];
+            const materias = ['psicologiaforense', 'pericia', 'hipnoterapia'];
             
             materias.forEach(idMateria => {
                 const secao = document.getElementById(idMateria);
