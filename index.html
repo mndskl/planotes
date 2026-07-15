@@ -926,6 +926,39 @@
         .coluna-lista li button:hover {
             color: #FF6B6B;
         }
+        /* Botão discreto para rolar até a última anotação */
+        .btn-rolar-fim {
+            background: none;
+            border: 1px solid var(--cor-borda);
+            color: var(--cor-texto-mutado);
+            font-size: 0.72rem;
+            font-weight: 500;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            margin-left: auto; /* Empurra para o canto direito */
+            white-space: nowrap;
+        }
+
+        .btn-rolar-fim:hover {
+            color: var(--cor-acento);
+            border-color: var(--cor-acento);
+            background-color: rgba(245, 215, 66, 0.05);
+        }
+
+        /* Container do título para manter o botão alinhado ao lado direito */
+        .header-tema-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.3rem;
+        }
 
         /* RESPONSIVIDADE */
         @media (max-width: 1000px) {
@@ -3349,9 +3382,45 @@
             } else {
                 if (secaoHome) secaoHome.style.display = 'none';
                 const secaoSelecionada = document.getElementById(idTema);
-                if (secaoSelecionada) secaoSelecionada.style.display = 'block';
+                if (secaoSelecionada) {
+                    secaoSelecionada.style.display = 'block';
+
+                    // --- INJEÇÃO DO BOTÃO "IR ATÉ A ANOTAÇÃO MAIS RECENTE" ---
+                    const h2 = secaoSelecionada.querySelector('h2');
+                    if (h2 && !secaoSelecionada.querySelector('.btn-rolar-fim')) {
+                        // Cria um container flexível para alinhar o título e o botão
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'header-tema-flex';
+                        h2.parentNode.insertBefore(wrapper, h2);
+                        wrapper.appendChild(h2);
+
+                        // Cria o botão discreto
+                        const btnRolar = document.createElement('button');
+                        btnRolar.className = 'btn-rolar-fim';
+                        btnRolar.innerHTML = '↓ anotação mais recente';
+                        btnRolar.title = 'Rolar até o final desta área';
+                        
+                        // Ação de clique para ir até a última anotação
+                        btnRolar.onclick = (e) => {
+                            e.stopPropagation();
+                            const blocos = secaoSelecionada.querySelectorAll('.content-block, h4');
+                            if (blocos.length > 0) {
+                                const ultimoBloco = blocos[blocos.length - 1];
+                                const alturaHeader = document.querySelector('header').offsetHeight || 80;
+                                const posicaoFinal = (ultimoBloco.getBoundingClientRect().top + window.scrollY) - (alturaHeader + 20);
+
+                                window.scrollTo({
+                                    top: Math.max(0, posicaoFinal),
+                                    behavior: 'smooth'
+                                });
+                            }
+                        };
+                        wrapper.appendChild(btnRolar);
+                    }
+                }
             }
 
+            // Ao abrir a aba, volta ao topo normalmente por padrão
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
