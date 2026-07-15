@@ -1178,7 +1178,7 @@
         <main class="estudos-area">
             
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Pesquisar em todas as anotações (ex: Lombroso, alienação parental)..." onkeyup="filtrarEstudos()">
+                <input type="text" id="searchInput" placeholder="Pesquisar em todas as anotações (ex: Lombroso, alienação parental)..." onkeypress="if(event.key === 'Enter') filtrarEstudos()">
             </div>
 
             <!-- PÁGINA INICIAL (PAINEL COM RESUMOS DOS ÚLTIMOS CONTEÚDOS) -->
@@ -3399,14 +3399,15 @@
             });
         }
 
-        // --- SISTEMA DE BUSCA INTELIGENTE ---
+// --- SISTEMA DE BUSCA INTELIGENTE (COM ROLAGEM DE PRECISÃO) ---
         function filtrarEstudos() {
-            let input = document.getElementById('searchInput').value.toLowerCase();
+            let input = document.getElementById('searchInput').value.toLowerCase().trim();
             let secoes = document.getElementsByClassName('tema-section');
             let secaoHome = document.getElementById('home-resumo');
             let encontrouAlgum = false;
-            let primeiraSecaoEncontrada = null;
+            let primeiroElementoExato = null;
 
+            // Função para limpar marcações anteriores
             function removerHighlights(element) {
                 let highlights = element.querySelectorAll('.highlight');
                 highlights.forEach(h => {
@@ -3416,6 +3417,7 @@
                 });
             }
 
+            // Função para destacar o texto e capturar o primeiro elemento exato
             function aplicarHighlight(element, termo) {
                 let regex = new RegExp(`(${termo})`, 'gi');
                 let walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
@@ -3428,6 +3430,11 @@
                 }
 
                 nosParaModificar.forEach(node => {
+                    // Se ainda não achamos o primeiro elemento exato para focar, guardamos o pai deste texto
+                    if (!primeiroElementoExato) {
+                        primeiroElementoExato = node.parentElement;
+                    }
+
                     let span = document.createElement('span');
                     span.className = 'highlight';
                     span.style.backgroundColor = '#F5D742';
@@ -3452,24 +3459,26 @@
                 });
             }
 
+            // LÓGICA PRINCIPAL DE BUSCA
             if (input !== "") {
                 if (secaoHome) secaoHome.style.display = 'none';
+                primeiroElementoExato = null; // Reseta o alvo da rolagem
                 
                 for (let i = 0; i < secoes.length; i++) {
                     let section = secoes[i];
                     removerHighlights(section);
                     
                     if (section.innerText.toLowerCase().includes(input)) {
-                        section.style.display = "block";
+                        section.style.display = "block"; // Força a exibição da matéria para o cálculo da rolagem funcionar
                         section.style.border = "2px solid #F5D742";
                         encontrouAlgum = true;
-                        if (!primeiraSecaoEncontrada) primeiraSecaoEncontrada = section;
                         aplicarHighlight(section, input);
                     } else {
                         section.style.display = "none";
                     }
                 }
             } else {
+                // Se a busca estiver vazia, restaura o estado inicial
                 for (let i = 0; i < secoes.length; i++) {
                     removerHighlights(secoes[i]);
                     secoes[i].style.border = "1px solid #2F2F2F";
@@ -3478,6 +3487,7 @@
                 encontrouAlgum = true;
             }
 
+            // GESTÃO DA MENSAGEM DE ERRO
             let mensagemErro = document.getElementById('erroBusca');
             if (!mensagemErro) {
                 mensagemErro = document.createElement('p');
@@ -3490,17 +3500,22 @@
                 mensagemErro.innerText = "Nenhum resultado encontrado em suas anotações.";
             } else {
                 mensagemErro.innerText = "";
-                if (primeiraSecaoEncontrada && input !== "") {
-                    requestAnimationFrame(() => {
-                        const headerOffset = 110; 
-                        const elementPosition = primeiraSecaoEncontrada.getBoundingClientRect().top + window.scrollY;
-                        const offsetPosition = elementPosition - headerOffset;
+                
+                // ROLAGEM DE PRECISÃO ATÉ O ALVO
+                if (primeiroElementoExato && input !== "") {
+                    setTimeout(() => {
+                        // Calcula a altura real do cabeçalho dinamicamente
+                        const alturaHeader = document.querySelector('header').offsetHeight || 80;
+                        const espacoRespiro = 30; // Margem extra para não grudar no topo
+                        
+                        const posicaoElemento = primeiroElementoExato.getBoundingClientRect().top + window.scrollY;
+                        const posicaoFinal = posicaoElemento - (alturaHeader + espacoRespiro);
 
                         window.scrollTo({
-                            top: offsetPosition,
+                            top: Math.max(0, posicaoFinal),
                             behavior: 'smooth'
                         });
-                    });
+                    }, 150); // Timeout de 150ms garante que o DOM expandiu os blocos antes de rolar
                 }
             }
         }
