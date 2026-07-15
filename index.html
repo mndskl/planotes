@@ -1156,17 +1156,17 @@
             <h1>planotes</h1>
             
             <div class="main-tabs">
-                <button class="main-tab-btn ativo" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">Anotações de Estudos</button>
-                <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">Planejamento Semanal</button>
+                <button class="main-tab-btn ativo" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">anotações de estudos</button>
+                <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">planejamento semanal</button>
             </div>
 
             <!-- MENU DE SUB-ABAS (INÍCIO + ÁREAS DE ESTUDO) -->
             <nav id="nav-modulos">
                 <ul>
-                    <li><a href="#" onclick="abrirTema('home'); return false;" class="sub-nav-active" id="btn-sub-home">Principal</a></li>
-                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">Psicologia Forense</a></li>
-                    <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">Perícia Judicial Psicológica</a></li>
-                    <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">Hipnoterapia</a></li>
+                    <li><a href="#" onclick="abrirTema('home'); return false;" class="sub-nav-active" id="btn-sub-home">principal</a></li>
+                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">psicologia forense</a></li>
+                    <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial psicológica</a></li>
+                    <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">hipnoterapia</a></li>
                 </ul>
             </nav>
         </div>
@@ -1178,13 +1178,13 @@
         <main class="estudos-area">
             
             <div class="search-bar">
-                <input type="text" id="searchInput" placeholder="Pesquisar em todas as anotações (ex: Lombroso, alienação parental)..." onkeypress="if(event.key === 'Enter') filtrarEstudos()">
+                <input type="text" id="searchInput" placeholder="pesquisar em todas as anotações..." onkeypress="if(event.key === 'Enter') filtrarEstudos()">
             </div>
 
             <!-- PÁGINA INICIAL (PAINEL COM RESUMOS DOS ÚLTIMOS CONTEÚDOS) -->
             <section id="home-resumo" style="display: block;">
                 <div class="painel-header">
-                    <h2>Visão Geral</h2>
+                    <h2>visão geral</h2>
                 
                 </div>
 
@@ -1195,10 +1195,10 @@
                             <h3>Psicologia Forense</h3>
                             <span class="badge-recente">Último Módulo Adicionado</span>
                         </div>
-                        <h4 id="card-titulo-psicologiaforense">Carregando última anotação...</h4>
-                        <p id="card-texto-psicologiaforense">Aguarde enquanto o sistema lê o seu caderno.</p>
+                        <h4 id="card-titulo-psicologiaforense">carregando última anotação...</h4>
+                        <p id="card-texto-psicologiaforense">aguarde enquanto o sistema lê o  caderno.</p>
                         <div class="card-resumo-footer">
-                            <span class="btn-acessar">Ler todas as anotações de Forense ➔</span>
+                            <span class="btn-acessar">ler todas as anotações de Forense ➔</span>
                         </div>
                     </div>
 
@@ -1208,10 +1208,10 @@
                             <h3>Perícia Judicial Psicológica</h3>
                             <span class="badge-recente">Último Tópico Adicionado</span>
                         </div>
-                        <h4 id="card-titulo-pericia">Carregando última anotação...</h4>
-                        <p id="card-texto-pericia">Aguarde enquanto o sistema lê o seu caderno.</p>
+                        <h4 id="card-titulo-pericia">carregando última anotação...</h4>
+                        <p id="card-texto-pericia">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
-                            <span class="btn-acessar">Ler todas as anotações de Perícia ➔</span>
+                            <span class="btn-acessar">ler todas as anotações de perícia ➔</span>
                         </div>
                     </div>
 
@@ -1221,10 +1221,10 @@
                             <h3>Hipnoterapia</h3>
                             <span class="badge-recente">Último Tópico Adicionado</span>
                         </div>
-                        <h4 id="card-titulo-hipnoterapia">Carregando última anotação...</h4>
-                        <p id="card-texto-hipnoterapia">Aguarde enquanto o sistema lê o seu caderno.</p>
+                        <h4 id="card-titulo-hipnoterapia">carregando última anotação...</h4>
+                        <p id="card-texto-hipnoterapia">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
-                            <span class="btn-acessar">Ler todas as anotações de Hipnoterapia ➔</span>
+                            <span class="btn-acessar">ler todas as anotações de Hipnoterapia ➔</span>
                         </div>
                     </div>
                 </div>
@@ -3270,7 +3270,7 @@
                 <!-- NAVEGADOR DE SEMANAS (LATERAL) -->
                 <div class="semana-nav">
                     <button onclick="mudarSemanaLateral(-1)" title="Semana Anterior">&#8592;</button>
-                    <span id="nav-semana-label-lateral">Semana Atual</span>
+                    <span id="nav-semana-label-lateral">semana atual</span>
                     <button onclick="mudarSemanaLateral(1)" title="Próxima Semana">&#8594;</button>
                 </div>
             </div>
@@ -3278,7 +3278,7 @@
             <div class="abas-semana" id="abas-container"></div>
 
             <div class="input-tarefa-group" id="containerInputTarefa">
-                <input type="text" id="inputTarefa" placeholder="Nova tarefa..." onkeypress="if(event.key === 'Enter') adicionarTarefaLateral()">
+                <input type="text" id="inputTarefa" placeholder="nova tarefa..." onkeypress="if(event.key === 'Enter') adicionarTarefaLateral()">
                 <button onclick="adicionarTarefaLateral()">+</button>
             </div>
 
@@ -3287,7 +3287,7 @@
             <!-- QUADRO DINÂMICO DE HIDRATAÇÃO -->
             <div class="water-tracker">
                 <div class="water-header">
-                    <span class="water-title">💧 Hidratação Diária</span>
+                    <span class="water-title">💧 hidratação diária</span>
                     <span class="water-info" id="water-text">0 ml / 2.1 L</span>
                 </div>
                 <div class="water-grid" id="water-grid">
@@ -3306,7 +3306,7 @@
         <div class="quadro-header">
             <div class="quadro-header-titulos">
                 <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.2rem;">
-                    <h2>Quadro de Planejamento da Semana</h2>
+                    <h2>quadro de planejamento da semana</h2>
                     <!-- PLACAR SKOS (QUADRO SEMANAL) -->
                     <div id="placar-skos-quadro" class="placar-skos" title="Pontos conquistados nesta semana visualizada!">✦ 0 skos</div>
                 </div>
@@ -3315,7 +3315,7 @@
             
             <div class="semana-nav">
                 <button onclick="mudarSemanaQuadro(-1)" title="Semana Anterior">&#8592;</button>
-                <span id="nav-semana-label-quadro">Semana Atual</span>
+                <span id="nav-semana-label-quadro">semana atual</span>
                 <button onclick="mudarSemanaQuadro(1)" title="Próxima Semana">&#8594;</button>
             </div>
         </div>
@@ -3585,11 +3585,11 @@
         let bancoSemanas = {};
         let dadosCarregadosDaNuvem = false;
 
-        const dias = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+        const dias = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
         const nomesCompletos = {
-            'Seg': 'Segunda-feira', 'Ter': 'Terça-feira', 'Qua': 'Quarta-feira',
-            'Qui': 'Quinta-feira', 'Sex': 'Sexta-feira', 'Sáb': 'Sábado', 'Dom': 'Domingo',
-            'Concluidas': 'Todas as Tarefas Concluídas'
+            'seg': 'segunda-feira', 'ter': 'terça-feira', 'qua': 'quarta-feira',
+            'qui': 'quinta-feira', 'sex': 'sexta-feira', 'sáb': 'sábado', 'dom': 'domingo',
+            'concluidas': 'todas as tarefas concluídas'
         };
 
         const diaSemanaIndex = dataHojeReal.getDay(); 
@@ -3756,7 +3756,7 @@
 
         function atualizarLabelsDeNavegacao() {
             let label = (chaveSemanaVisualizada === chaveSemanaReal) 
-                        ? "Semana Atual" 
+                        ? "semana atual" 
                         : formatarLabelSemana(semanaVisualizada);
             
             document.getElementById('nav-semana-label-lateral').innerText = label;
@@ -3782,13 +3782,13 @@
 
             const btnConcluidas = document.createElement('button');
             btnConcluidas.className = `aba-btn ${diaAtivoLateral === 'Concluidas' ? 'ativa' : ''}`;
-            btnConcluidas.innerText = '✓ Concluídas';
-            btnConcluidas.style.color = diaAtivoLateral === 'Concluidas' ? '#121212' : '#F5D742';
-            if(diaAtivoLateral === 'Concluidas') btnConcluidas.style.backgroundColor = '#F5D742';
-            btnConcluidas.onclick = () => mudarAbaLateral('Concluidas');
+            btnConcluidas.innerText = '✓ concluídas';
+            btnConcluidas.style.color = diaAtivoLateral === 'concluidas' ? '#121212' : '#F5D742';
+            if(diaAtivoLateral === 'concluidas') btnConcluidas.style.backgroundColor = '#F5D742';
+            btnConcluidas.onclick = () => mudarAbaLateral('concluidas');
             abasContainer.appendChild(btnConcluidas);
 
-            let sufixoVisualizacao = chaveSemanaVisualizada !== chaveSemanaReal ? " (Histórico)" : "";
+            let sufixoVisualizacao = chaveSemanaVisualizada !== chaveSemanaReal ? " (histórico)" : "";
             document.getElementById('dia-atual-label').innerText = nomesCompletos[diaAtivoLateral] + sufixoVisualizacao;
         }
 
@@ -3833,14 +3833,14 @@
                 });
 
                 if (totalConcluidas === 0) {
-                    lista.innerHTML = `<div class="agenda-vazia">Nenhuma tarefa concluída nesta semana.</div>`;
+                    lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa concluída nesta semana.</div>`;
                 }
                 return;
             }
 
             const tarefasDia = dadosAgendaAtual[diaAtivoLateral] || [];
             if (tarefasDia.length === 0) {
-                lista.innerHTML = `<div class="agenda-vazia">Nenhuma tarefa.</div>`;
+                lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa.</div>`;
                 return;
             }
 
@@ -3893,7 +3893,7 @@
                         ${tagHoje}
                     </div>
                     <div class="coluna-input">
-                        <input type="text" id="input-quadro-${dia}" placeholder="Nova tarefa..." onkeypress="if(event.key === 'Enter') adicionarTarefaQuadro('${dia}')">
+                        <input type="text" id="input-quadro-${dia}" placeholder="nova tarefa..." onkeypress="if(event.key === 'Enter') adicionarTarefaQuadro('${dia}')">
                         <button onclick="adicionarTarefaQuadro('${dia}')">+</button>
                     </div>
                     <ul class="coluna-lista" id="lista-quadro-${dia}"></ul>
@@ -3904,7 +3904,7 @@
                 const tarefasDia = dadosAgendaAtual[dia] || [];
 
                 if (tarefasDia.length === 0) {
-                    listaUl.innerHTML = `<li style="background:transparent; border:none; color:#666666; font-style:italic; font-size:0.75rem; justify-content:center;">Sem tarefas</li>`;
+                    listaUl.innerHTML = `<li style="background:transparent; border:none; color:#666666; font-style:italic; font-size:0.75rem; justify-content:center;">sem tarefas</li>`;
                 } else {
                     tarefasDia.forEach((tarefa, index) => {
                         const li = document.createElement('li');
