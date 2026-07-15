@@ -1150,7 +1150,7 @@
     </script>
 </head>
 <body>
-    
+    <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
 
     <!-- CABEÇALHO COM ABAS DE MODO DE VISÃO -->
     <header>
@@ -3924,28 +3924,30 @@
         }
 
         // --- AÇÕES GERAIS ---
-        function alternarConclusao(diaAlvo, index) {
-            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-            
-            const listaElement = (document.getElementById('view-quadro').style.display === 'block') 
-                                 ? document.getElementById(`lista-quadro-${diaAlvo}`)
-                                 : document.getElementById('listaTarefas');
-            
-            const liElement = listaElement.children[index];
-            if (liElement) liElement.classList.add('concluindo');
-
-            setTimeout(() => {
-                dadosAgendaAtual[diaAlvo][index].concluida = !dadosAgendaAtual[diaAlvo][index].concluida;
-                salvarBancoSemanas();
-                
-                if (document.getElementById('view-quadro').style.display === 'block') {
-                    renderizarQuadroSemanal();
-                } else {
-                    renderizarAbasLateral();
-                    renderizarTarefasLateral();
-                }
-            }, 400); 
+    function alternarConclusao(diaAlvo, index) {
+    // Toca o áudio apenas ao marcar como concluída
+    if (!bancoSemanas[chaveSemanaVisualizada][diaAlvo][index].concluida) {
+        const audio = document.getElementById('audio-conclusao');
+        if (audio) {
+            audio.currentTime = 0; // Reinicia o áudio caso ele toque várias vezes seguidas
+            audio.play();
         }
+    }
+
+    let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+    dadosAgendaAtual[diaAlvo][index].concluida = !dadosAgendaAtual[diaAlvo][index].concluida;
+    
+    salvarBancoSemanas();
+    
+    // Atualiza a tela conforme o modo
+    const viewQuadro = document.getElementById('view-quadro');
+    if (viewQuadro && viewQuadro.style.display === 'block') {
+        renderizarQuadroSemanal();
+    } else {
+        renderizarAbasLateral();
+        renderizarTarefasLateral();
+    }
+    }
 
         function removerTarefa(diaAlvo, index) {
             let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
