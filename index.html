@@ -925,29 +925,34 @@
                 grid-column: span 1;
             }
         }
-@media (max-width: 900px) {
-    /* 1. Faz o container usar flexbox para permitir a inversão da ordem */
+    @media (max-width: 900px) {
+    /* 1. Coloca a grade em coluna única (um embaixo do outro) */
     .container-estudos {
         display: flex !important;
-        flex-direction: column !important; /* Coloca um embaixo do outro */
+        flex-direction: column !important;
         gap: 1.5rem !important;
         padding: 0 1rem !important;
     }
 
-    /* 2. Força a Agenda a vir primeiro (ordem 1) */
+    /* 2. Coloca a Agenda no topo e REMOVE O EFEITO FLUTUANTE/COLANTE */
     .agenda-sidebar {
         order: 1 !important; 
         width: 100% !important;
         margin-top: 0 !important;
+        
+        /* O SEGREDO ESTÁ AQUI: static faz o quadro ficar fixo no topo do documento 
+           e não acompanhar a tela quando você rolar para baixo */
+        position: static !important; 
+        top: auto !important;
     }
 
-    /* 3. Força a Área de Estudos a vir depois (ordem 2) */
+    /* 3. Coloca a Área de Estudos logo abaixo da agenda */
     .estudos-area {
         order: 2 !important;
         width: 100% !important;
     }
 
-    /* Ajustes extras para o celular */
+    /* Ajustes visuais para a tela do celular */
     .quadro-grid {
         grid-template-columns: 1fr !important;
     }
