@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Estudos & Planejamento</title>
     <!-- ÍCONE DE LÂMPADA AMARELA PARA A ABA DO NAVEGADOR -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23F5D742'><path d='M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7z'/></svg>">
@@ -925,18 +925,37 @@
                 grid-column: span 1;
             }
         }
+@media (max-width: 900px) {
+    /* 1. Faz o container usar flexbox para permitir a inversão da ordem */
+    .container-estudos {
+        display: flex !important;
+        flex-direction: column !important; /* Coloca um embaixo do outro */
+        gap: 1.5rem !important;
+        padding: 0 1rem !important;
+    }
 
-        @media (max-width: 900px) {
-            .container-estudos {
-                grid-template-columns: 1fr;
-            }
-            .agenda-sidebar {
-                position: static;
-            }
-            .comparativo-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+    /* 2. Força a Agenda a vir primeiro (ordem 1) */
+    .agenda-sidebar {
+        order: 1 !important; 
+        width: 100% !important;
+        margin-top: 0 !important;
+    }
+
+    /* 3. Força a Área de Estudos a vir depois (ordem 2) */
+    .estudos-area {
+        order: 2 !important;
+        width: 100% !important;
+    }
+
+    /* Ajustes extras para o celular */
+    .quadro-grid {
+        grid-template-columns: 1fr !important;
+    }
+    
+    header {
+        padding: 0.8rem 1rem !important;
+    }
+    }
 
         @media (max-width: 600px) {
             .quadro-grid {
