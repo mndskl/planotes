@@ -13,7 +13,7 @@
     <!-- FORÇA O MODO TELA CHEIA (SEM BARRA DE NAVEGADOR) NO IPHONE -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Estudos">
+    <meta name="apple-mobile-web-app-title" content="planotes"> 
     <style>
         /* ESTILOS MINIMALISTAS & TEMA ESCURO COM ACENTOS AMARELOS */
         :root {
@@ -731,14 +731,20 @@
         }
 
         .tag-dia {
-            font-size: 0.75rem;
-            background: #2F2F2F;
-            padding: 0.1rem 0.4rem;
+            font-size: 0.68rem; /* Fonte levemente menor e mais elegante */
+            background: #242424; /* Fundo escuro suave */
+            padding: 0.15rem 0.45rem;
             border-radius: 4px;
             margin-right: 0.5rem;
             color: #CCCCCC;
             font-weight: 600;
-            display: inline-block;
+            display: inline-flex; /* Força o alinhamento em bloco horizontal */
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap !important; /* O SEGREDO: impede absolutamente que as letras separem ou quebrem linha */
+            flex-shrink: 0; /* Impede que o texto longo da tarefa esmague a caixinha do dia */
+            letter-spacing: 0.5px;
+            text-transform: lowercase;
         }
 
         /* ESTILOS DO QUADRO SEMANAL EM 2 LINHAS */
@@ -958,6 +964,64 @@
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 0.3rem;
+        }
+        /* --- CORREÇÃO DEFINITIVA PARA TABELAS NO CELULAR (SEM VAZAMENTO) --- */
+        .table-responsive-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important; /* Ativa o deslize suave e nativo no iPhone */
+            margin: 1.2rem 0 !important;
+            border-radius: 8px !important;
+            border: 1px solid var(--cor-borda) !important;
+            background: var(--cor-card) !important;
+            box-shadow: var(--sombra-suave) !important;
+        }
+
+        .table-responsive-wrapper table {
+            width: 100% !important;
+            min-width: 500px !important; /* Garante largura mínima para as colunas não ficarem esmagadas */
+            border-collapse: collapse !important;
+            margin: 0 !important;
+            font-size: 0.9rem !important;
+        }
+
+        .table-responsive-wrapper th,
+        .table-responsive-wrapper td {
+            padding: 0.75rem 0.85rem !important;
+            text-align: left !important;
+            border: 1px solid var(--cor-borda) !important;
+            line-height: 1.4 !important;
+            word-wrap: break-word !important;
+        }
+
+        /* Padroniza automaticamente o visual de todas as tabelas com o seu tema dark/amarelo */
+        .table-responsive-wrapper th {
+            background-color: var(--cor-primaria) !important;
+            color: var(--cor-acento) !important;
+            font-weight: 600 !important;
+            white-space: nowrap !important; /* Evita que os títulos dos cabeçalhos quebrem feio */
+        }
+
+        .table-responsive-wrapper tr {
+            background-color: var(--cor-fundo) !important;
+            transition: background-color 0.2s;
+        }
+
+        .table-responsive-wrapper tr:hover {
+            background-color: rgba(245, 215, 66, 0.03) !important;
+        }
+
+        /* Ajustes finos exclusivos para telas de celular pequenas */
+        @media (max-width: 600px) {
+            .table-responsive-wrapper table {
+                min-width: 460px !important; /* Ativa a rolagem lateral na medida certa para o iPhone */
+                font-size: 0.82rem !important; /* Letra ligeiramente mais delicada no celular */
+            }
+            .table-responsive-wrapper th,
+            .table-responsive-wrapper td {
+                padding: 0.55rem 0.65rem !important; /* Ganha espaço na tela reduzindo o respiro interno */
+            }
         }
 
         /* RESPONSIVIDADE */
@@ -1229,7 +1293,7 @@
                             <span class="badge-recente">Último Módulo Adicionado</span>
                         </div>
                         <h4 id="card-titulo-psicologiaforense">carregando última anotação...</h4>
-                        <p id="card-texto-psicologiaforense">aguarde enquanto o sistema lê o  caderno.</p>
+                        <p id="card-texto-psicologiaforense">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
                             <span class="btn-acessar">ler todas as anotações de forense ➔</span>
                         </div>
@@ -3293,7 +3357,7 @@
             <div class="agenda-header">
                 <div class="agenda-header-top">
                     <div>
-                        <h2>Planejamento</h2>
+                        <h2>planejamento</h2>
                         <span id="dia-atual-label" style="font-size: 0.8rem; color: var(--cor-texto-mutado); font-weight: 500;"></span>
                     </div>
                     <!-- PLACAR SKOS (LATERAL) -->
@@ -3415,8 +3479,19 @@
                                 });
                             }
                         };
+                       // ... (código anterior do botão btnRolar que já estava aí) ...
                         wrapper.appendChild(btnRolar);
                     }
+
+                    // --- INJEÇÃO AUTOMÁTICA DO ENVELOPE RESPONSIVO PARA TABELAS ---
+                    secaoSelecionada.querySelectorAll('table').forEach(tabela => {
+                        if (!tabela.parentElement.classList.contains('table-responsive-wrapper')) {
+                            const wrapper = document.createElement('div');
+                            wrapper.className = 'table-responsive-wrapper';
+                            tabela.parentNode.insertBefore(wrapper, tabela);
+                            wrapper.appendChild(tabela);
+                        }
+                    });
                 }
             }
 
@@ -3654,6 +3729,7 @@
         let bancoSemanas = {};
         let dadosCarregadosDaNuvem = false;
 
+        // Abreviações ajustadas para leitura limpa
         const dias = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
         const nomesCompletos = {
             'seg': 'segunda-feira', 'ter': 'terça-feira', 'qua': 'quarta-feira',
@@ -3835,6 +3911,7 @@
         }
 
         // --- AGENDA LATERAL ---
+        // --- AGENDA LATERAL ---
         function renderizarAbasLateral() {
             const abasContainer = document.getElementById('abas-container');
             if (!abasContainer) return;
@@ -3850,7 +3927,8 @@
             });
 
             const btnConcluidas = document.createElement('button');
-            btnConcluidas.className = `aba-btn ${diaAtivoLateral === 'Concluidas' ? 'ativa' : ''}`;
+            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
+            btnConcluidas.className = `aba-btn ${diaAtivoLateral === 'concluidas' ? 'ativa' : ''}`;
             btnConcluidas.innerText = '✓ concluídas';
             btnConcluidas.style.color = diaAtivoLateral === 'concluidas' ? '#121212' : '#F5D742';
             if(diaAtivoLateral === 'concluidas') btnConcluidas.style.backgroundColor = '#F5D742';
@@ -3866,8 +3944,9 @@
             renderizarAbasLateral();
             renderizarTarefasLateral();
             
-            const divInput = document.getElementById('containerInputTarefa');
-            if (diaAtivoLateral === 'Concluidas') {
+           const divInput = document.getElementById('containerInputTarefa');
+            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
+            if (diaAtivoLateral === 'concluidas') {
                 divInput.style.display = 'none';
             } else {
                 divInput.style.display = 'flex';
@@ -3881,7 +3960,8 @@
             if (!lista) return;
             lista.innerHTML = '';
 
-            if (diaAtivoLateral === 'Concluidas') {
+            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
+            if (diaAtivoLateral === 'concluidas') {
                 let totalConcluidas = 0;
                 dias.forEach(dia => {
                     const tarefasDia = dadosAgendaAtual[dia] || [];
@@ -4082,6 +4162,6 @@
                 if (!dadosCarregadosDaNuvem) inicializarSistema();
             }, 2000);
         });
-    </script>
+            </script>
 </body>
 </html>
