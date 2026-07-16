@@ -13,7 +13,7 @@
     <!-- FORÇA O MODO TELA CHEIA (SEM BARRA DE NAVEGADOR) NO IPHONE -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="planotes"> 
+    <meta name="apple-mobile-web-app-title" content="Estudos"> 
     <style>
         /* ESTILOS MINIMALISTAS & TEMA ESCURO COM ACENTOS AMARELOS */
         :root {
@@ -1213,6 +1213,24 @@
         width: 100% !important;
         margin-top: 1rem !important;
     }
+  /* --- REGRAS DEFINITIVAS DE EXIBIÇÃO DAS 3 ABAS SUPERIORES --- */
+        body.modo-estudos .agenda-sidebar {
+            display: none !important; /* Esconde a agenda na aba de estudos! */
+        }
+        body.modo-estudos .container-estudos {
+            grid-template-columns: 1fr !important; /* Estica a anotação para ocupar a tela inteira */
+        }
+        body.modo-principal #nav-modulos,
+        body.modo-planejamento #nav-modulos {
+            display: none !important; /* Oculta a barra inferior de matérias quando não estiver na aba de estudos */
+        }
+        @media (max-width: 900px) {
+            .main-tab-btn {
+                font-size: 0.70rem !important; /* Ajusta a fonte para os 3 botões superiores caberem perfeitamente no iPhone */
+                padding: 0.4rem 0.2rem !important;
+            }
+        }
+
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE) -->
     <script type="module">
@@ -1247,21 +1265,21 @@
 <body>
     <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
 
-    <!-- CABEÇALHO COM ABAS DE MODO DE VISÃO -->
+    <!-- CABEÇALHO LIMPO COM AS 3 ABAS PRINCIPAIS -->
     <header>
         <div class="header-content">
             <h1>planotes</h1>
             
             <div class="main-tabs">
-                <button class="main-tab-btn ativo" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">anotações de estudos</button>
+                <button class="main-tab-btn ativo" id="btn-tab-principal" onclick="mudarModoVisao('principal')">principal</button>
+                <button class="main-tab-btn" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">anotações de estudos</button>
                 <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">planejamento semanal</button>
             </div>
 
-            <!-- MENU DE SUB-ABAS (INÍCIO + ÁREAS DE ESTUDO) -->
-            <nav id="nav-modulos">
-                <ul>
-                    <li><a href="#" onclick="abrirTema('home'); return false;" class="sub-nav-active" id="btn-sub-home">principal</a></li>
-                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">psicologia forense</a></li>
+            <!-- MENU DE SUB-ABAS (SÓ APARECE DENTRO DO MODO ESTUDOS) -->
+            <nav id="nav-modulos" style="display: none; width: 100%;">
+                <ul style="justify-content: center; margin-top: 0.5rem;">
+                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense" class="sub-nav-active">psicologia forense</a></li>
                     <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial psicológica</a></li>
                     <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">hipnoterapia</a></li>
                 </ul>
@@ -1276,6 +1294,23 @@
             
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="pesquisar em todas as anotações..." onkeypress="if(event.key === 'Enter') filtrarEstudos()">
+            </div>
+            <!-- PAINEL DINÂMICO DA ÁREA DE ESTUDOS (EVITA TELA VAZIA) -->
+            <div id="painel-boas-vindas-estudos" style="display: none; text-align: center; margin: 2rem 0; background: var(--cor-card); padding: 2rem; border-radius: var(--raio-borda); border: 1px solid var(--cor-borda); box-shadow: var(--sombra-suave);">
+                <h2 style="font-size: 1.4rem; color: var(--cor-texto); margin-bottom: 0.5rem;">áreas</h2>
+                
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="abrirTema('psicologiaforense')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
+                        psicologia forense
+                    </button>
+                    <button onclick="abrirTema('pericia')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
+                        perícia judicial psicológica
+                    </button>
+                    <button onclick="abrirTema('hipnoterapia')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
+                        hipnoterapia
+                    </button>
+                </div>
             </div>
 
             <!-- PÁGINA INICIAL (PAINEL COM RESUMOS DOS ÚLTIMOS CONTEÚDOS) -->
@@ -3336,9 +3371,138 @@
             Atuação dos genes: o trauma (como o TEPT-C) atua como gatilho que transforma a possibilidade genética em realidade vivida - o sistema nervoso treinado no medo e na vigilância constante torna o "campo" genético mais sensível
         </div>
     </div>
-    
+    <h4>Tópico 6 - Ferramentas de avaliação de risco de violência</h4>
+    <div class="content-block">`
+        <p style="margin-top: 0.6rem;">Categorização das ferramentas: a precisão da predição varia drasticamente conforme a janela temporal e foco da ferramenta</p>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Avaliação de longo prazo (estatísticas/atuariais)</strong></p>
+        <ul class="estudos-lista">
+            <li>HCR-20: avalia risco histórico, clínico e de gestão -> é uma das mais usadas, mas estudos sugerem que sua precisão é moderada</li>
+            <li>PCL-R (Escala Hare): focada no diagnóstico da psicopatia -> no Brasil, é altamente recomendada para avaliar o risco de reincidência em perfis psicopáticos</li>
+            <li>LS/CMI (antigo LSI-R): focada em reincidência em geral, analisando fatores como histórico criminal e atitudes</li>
+            <li>SAVRY: ferramenta específica e altamente eficaz para avaliar riscos em adolescentes</li>
+        </ul>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Avaliação de risco iminente (curto prazo - 24 horas)</strong></p>
+        <ul class="estudos-lista">
+            <li>BVC e DASA: projetados para prever comportamentos violentos nas próximas 24 horas em ambientes de internação</li>
+            <li><i>Destaque técnico: ferramentas de curto prazo apresentam maior precisão do que as de longo prazo</i></li>
+        </ul>
+    </div>
+    <div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Dicotomia: modelos atuariais x julgamento profissional estruturado</strong></p>
+    <ul class="estudos-lista">
+        <li>Atuarial/estatística: focada em dados históricos e estatísticos = rígida, mas empiricamente validada</li>
+        <li>Julgamento profissional estruturado (SPJ): combina a estrutura dos dados estatísticos com a nuance do caso individual = o HCR-20 utiliza o SPJ para permitir que o clínico considere fatores contextuais e dinâmicos do periciado</li>
+    </ul>
+    </div>
+<h4>Tópico 8 - Resposta ao estresse, trauma, TEPT e TEPT-C</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Biologia da sobrevivência:</span></strong> eixo do estresse -> o corpo humano não diferencia o tipo de estresse</p>
+    <ul class="estudos-lista">
+        <li>Atuação do sistema simpático: liberação de norepinefrina, adrenalina e cortisol -> o sangue é desviado para os membros, a frequência cardíaca e a pressão alterial aumentam</li>
+        <li>Cérebro em modo de crise: a amígdala (centro do medo) torna-se hiperativa, enquanto o córtex pré-frontal (razão e funções executivas) perde atividade -> o pensamento lógico é substituído por respostas instintivas</li>
+        <li>Mecanismos de defesa: luta, fuga, congelamento, submissão ou desligamento</li>
+    </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Carga alostática e gênese do transtorno</strong></p>
+    <ul class="estudos-lista">
+        <li><strong><span style="color: var(--cor-acento);">Alostasia:</strong></span> processo de ajuste constante do corpo para manter a estabilidade diante de mudanças
+        <ul class="estudos-lista">
+            <li><strong>Sobrecarga alostática:</strong> quando o trauma ou estresse são prolongados, o corpo falha em retornar à homeostase (equilíbrio) -> o sistema "quebra" sob o fardo cumulativo</li>
+        </ul>
+        </li>
+        <li>Dano crônico: o estado constante de sobrevivência pode lesionar o hipocampo (memória) e em crianças, prejudicar o desenvolvimento do lobo frontal</li>
+    </ul>
+    <div class="caixa-anotacao">
+        Nexo causal: a análise de ACEs (experiências adversas na infância) é fundamental para entender se a condição atual do periciado é um agravamento de traumas antigos ou uma consequência direta do litígio atual
+    </div>
+</div>
+<h4>Tópico 9 - Litígio por lesão corporal e dano psicológico</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;">Dano moral e dano estético -> materializar o prejuízo invisível</p>
+    <p style="margin-top: 0.6rem;"><strong>Elementos da responsabilidade civil (nexo de causalidade):</strong> para que uma indenização seja concedida, a justiça brasileira (baseada no Código Civil), exige a comprovação de 4 elementos fundamentais</p>
+    <ul class="estudos-lista">
+        <li><strong>Dever jurídico:</strong> o réu tinha obrigação de agir de certa forma (ex.: segurança no trabalho, prudência no trânsito</li>
+        <li><strong>Violação do dever (culpa/dolo):</strong> uma ação ou omissão negligente do réu</li>
+        <li><strong>Dano ou incapacidade:</strong> uma perda real, seja funcional (incapacidade para trabalho) ou psíquica (perda da "paz de espírito")</li>
+        <li><strong>Nexo causal:</strong> a prova que o dano psicológico resultou diretamente do incidente</li>
+    </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Avaliação do dano psicológico:</strong></span> o perito deve responder a perguntas específicas que fundamentarão a decisão do juiz</p>
+    <ul class="estudos-lista">
+        <li>Diagnóstico definido: o periciado apresenta um transtorno diagnosticável (ex.: depressão, transtorno de ansiedade ou TEPT)?</li>
+        <li>Gravidade e funcionalidade: o comprometimento impede as atividades diárias ou exercício da profissão?</li>
+        <li>Atribuição causal: o incidente foi o causador primário ou houve concausa (eventos pré-existentes que foram apenas agravados)?</li>
+    </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Papel do psicólogo no litígio</strong></p>
+        <ul class="estudos-lista">
+            <li>Entrevista e exame do estado mental: coleta minuciosa do histórico e observação de funções como afeto e memória</li>
+            <li>Análise cronológica: avaliar o curso temporal dos sintomas em relação à data do incidente</li>
+            <li>Diferenciação de danos: distinguir entre o que é sofrimento inerente à vida e o que é uma patologia gerada pelo trauma</li>
+        </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Dor crônica e impacto ocupacional:</strong> efeito secundário -> transtornos de humor e dependência química (opióides)</p>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Testes psicológicos e prova técnica:</strong></span></p>
+    <ul class="estudos-lista">
+        <li>Quantificação da severidade: escalas como PHQ-9 (depressão) ou GAD-7 (ansiedade)</li>
+        <li>Avaliação cognitiva: essencial se houver suspeita de TCE (traumatiscmo cranioencefálico)</li>
+        <li>Triagem de simulação: exagero de sintomas em busca de indenizações maiores</li>
+    </ul>
+</div>
+<div class="content-block">
+    <div class="caixa-anotacao">
+        Dano psíquico x dano moral: enquanto dano moral é o sofrimento subjetivo, o dano psíquico é uma alteração psicológica da personalidade que exige comprovação técnica por laudo psicológico
+    </div>
+</div>
+<h4>Tópico 10 - Disputa de guarda</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Confito: condição financeira x vínculo afetivo (estudeo de caso)</strong></p>
+    <ul class="estudos-lista">
+        <li>Argumento do pai: disparidade econômica -> alegava ter recursos superiores que garantiriam melhor desenvolvimento para as criançås</li>
+        <li>Realidade da mãe: embora com recursos modestos e rotina de trabalho intensa, provia todas as necessidades básicas e, principalmente, proteção e afeto</li>
+    </ul>
+    <p style="margin-top: 0.6rem;"><strong>Procedimentos de investigação técnica: triangulação de dados</strong></p>
+    <ul class="estudos-lista">
+        <li>Visita domiciliar: para verificar a salubridade e a segurança do ambiente, não o luxo</li>
+        <li>Estudo socioeconômico: avaliação de rotinas e das redes de apoio</li>
+        <li>Observação direta: análise do vínculo e da dinâmica relacional entre mãe e filhos</li>
+        <li>Escuta das crianças: elemento central que relevou o desejo dos filhos de permanecerem com a figura de referência principal (a mãe)</li>
+    </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem; color: var(--cor-acento);"><strong>Pilar legal</strong></p>
+    <ul class="estudos-lista">
+        <li>Artigo 22 do ECA: princípio -> a falta ou carência de recursos materiais não constitui motivo suficiente para a perda ou suspensão do poder familiar</li>
+    </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Papel ético do psicólogo que atua como assistente técnico:</strong> imparcialidade</p>
+    <div class="caixa-anotacao">
+        A lealdade do assistente técnico deve ser aos fatos e à ciência, e não necessariamente ao resultado desejado pela parte
+    </div>
+</div>
+<h6>Subtópico 1 - Alientação parental</h6>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Estudo psicossocial:</strong></p>
+    <ul class="estudos-lista">
+        <li>Identificação de roteiros: sinais de alerta clássico quando a criança utiliza uma linguagem sofisticada ou termos que não condizem com sua fase de desenvolvimento</li>
+        <li>Entrevistas em ambientes neutros: entrevistar a criança longe da influência do guardião</li>
+        <li>Triangulação com fontes colaterais: contato com professores, pediátras, psicólogos escolares, etc. para verificar se o comportamento da criança muda drasticamente dependendo de qual genitor está presente</li>
 
-            </section>
+    </ul>
+    
+</div>
+    </section>
 
 
             <!-- SEÇÃO 3: HIPNOTERAPIA -->
@@ -3422,13 +3586,14 @@
 
     <!-- JAVASCRIPT GERAL -->
     <script>
-        // --- FUNÇÕES DE NAVEGAÇÃO ENTRE PAINEL INICIAL E ÁREAS DE ESTUDO ---
-        let temaAtivo = 'home';
+        // --- FUNÇÃO ABRIR TEMA ATUALIZADA ---
+        let temaAtivo = 'principal';
 
         function abrirTema(idTema) {
             temaAtivo = idTema;
             const secoesEstudo = document.getElementsByClassName('tema-section');
             const secaoHome = document.getElementById('home-resumo');
+            const painelBoasVindas = document.getElementById('painel-boas-vindas-estudos');
             
             document.querySelectorAll('#nav-modulos a').forEach(btn => {
                 btn.classList.remove('sub-nav-active');
@@ -3437,34 +3602,35 @@
             const btnAtivo = document.getElementById(`btn-sub-${idTema}`);
             if (btnAtivo) btnAtivo.classList.add('sub-nav-active');
 
+            // Esconde todas as seções de estudo
             for (let sec of secoesEstudo) {
                 sec.style.display = 'none';
             }
 
             if (idTema === 'home') {
                 if (secaoHome) secaoHome.style.display = 'block';
+                if (painelBoasVindas) painelBoasVindas.style.display = 'none';
             } else {
                 if (secaoHome) secaoHome.style.display = 'none';
+                if (painelBoasVindas) painelBoasVindas.style.display = 'none'; // Esconde o painel ao abrir uma matéria
+
                 const secaoSelecionada = document.getElementById(idTema);
                 if (secaoSelecionada) {
                     secaoSelecionada.style.display = 'block';
 
-                    // --- INJEÇÃO DO BOTÃO "IR ATÉ A ANOTAÇÃO MAIS RECENTE" ---
+                    // Injeção do botão "rolar até anotação mais recente"
                     const h2 = secaoSelecionada.querySelector('h2');
                     if (h2 && !secaoSelecionada.querySelector('.btn-rolar-fim')) {
-                        // Cria um container flexível para alinhar o título e o botão
                         const wrapper = document.createElement('div');
                         wrapper.className = 'header-tema-flex';
                         h2.parentNode.insertBefore(wrapper, h2);
                         wrapper.appendChild(h2);
 
-                        // Cria o botão discreto
                         const btnRolar = document.createElement('button');
                         btnRolar.className = 'btn-rolar-fim';
                         btnRolar.innerHTML = '↓ anotação mais recente';
                         btnRolar.title = 'Rolar até o final desta área';
                         
-                        // Ação de clique para ir até a última anotação
                         btnRolar.onclick = (e) => {
                             e.stopPropagation();
                             const blocos = secaoSelecionada.querySelectorAll('.content-block, h4');
@@ -3479,11 +3645,9 @@
                                 });
                             }
                         };
-                       // ... (código anterior do botão btnRolar que já estava aí) ...
                         wrapper.appendChild(btnRolar);
                     }
-
-                    // --- INJEÇÃO AUTOMÁTICA DO ENVELOPE RESPONSIVO PARA TABELAS ---
+                    // Envelope responsivo automático para tabelas no celular
                     secaoSelecionada.querySelectorAll('table').forEach(tabela => {
                         if (!tabela.parentElement.classList.contains('table-responsive-wrapper')) {
                             const wrapper = document.createElement('div');
@@ -3495,11 +3659,7 @@
                 }
             }
 
-            // Ao abrir a aba, volta ao topo normalmente por padrão
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
@@ -3664,34 +3824,73 @@
             }
         }
 
-        // --- ALTERNÂNCIA DE MODOS DE VISÃO ---
+// --- ALTERNÂNCIA DE MODOS DE VISÃO ATUALIZADA ---
         function mudarModoVisao(modo) {
             const viewEstudos = document.getElementById('view-estudos');
             const viewQuadro = document.getElementById('view-quadro');
+            const btnPrincipal = document.getElementById('btn-tab-principal');
             const btnEstudos = document.getElementById('btn-tab-estudos');
             const btnQuadro = document.getElementById('btn-tab-quadro');
             const navModulos = document.getElementById('nav-modulos');
+            const secaoHome = document.getElementById('home-resumo');
+            const painelBoasVindas = document.getElementById('painel-boas-vindas-estudos');
+            const agendaSidebar = document.querySelector('.agenda-sidebar');
 
-            if (modo === 'quadro') {
-                viewEstudos.style.display = 'none';
-                viewQuadro.style.display = 'block';
-                btnEstudos.classList.remove('ativo');
-                btnQuadro.classList.add('ativo');
-                navModulos.style.display = 'none';
-                document.body.classList.add('modo-planejamento'); // <-- MÁGICA ADICIONADA AQUI!
-                renderizarQuadroSemanal();
-            } else {
-                viewEstudos.style.display = 'grid';
+            // Limpa marcações ativas
+            [btnPrincipal, btnEstudos, btnQuadro].forEach(btn => {
+                if (btn) btn.classList.remove('ativo');
+            });
+            document.body.classList.remove('modo-planejamento', 'modo-estudos', 'modo-principal');
+
+            if (modo === 'principal') {
+                document.body.classList.add('modo-principal');
+                if (btnPrincipal) btnPrincipal.classList.add('ativo');
+                
+                viewEstudos.style.display = window.innerWidth <= 900 ? 'flex' : 'grid';
                 viewQuadro.style.display = 'none';
-                btnEstudos.classList.add('ativo');
-                btnQuadro.classList.remove('ativo');
-                navModulos.style.display = 'block';
-                document.body.classList.remove('modo-planejamento'); // <-- REMOVE A MÁGICA AO VOLTAR!
+                
+                if (secaoHome) secaoHome.style.display = 'block';
+                if (agendaSidebar) agendaSidebar.style.display = 'block';
+                if (navModulos) navModulos.style.display = 'none';
+                if (painelBoasVindas) painelBoasVindas.style.display = 'none';
+                
+                document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
+                
                 renderizarAbasLateral();
                 renderizarTarefasLateral();
+                renderizarAgua();
+
+            } else if (modo === 'estudos') {
+                document.body.classList.add('modo-estudos');
+                if (btnEstudos) btnEstudos.classList.add('ativo');
+                
+                viewEstudos.style.display = 'block';
+                viewQuadro.style.display = 'none';
+                
+                if (secaoHome) secaoHome.style.display = 'none';
+                if (agendaSidebar) agendaSidebar.style.display = 'none';
+                if (navModulos) navModulos.style.display = 'block';
+                
+                // Se o usuário ainda não abriu nenhuma matéria específica, exibe o painel interativo de disciplinas!
+                if (temaAtivo === 'home' || temaAtivo === 'principal' || !temaAtivo) {
+                    document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
+                    if (painelBoasVindas) painelBoasVindas.style.display = 'block';
+                    document.querySelectorAll('#nav-modulos a').forEach(btn => btn.classList.remove('sub-nav-active'));
+                } else {
+                    abrirTema(temaAtivo);
+                }
+
+            } else if (modo === 'quadro') {
+                document.body.classList.add('modo-planejamento');
+                if (btnQuadro) btnQuadro.classList.add('ativo');
+                
+                viewEstudos.style.display = 'none';
+                viewQuadro.style.display = 'block';
+                if (navModulos) navModulos.style.display = 'none';
+                
+                renderizarQuadroSemanal();
             }
         }
-
         // --- SISTEMA DE DADOS & SEMANAS DO PLANEJADOR ---
         function obterSegundaFeira(data) {
             let d = new Date(data);
@@ -3876,7 +4075,8 @@
             atualizarPlacarSkos();
             renderizarAgua();
             atualizarResumosAutomaticamente();
-            abrirTema('home');
+            abrirTema('principal');
+            mudarModoVisao('principal')
         }
 
         // --- CONTROLE DA NAVEGAÇÃO DE SEMANAS ---
