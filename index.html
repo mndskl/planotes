@@ -1264,7 +1264,8 @@
 </head>
 <body>
     <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
-
+    <audio id="audio-nova-tarefa" src="assets/novatarefa.mp3" preload="auto"></audio>
+    <audio id="audio-agua" src="assets/agua.mp3" preload="auto"></audio>
     <!-- CABEÇALHO LIMPO COM AS 3 ABAS PRINCIPAIS -->
     <header>
         <div class="header-content">
@@ -1276,15 +1277,14 @@
                 <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">planejamento semanal</button>
             </div>
 
-            <!-- MENU DE SUB-ABAS (SÓ APARECE DENTRO DO MODO ESTUDOS) -->
+            <!-- MENU DE SUB-ABAS (EXCLUSIVO DA ABA DE ESTUDOS) -->
             <nav id="nav-modulos" style="display: none; width: 100%;">
-                <ul style="justify-content: center; margin-top: 0.5rem;">
-                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense" class="sub-nav-active">psicologia forense</a></li>
+                <ul style="justify-content: center; margin-top: 0.8rem; gap: 1.5rem;">
+                    <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">psicologia forense</a></li>
                     <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial psicológica</a></li>
                     <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">hipnoterapia</a></li>
                 </ul>
             </nav>
-        </div>
     </header>
 
     <!-- MODO 1: ESTUDOS + AGENDA LATERAL -->
@@ -1295,23 +1295,7 @@
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="pesquisar em todas as anotações..." onkeypress="if(event.key === 'Enter') filtrarEstudos()">
             </div>
-            <!-- PAINEL DINÂMICO DA ÁREA DE ESTUDOS (EVITA TELA VAZIA) -->
-            <div id="painel-boas-vindas-estudos" style="display: none; text-align: center; margin: 2rem 0; background: var(--cor-card); padding: 2rem; border-radius: var(--raio-borda); border: 1px solid var(--cor-borda); box-shadow: var(--sombra-suave);">
-                <h2 style="font-size: 1.4rem; color: var(--cor-texto); margin-bottom: 0.5rem;">áreas</h2>
-                
-                
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <button onclick="abrirTema('psicologiaforense')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
-                        psicologia forense
-                    </button>
-                    <button onclick="abrirTema('pericia')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
-                        perícia judicial psicológica
-                    </button>
-                    <button onclick="abrirTema('hipnoterapia')" style="background: var(--cor-fundo); border: 1px solid var(--cor-acento); color: var(--cor-acento); padding: 0.8rem 1.5rem; border-radius: 30px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-size: 0.9rem;">
-                        hipnoterapia
-                    </button>
-                </div>
-            </div>
+            
 
             <!-- PÁGINA INICIAL (PAINEL COM RESUMOS DOS ÚLTIMOS CONTEÚDOS) -->
             <section id="home-resumo" style="display: block;">
@@ -3586,14 +3570,14 @@
 
     <!-- JAVASCRIPT GERAL -->
     <script>
-        // --- FUNÇÃO ABRIR TEMA ATUALIZADA ---
+
+        // --- FUNÇÃO ABRIR TEMA LIMPA ---
         let temaAtivo = 'principal';
 
         function abrirTema(idTema) {
             temaAtivo = idTema;
             const secoesEstudo = document.getElementsByClassName('tema-section');
             const secaoHome = document.getElementById('home-resumo');
-            const painelBoasVindas = document.getElementById('painel-boas-vindas-estudos');
             
             document.querySelectorAll('#nav-modulos a').forEach(btn => {
                 btn.classList.remove('sub-nav-active');
@@ -3607,14 +3591,12 @@
                 sec.style.display = 'none';
             }
 
-            if (idTema === 'home') {
+            if (idTema === 'home' || idTema === 'principal') {
                 if (secaoHome) secaoHome.style.display = 'block';
-                if (painelBoasVindas) painelBoasVindas.style.display = 'none';
             } else {
                 if (secaoHome) secaoHome.style.display = 'none';
-                if (painelBoasVindas) painelBoasVindas.style.display = 'none'; // Esconde o painel ao abrir uma matéria
-
                 const secaoSelecionada = document.getElementById(idTema);
+                
                 if (secaoSelecionada) {
                     secaoSelecionada.style.display = 'block';
 
@@ -3647,6 +3629,7 @@
                         };
                         wrapper.appendChild(btnRolar);
                     }
+
                     // Envelope responsivo automático para tabelas no celular
                     secaoSelecionada.querySelectorAll('table').forEach(tabela => {
                         if (!tabela.parentElement.classList.contains('table-responsive-wrapper')) {
@@ -3824,7 +3807,7 @@
             }
         }
 
-// --- ALTERNÂNCIA DE MODOS DE VISÃO ATUALIZADA ---
+// --- ALTERNÂNCIA DE MODOS DE VISÃO DINÂMICA ---
         function mudarModoVisao(modo) {
             const viewEstudos = document.getElementById('view-estudos');
             const viewQuadro = document.getElementById('view-quadro');
@@ -3833,7 +3816,6 @@
             const btnQuadro = document.getElementById('btn-tab-quadro');
             const navModulos = document.getElementById('nav-modulos');
             const secaoHome = document.getElementById('home-resumo');
-            const painelBoasVindas = document.getElementById('painel-boas-vindas-estudos');
             const agendaSidebar = document.querySelector('.agenda-sidebar');
 
             // Limpa marcações ativas
@@ -3852,7 +3834,6 @@
                 if (secaoHome) secaoHome.style.display = 'block';
                 if (agendaSidebar) agendaSidebar.style.display = 'block';
                 if (navModulos) navModulos.style.display = 'none';
-                if (painelBoasVindas) painelBoasVindas.style.display = 'none';
                 
                 document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
                 
@@ -3869,13 +3850,11 @@
                 
                 if (secaoHome) secaoHome.style.display = 'none';
                 if (agendaSidebar) agendaSidebar.style.display = 'none';
-                if (navModulos) navModulos.style.display = 'block';
+                if (navModulos) navModulos.style.display = 'block'; // Mostra o menu superior de disciplinas
                 
-                // Se o usuário ainda não abriu nenhuma matéria específica, exibe o painel interativo de disciplinas!
+                // DINÂMICO E CLEAN: Se não houver matéria selecionada, abre Psicologia Forense na hora!
                 if (temaAtivo === 'home' || temaAtivo === 'principal' || !temaAtivo) {
-                    document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
-                    if (painelBoasVindas) painelBoasVindas.style.display = 'block';
-                    document.querySelectorAll('#nav-modulos a').forEach(btn => btn.classList.remove('sub-nav-active'));
+                    abrirTema('psicologiaforense');
                 } else {
                     abrirTema(temaAtivo);
                 }
@@ -4015,6 +3994,12 @@
                 waterCount = index;
             } else {
                 waterCount = index + 1;
+                // --- TOCA O SOM SÓ QUANDO ADICIONA COPOS DE ÁGUA ---
+                const audio = document.getElementById('audio-agua');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
+                }
             }
             renderizarAgua();
             
@@ -4207,12 +4192,19 @@
         function adicionarTarefaLateral() {
             const input = document.getElementById('inputTarefa');
             const texto = input.value.trim();
-            if (!texto || diaAtivoLateral === 'Concluidas') return;
+            if (!texto || diaAtivoLateral === 'concluidas') return;
 
             let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
             if (!dadosAgendaAtual[diaAtivoLateral]) dadosAgendaAtual[diaAtivoLateral] = [];
             dadosAgendaAtual[diaAtivoLateral].push({ texto: texto, concluida: false });
             
+            // --- TOCA O SOM DE NOVA TAREFA ---
+            const audio = document.getElementById('audio-nova-tarefa');
+            if (audio) {
+                audio.currentTime = 0; // Reinicia para poder tocar várias vezes seguidas
+                audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
+            }
+
             input.value = '';
             salvarBancoSemanas();
             renderizarAbasLateral();
@@ -4277,6 +4269,13 @@
             if (!dadosAgendaAtual[dia]) dadosAgendaAtual[dia] = [];
             dadosAgendaAtual[dia].push({ texto: texto, concluida: false });
             
+            // --- TOCA O SOM DE NOVA TAREFA ---
+            const audio = document.getElementById('audio-nova-tarefa');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
+            }
+
             salvarBancoSemanas();
             renderizarQuadroSemanal();
             setTimeout(() => {
