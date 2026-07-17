@@ -1235,6 +1235,80 @@
                 padding: 0.4rem 0.2rem !important;
             }
         }
+        /* --- BOTÃO DIA CONCLUÍDO & EFEITO DE COMEMORAÇÃO --- */
+        .day-completed-box {
+            background: var(--cor-fundo);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            padding: 0.9rem 1rem;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .day-completed-box:hover {
+            border-color: var(--cor-acento);
+            transform: translateY(-2px);
+        }
+
+        .day-completed-title {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--cor-texto);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .day-completed-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #666666;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            color: transparent;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* ESTADO ATIVO (QUANDO O DIA ESTÁ CONCLUÍDO) */
+        .day-completed-box.concluido {
+            background: var(--cor-primaria);
+            border-color: var(--cor-acento);
+            box-shadow: 0 0 15px rgba(245, 215, 66, 0.25);
+        }
+
+        .day-completed-box.concluido .day-completed-title {
+            color: var(--cor-acento);
+        }
+
+        .day-completed-box.concluido .day-completed-check {
+            background-color: var(--cor-acento);
+            border-color: var(--cor-acento);
+            color: #121212;
+            transform: scale(1.1);
+        }
+
+        /* EFEITO MINIMALISTA DE COMEMORAÇÃO (ONDA DOURADA) */
+        @keyframes celebraDiaMinimalista {
+            0% { box-shadow: 0 0 0 0 rgba(245, 215, 66, 0.7); transform: scale(0.98); }
+            50% { box-shadow: 0 0 0 12px rgba(245, 215, 66, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 15px rgba(245, 215, 66, 0.25); transform: scale(1); }
+        }
+
+        .animar-comemoracao {
+            animation: celebraDiaMinimalista 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
+        }
 
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE) -->
@@ -1271,6 +1345,7 @@
     <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
     <audio id="audio-nova-tarefa" src="assets/novatarefa.mp3" preload="auto"></audio>
     <audio id="audio-agua" src="assets/agua.mp3" preload="auto"></audio>
+    <audio id="audio-dia-concluido" src="assets/diaconcluido.mp3" preload="auto"></audio>
     <!-- CABEÇALHO LIMPO COM AS 3 ABAS PRINCIPAIS -->
     <header>
         <div class="header-content">
@@ -3808,6 +3883,11 @@
                     <div class="water-progress-fill" id="water-bar"></div>
                 </div>
             </div>
+            <!-- QUADRO ÚNICO: DIA CONCLUÍDO -->
+            <div class="day-completed-box" id="box-dia-concluido" onclick="alternarDiaConcluido()">
+                <span class="day-completed-title" id="text-dia-concluido">✨ encerrar o dia</span>
+                <div class="day-completed-check" id="check-dia-concluido">✓</div>
+            </div>
             
         </aside>
     </div>
@@ -4279,6 +4359,72 @@
                 console.error("Erro ao salvar água na nuvem: ", e);
             }
         }
+        // --- SISTEMA DE DIA CONCLUÍDO ---
+        let diaConcluidoHoje = false;
+
+        function verificarResetDiaConcluido() {
+            const dataHoje = formatarDataChave(new Date());
+            const dataSalva = localStorage.getItem('dataUltimoDiaConcluido');
+
+            if (dataSalva !== dataHoje) {
+                diaConcluidoHoje = false;
+                localStorage.setItem('diaConcluidoStatus', 'false');
+                localStorage.setItem('dataUltimoDiaConcluido', dataHoje);
+            } else {
+                diaConcluidoHoje = localStorage.getItem('diaConcluidoStatus') === 'true';
+            }
+        }
+
+        function renderizarDiaConcluido() {
+            verificarResetDiaConcluido();
+            const box = document.getElementById('box-dia-concluido');
+            const texto = document.getElementById('text-dia-concluido');
+            if (!box || !texto) return;
+
+            if (diaConcluidoHoje) {
+                box.classList.add('concluido');
+                texto.innerHTML = '✨ dia concluído com sucesso!';
+            } else {
+                box.classList.remove('concluido', 'animar-comemoracao');
+                texto.innerHTML = '✨ encerrar o dia';
+            }
+        }
+
+        async function alternarDiaConcluido() {
+            diaConcluidoHoje = !diaConcluidoHoje;
+            const box = document.getElementById('box-dia-concluido');
+            
+            if (diaConcluidoHoje) {
+                // Dispara a animação minimalista
+                if (box) {
+                    box.classList.remove('animar-comemoracao');
+                    void box.offsetWidth; // Força o reinício da animação no CSS
+                    box.classList.add('animar-comemoracao');
+                }
+                // Toca o som de comemoração
+                const audio = document.getElementById('audio-dia-concluido');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log("Áudio bloqueado:", e));
+                }
+            }
+
+            // Salva no navegador
+            localStorage.setItem('diaConcluidoStatus', diaConcluidoHoje);
+            localStorage.setItem('dataUltimoDiaConcluido', formatarDataChave(new Date()));
+            renderizarDiaConcluido();
+
+            // Salva na nuvem Firebase se disponível
+            if (!window.db || !dadosCarregadosDaNuvem) return;
+            try {
+                await window.setDoc(window.doc(window.db, "meu_sistema", "dia_concluido"), {
+                    concluido: diaConcluidoHoje,
+                    dataUltimaAtualizacao: formatarDataChave(new Date())
+                });
+            } catch (e) {
+                console.error("Erro ao salvar dia concluído na nuvem: ", e);
+            }
+        }
 
         function migrarDadosAntigos() {
             let agendaAntiga = JSON.parse(localStorage.getItem('minhaAgendaMinimalista'));
@@ -4325,6 +4471,7 @@
             renderizarTarefasLateral();
             atualizarPlacarSkos();
             renderizarAgua();
+            renderizarDiaConcluido();
             atualizarResumosAutomaticamente();
             abrirTema('principal');
             mudarModoVisao('principal')
@@ -4589,7 +4736,7 @@
             }
         }
 
-        async function carregarDadosDaNuvem() {
+       async function carregarDadosDaNuvem() {
             if (!window.db) return;
             try {
                 // 1. Busca as Tarefas da Nuvem
@@ -4598,16 +4745,32 @@
                     bancoSemanas = docTarefas.data().semanas || {};
                 }
 
-                // 2. Busca a Água da Nuvem
+                // 2. Busca a Água da Nuvem (com a chave de fechamento corrigida!)
                 const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua"));
                 if (docAgua.exists()) {
-                }
                     const dataHoje = formatarDataChave(new Date());
                     const dataSalva = docAgua.data().dataUltimaAgua;
                     if (dataSalva === dataHoje) {
                         waterCount = docAgua.data().quantidade || 0;
                     } else {
                         waterCount = 0;
+                    }
+                }
+
+                // 3. Busca o status de "Dia Concluído" da Nuvem
+                const docDia = await window.getDoc(window.doc(window.db, "meu_sistema", "dia_concluido"));
+                if (docDia.exists()) {
+                    const dataHoje = formatarDataChave(new Date());
+                    const dataSalva = docDia.data().dataUltimaAtualizacao;
+                    
+                    if (dataSalva === dataHoje) {
+                        diaConcluidoHoje = docDia.data().concluido || false;
+                    } else {
+                        diaConcluidoHoje = false;
+                    }
+                    
+                    localStorage.setItem('diaConcluidoStatus', diaConcluidoHoje);
+                    localStorage.setItem('dataUltimoDiaConcluido', dataHoje);
                 }
                 
                 dadosCarregadosDaNuvem = true;
@@ -4627,6 +4790,6 @@
                 if (!dadosCarregadosDaNuvem) inicializarSistema();
             }, 2000);
         });
-            </script>
+</script>
 </body>
 </html>
