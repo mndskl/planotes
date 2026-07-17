@@ -4,21 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>planotes</title> <!-- ESTA LINHA É O QUE DÁ NOME À ABA -->
-<!-- Título e descrição -->
-<meta property="og:title" content="planotes">
-<meta property="og:description" content="seu organizador de estudos pessoal.">
 
-<!-- Ícones de referência -->
-<link rel="apple-touch-icon" href="https://mndskl.github.io/assets/icon.png">
-<link rel="icon" type="image/png" href="https://mndskl.github.io/assets/icon.png">
+    <!-- Título e descrição -->
+    <meta property="og:title" content="planotes">
+    <meta property="og:description" content="seu organizador de estudos pessoal.">
 
-<!-- Ícone para abas de navegador -->
-<link rel="icon" type="image/png" href="assets/icon.png">
+    <!-- APONTAMENTO DO MANIFESTO PWA (Essencial para Android e Chrome) -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Ícone para abas de navegador (Computador) -->
+    <link rel="icon" type="image/png" href="assets/icon.png">
+
+    <!-- Ícones para iOS (iPhone / iPad) e Atalhos de Tela Inicial -->
+    <link rel="apple-touch-icon" href="https://mndskl.github.io/assets/icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://mndskl.github.io/assets/icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mndskl.github.io/assets/icon.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="https://mndskl.github.io/assets/icon.png">
     
     <!-- FORÇA O MODO TELA CHEIA (SEM BARRA DE NAVEGADOR) NO IPHONE -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Estudos"> 
+    <meta name="apple-mobile-web-app-title" content="planotes"> 
+    
     <style>
         /* ESTILOS MINIMALISTAS & TEMA ESCURO COM ACENTOS AMARELOS */
         :root {
@@ -1311,10 +1318,10 @@
         }
 
     </style>
-<!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE) -->
+<!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { getFirestore, enableIndexedDbPersistence, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
         // Suas credenciais reais do projeto planotes:
         const firebaseConfig = {
@@ -1331,6 +1338,15 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // --- ATIVANDO O CACHE OFFLINE NATIVO DO FIREBASE ---
+        enableIndexedDbPersistence(db).catch((err) => {
+            if (err.code == 'failed-precondition') {
+                console.warn("Persistência offline: Múltiplas abas abertas. O cache funcionará apenas na aba principal.");
+            } else if (err.code == 'unimplemented') {
+                console.warn("Este navegador não suporta o cache offline nativo do Firebase.");
+            }
+        });
+
         // Disponibilizando o banco globalmente para o seu código JS
         window.db = db;
         window.doc = doc;
@@ -1339,7 +1355,9 @@
 
         // Avisando seu script principal que a nuvem conectou com sucesso
         window.dispatchEvent(new Event('firebasePronto'));
+
     </script>
+    
 </head>
 <body>
     <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
@@ -4300,15 +4318,19 @@
 
         // VERIFICA SE DEVE RESETAR A ÁGUA COM BASE NA DATA DE HOJE
         function verificarResetDiarioAgua() {
-            // Utiliza a função formatarDataChave que já existe no seu script (formato AAAA-MM-DD)
             const dataHoje = formatarDataChave(new Date());
             const dataSalva = localStorage.getItem('dataUltimaAgua');
 
-            // Se a data salva for diferente da data atual, zera a contagem e atualiza a data no navegador
             if (dataSalva !== dataHoje) {
                 waterCount = 0;
-                localStorage.setItem('minhaAguaDiaria', 0);
+                localStorage.setItem('minhaAguaDiaria', '0');
                 localStorage.setItem('dataUltimaAgua', dataHoje);
+            } else {
+                // Se a data for de hoje, restaura a quantidade salva no navegador
+                const aguaSalva = localStorage.getItem('minhaAguaDiaria');
+                if (aguaSalva !== null) {
+                    waterCount = parseInt(aguaSalva, 10) || 0;
+                }
             }
         }
 
@@ -4347,6 +4369,11 @@
                     audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
                 }
             }
+            
+            // O SEGREDO: Salva no navegador localmente na mesma hora do clique!
+            localStorage.setItem('minhaAguaDiaria', waterCount);
+            localStorage.setItem('dataUltimaAgua', formatarDataChave(new Date()));
+            
             renderizarAgua();
             
             if (!window.db || !dadosCarregadosDaNuvem) return;
@@ -4745,7 +4772,7 @@
                     bancoSemanas = docTarefas.data().semanas || {};
                 }
 
-                // 2. Busca a Água da Nuvem (com a chave de fechamento corrigida!)
+               // 2. Busca a Água da Nuvem
                 const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua"));
                 if (docAgua.exists()) {
                     const dataHoje = formatarDataChave(new Date());
@@ -4755,6 +4782,9 @@
                     } else {
                         waterCount = 0;
                     }
+                    // SALVA NO NAVEGADOR PARA IMPEDIR QUE O SISTEMA ZERE AO DESENHAR A TELA!
+                    localStorage.setItem('minhaAguaDiaria', waterCount);
+                    localStorage.setItem('dataUltimaAgua', dataHoje);
                 }
 
                 // 3. Busca o status de "Dia Concluído" da Nuvem
