@@ -1493,7 +1493,8 @@
             <h1>planotes</h1>
             
             <div class="main-tabs">
-                <button class="main-tab-btn ativo" id="btn-tab-principal" onclick="mudarModoVisao('principal')">principal</button>
+                <!-- REMOVIDO A CLASSE 'ativo' DAQUI PARA O JS CONTROLAR O CARREGAMENTO -->
+                <button class="main-tab-btn" id="btn-tab-principal" onclick="mudarModoVisao('principal')">principal</button>
                 <button class="main-tab-btn" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">anotações de estudos</button>
                 <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">planejamento semanal</button>
             </div>
@@ -2622,7 +2623,7 @@
     </div>
     <div class="content-block">
         <p style="margin-top: 0.6rem; margin-bottom: 0.6rem; color: var(--cor-acento);"><strong>Modelos de tratamento (Huss)</strong>
-         <table class="tabela-personalidade" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+         <table class="tabela-tratamento1" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
         <thead>
             <tr style="background: #a7a01c; color: #000000;">
                 <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Modelo</th>
@@ -2902,7 +2903,7 @@
         <li>Aspecto fundamental: as pessoas que o apresentam são tão psicologicamente dependentes do alvo de desejo que são incapazes de vivenciar excitação sexual a menos que esse esteja presente de alguma forma</li>
     </ul>
     <p style="margin-top: 0.6rem; margin-bottom: 0.6rem;"><strong>Transtornos parafílicos:</strong></p>
-    <table class="tabela-personalidade" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+    <table class="tabela-transtornosparafilicos" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
         <thead>
             <tr style="background: #a7a01c; color: #000000;">
                 <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Transtorno</th>
@@ -3341,7 +3342,7 @@
         </div>
         <div class="content-block">
             <p style="margin-top: 0.6rem; margin-bottom: 0.6rem;"><strong>Síntese comparativa</strong></p>
-             <table class="tabela-personalidade" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+             <table class="tabela-sintesecomp" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
         <thead>
             <tr style="background: #a7a01c; color: #000000;">
                 <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Síndrome</th>
@@ -3515,7 +3516,7 @@
     </div>
     <div class="content-block">
         <p style="margin-top: 0.6rem; margin-bottom: 0.6rem; color: var(--cor-acento);"><strong>Empatia e vulnerabilidade</strong></p>
-        <table class="tabela-personalidade" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+        <table class="tabela-empatiaxvulnerab" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
         <thead>
             <tr style="background: #a7a01c; color: #000000;">
                 <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Perfil</th>
@@ -3873,7 +3874,7 @@
                 No processo civil, o laudo pericial psicológico é a peça que ajuda o juiz a definir o alcance probatório de outras alegações (ex.: email - documento privado)
             </div>
         </div>
-        <h4>⭐️  Instrumentos psicológicos no contexto judicial</h4>
+        <h4>⭐️  Tópico 12 - Instrumentos psicológicos no contexto judicial</h4>
         <div class="content-block">
             <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Vara da família</span></strong></p>
             <p style="margin-top: 0.6rem;"><strong>Contexto: avaliação de vínculo e dinâmica familiar</strong></p>
@@ -3931,11 +3932,11 @@
                 <li><strong>Bateria WASI: versão reduzida da Escala de Wechster para avaliar QI e se há deficiência intelectual que justifique a interdição</strong></li>
             </ul>
         </div>
-        <h4>Tópico 12 - Violência Doméstica</h4>
+        <h4>Tópico 13 - Violência Doméstica</h4>
         <div class="content-block">
             <p><i>Anotações...</i></p>
         </div>
-        <h4>Tópico 13 - Entrevistas semiestruturadas (preparação, condução e transcrição legal)</h4>
+        <h4>Tópico 14 - Entrevistas semiestruturadas (preparação, condução e transcrição legal)</h4>
         <div class="content-block">
             <p style="margin-top: 0.6rem;"><strong>Consentimento livre e esclarecido como processo autônomo:</strong> assume uma função de enquadramento técnico - processo interativo de checagem</p>
             <p style="margin-top: 0.6rem;">Regulação do entusiasmo técnico e controle do "hum" (concordâncias verbais) - quebra de linha na transcrição, infla o documento e introduz um viés de aprovação</p>
@@ -3965,7 +3966,7 @@
             <li>Os dados transcritos da gravação são usados no laudo, mas não entregue ao juiz</li>
         </ul>
     </div>
-    <h4>Avaliação psicológica de transtornos de personalidade no contexto jurídico</h4>
+    <h4>Tópico 15 - Avaliação psicológica de transtornos de personalidade no contexto jurídico</h4>
     <div class="content-block">
         <p style="margin-top: 0.64rem;"><strong>Arquitetura metodológica para perícia da personalidade</strong></p>
         <p style="margin-top: 0.6rem;">O diagnóstico de transtornos de personalidade para fins judiciais exige um desenho de avaliação longitudinal e multimétodo (diferenciando drasticamente do ambiente clínico comum)</p>
@@ -4052,22 +4053,76 @@
         <li>Transtono de personalidade narcisista: alienação parental corporativa - total falta de empatia combinada com arrogância exploração intepessoal</li>
     </ul>
 </div>
-    <div class="content-block">
     <div class="comparativo-grid">
         <div class="content-block">
-        <p><strong>TPB e TPH</p>
+        <p><strong>TPB e TPH</strong></p>
         <ul class="estudos-lista">
             <li>Dinâmica marcada por paixão violenta, caos emocional, acusações que mudam de forma e desespero diante da separação</li>
         </ul>
         </div>
         <div class="content-block">
-            <p>TPN e TPAS</p>
+            <p><strong>TPN e TPAS</strong></p>
             <ul class="estudos-lista">
                 <li>Dinâmica marcada por frieza calculada, busca por vantagem financeira, destruição patrimonial e ausência de afeto</li>
             </ul>
         </div>
     </div>
+    <h4>Tópico 16 - Transtorno de personalidade borderline e transtorno bipolar (comorbidade e diferencial)</h4>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Natureza da comorbidade (diagnóstico duplo)</strong>
+            <ul class="estudos-lista">
+                <li>Prevalência estatística: aproximadamente 20% dos indivíduos diagnosticados com TPB apresentam comorbidade com o transtorno bipolar</li>
+                <li><strong><span style="color: var();">Efeito de potencialização mútua:</span></strong> na comorbidade, os sintomas não se somam, eles se multiplicam</li>
+            </ul>
+            <div class="caixa-anotacao">
+                A instabilidade crônica e relacional do TPB atua como um pano de fundo onde os ciclos endógenos (fases de mania/hipomania e depressão) do TB se manifestam, gerando quadros de altíssima gravidade e acting out (comportamentos impulsivos e autodestrutivos violentos)
+            </div>
     </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Diagnóstico diferencial:</strong> a diferenciação entre os picos e quedas de energia de ambos os transtornos deve ser pautada em critérios de temporalidade e reatividade</p>
+        <table class="tabela-diagdiftpbtb" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+             <thead>
+            <tr style="background: #a7a01c; color: #000000;">
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Critério</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">TB</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">TPB</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Vetor principal</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Humor (flutuações neuroquímicas)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Personalidade (relações e identidade)</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Durabilidade</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Semanas ou meses (ciclos prolongados)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Horas ou dias (mudanças abruptas)</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Disparador</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Endógeno (geralmente sem causa externa)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Exógeno (rejeição, abandono, conflito)</td>
+            </tr>
+              <tr style="background: #000000;">
+                 <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Linha de base</td>
+                 <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Há períodos de eutimia (normalidade)</td>
+                 <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Instabilidade crônica e permanente</td>
+              </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Metodologia de investigação forense para o duplo diagnóstico</p>
+            <ul class="estudos-lista">
+                <li>Histórico familiar: forte indicador para TB</li>
+                <li>Histórico de gravidade clínica extrema: marcador de episódios graves de TB</li>
+                <li>Análise de resposta terapêutica pregressa: se o indivíduo piorou drasticamente ou switchou (entrou em mania) ao usar antidepressivos comuns = forte indício de TB subjacente x se o indivíduo estabilizou os ciclos longos com estabilizadores de humor (lítio,ácido valproico), mas manteve o padrão de caos nos relacionamentos e comportamentos autolesivos = confirma-se comorbidade com o TPB</li>
+            </ul>
+    </div>
+
+
 
         
        
@@ -4727,8 +4782,16 @@
             renderizarAgua();
             renderizarDiaConcluido();
             atualizarResumosAutomaticamente();
-            abrirTema('principal');
-            mudarModoVisao('principal')
+
+            // --- AJUSTE: EVITA O EFEITO REBOTE ---
+            // Verifica se alguma aba superior já está ativa antes de forçar o início
+            const algumaAbaJaAtiva = document.querySelector('.main-tab-btn.ativo');
+            
+            // Só força o carregamento da aba inicial se o usuário NÃO tiver clicado em nenhuma outra durante o carregamento
+            if (!algumaAbaJaAtiva) {
+                abrirTema('principal');
+                mudarModoVisao('principal');
+            }
         }
 
         // --- CONTROLE DA NAVEGAÇÃO DE SEMANAS ---
