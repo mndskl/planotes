@@ -560,15 +560,17 @@
             line-height: 1.2;
         }
 
-        /* NAVEGADOR DE SEMANAS */
+       /* NAVEGADOR DE SEMANAS */
         .semana-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important; /* FORÇA A CENTRALIZAÇÃO ABSOLUTA */
+            gap: 1.5rem !important;             /* ESPAÇAMENTO PERFEITO ENTRE AS SETAS E O TEXTO */
+            width: 100% !important;             /* OCUPA TODA A LARGURA DA BARRA PRETA */
             background: var(--cor-fundo);
             border: 1px solid var(--cor-borda);
             border-radius: 6px;
-            padding: 0.3rem 0.5rem;
+            padding: 0.5rem 1rem;
         }
 
         .semana-nav button {
@@ -1194,7 +1196,7 @@
 
     /* 2. Permite que a barra de abas deslize suavemente na horizontal em vez de quebrar e empurrar as tarefas */
     .agenda-sidebar div[class*="dias"],
-    .agenda-sidebar div[class*="semana"],
+    .agenda-sidebar .abas-semana,
     .agenda-sidebar .card > div {
         display: flex !important;
         flex-wrap: nowrap !important; /* Mude de wrap para nowrap */
