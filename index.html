@@ -1571,6 +1571,44 @@ html, body {
                 margin-left: 0.5rem !important;
             }
         }
+              /* --- TRAVA ABSOLUTA DO QUADRO DE PLANEJAMENTO NO IPHONE --- */
+        @media (max-width: 900px) {
+            /* Força a página inteira a nunca ultrapassar a largura da tela do celular */
+            html, body {
+                width: 100% !important;
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            /* Trava o container que segura a agenda para respeitar as margens laterais */
+            .agenda-sidebar, 
+            .container-planejamento,
+            div[class*="planejamento"] {
+                width: 100% !important;
+                max-width: 100% !important;
+                min-width: 0 !important;
+                box-sizing: border-box !important;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                overflow-x: hidden !important;
+            }
+
+            /* Impede que os botões dos dias da semana (seg, ter, qua...) empurrem o layout para fora */
+            .dias-semana, .semana-container, header, .nav-semana {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+
+            /* Garante que inputs e caixas de texto respeitem o limite da tela */
+            input, button, textarea {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+        }
+
 }
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
