@@ -688,26 +688,30 @@
             background-color: var(--cor-fundo);
         }
 
+       /* 1. O SPAN (Controla o texto e empurra o quadrado) */
         .lista-tarefas li span {
-        flex: 1;
-        min-width: 0;
-        word-break: break-word;
-        overflow-wrap: anywhere;
-  
-        /* --- Correção para tirar o aspecto de negrito --- */
-        font-weight: normal !important; /* Força a fonte a ficar na espessura padrão (sem negrito) */
-        -webkit-font-smoothing: antialiased; /* Segredo do iOS: afina a letra e tira o aspecto "inchado" no modo escuro */
+            flex: 1 !important;
+            min-width: 0 !important;
+            display: flex !important;           /* Reativa a organização interna */
+            align-items: flex-start !important; /* Alinha o quadrado no topo da frase */
+            gap: 0.8rem !important;             /* O SEGREDO: Separa o quadrado da primeira letra */
+            word-break: break-word !important;
+            overflow-wrap: anywhere !important;
+            font-weight: 400 !important;        /* Força a fonte fina (clean) */
+            -webkit-font-smoothing: antialiased !important; /* Remove o visual inchado no iOS */
+            cursor: pointer;
+            line-height: 1.4 !important;        /* Melhora a leitura de textos grandes */
         }
-
+       /* 2. O CHECKBOX CUSTOMIZADO (O quadradinho) */
         .lista-tarefas li span::before {
             content: "";
-            display: inline-block;
-            width: 14px;
-            height: 14px;
+            display: block !important;
+            width: 16px !important;             /* Tamanho fixo e elegante */
+            height: 16px !important;
             border: 1px solid #666666;
             border-radius: 4px;
-            flex-shrink: 0;
-            margin-top: 3px;
+            flex-shrink: 0 !important;          /* IMPEDE O QUADRADO DE AMASSAR OU SUMIR */
+            margin-top: 3px !important;         /* Desce ele um pouquinho para alinhar com a letra */
         }
 
         .lista-tarefas li button {
