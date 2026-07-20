@@ -565,12 +565,15 @@
             display: flex !important;
             align-items: center !important;
             justify-content: center !important; /* FORÇA A CENTRALIZAÇÃO ABSOLUTA */
-            gap: 1.5rem !important;             /* ESPAÇAMENTO PERFEITO ENTRE AS SETAS E O TEXTO */
+            gap: 1rem !important;               /* Reduzimos um pouco para não vazar nas telas pequenas do iPhone */
             width: 100% !important;             /* OCUPA TODA A LARGURA DA BARRA PRETA */
+            max-width: 100% !important;         /* TRAVA PARA NUNCA ULTRAPASSAR A TELA DO CELULAR */
+            box-sizing: border-box !important;  /* GARANTE QUE O PADDING SEJA CALCULADO DENTRO DOS 100% */
             background: var(--cor-fundo);
             border: 1px solid var(--cor-borda);
             border-radius: 6px;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.5rem !important;  /* Diminuímos o respiro lateral para dar espaço às setas */
+            margin: 0 auto !important;          /* GARANTE O ALINHAMENTO CENTRAL DA PRÓPRIA CAIXA */
         }
 
         .semana-nav button {
@@ -1440,6 +1443,35 @@
             }
             .col-item .label {
                 font-size: 0.68rem;
+            }
+        }
+        /* --- CORREÇÃO DEFINITIVA DO NAVEGADOR DE SEMANAS NO IPHONE / MOBILE --- */
+        @media (max-width: 900px) {
+            .agenda-sidebar .semana-nav,
+            .quadro-header .semana-nav,
+            div[class*="semana"].semana-nav {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                justify-content: center !important; /* ANULA O FLEX-START QUE ESTAVA DESENHANDO TORTO NO CELULAR */
+                align-items: center !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                gap: 0.8rem !important;             /* Espaçamento perfeito e simétrico para a tela do iPhone */
+                padding: 0.4rem 0.5rem !important;
+                margin: 0.5rem auto !important;
+                overflow: hidden !important;        /* Remove qualquer rolagem lateral acidental dentro da barra */
+            }
+
+            .semana-nav span {
+                text-align: center !important;
+                flex-grow: 0 !important;            /* Impede que o texto estique e empurre as setas */
+                white-space: nowrap !important;     /* Garante que "semana atual" fique em uma linha só */
+                font-size: 0.82rem !important;
+            }
+
+            .semana-nav button {
+                flex-shrink: 0 !important;          /* IMPEDE AS SETAS DE ENCOLHEREM OU SUMIREM */
+                padding: 0 0.4rem !important;
             }
         }
     </style>
@@ -4123,8 +4155,73 @@
                 <li>Análise de resposta terapêutica pregressa: se o indivíduo piorou drasticamente ou switchou (entrou em mania) ao usar antidepressivos comuns = forte indício de TB subjacente x se o indivíduo estabilizou os ciclos longos com estabilizadores de humor (lítio,ácido valproico), mas manteve o padrão de caos nos relacionamentos e comportamentos autolesivos = confirma-se comorbidade com o TPB</li>
             </ul>
     </div>
-
-
+    <h4>Tópico 17 - Método de Rorschach</h4>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;">Responder ao Rorschach não é apenas uma reação a manchas de tinta -> é uma projeção da organização cognitiva e vincular do sujeito no campo do estímulo</p>
+        <p style="margin-top: 0.6rem;"><strong>Automatismo repetivivo (simulcop):</strong> os indivíduos tendem a reagir às situações atuais reproduzindo padrões estereotipados e aprendidos em seus primeiros vínculos infantis = há uma falha na discriminação entre o contexto presente (o litígio judicial) e o passado traumático ou defensivo</p>
+        <p style="margin-top: 0.6rem;"><strong>Erro epistemológico (Baleson):</strong> sob a ótica cibernética e comunicacional, a psicopatologia grave ou a tensão do processo gera um problema de codificação de sinais - o indivíduo enquadra perceptivamente o estímulo da lâmina a partir de suas distorções internas = demonstrando como ele gerencia o estresse e a ansiedade fora do consultório</p>
+        <p style="margin-top: 0.6rem;"><strong>Conceito de mudança:</strong> a saúde mental e a adaptação dependem da capacidade de operar uma mudança na forma de perceber e contextualizar a realidade, produzindo respostas ligadas à situação factual presente, e não a defesas arcaicas</p>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Convergência entre o dado estatístico e a hermenêutica:</span></strong> o Rorschach atinge sua máxima potência diagnóstica no intersecção entre 2 construtos descritos por Fernando Silberstein</p>
+        <div class="caixa-anotacao">
+            Produção do Rorschach no tribunal = o construtor de imagens (dimensão quantitativa: fórmulas, porcentagens, e tabelas - validação estatística e consensual) + o construtor narrativo (dimensão hermenêutica: simbolização e significados múltiplos) - o manifesto que remete ao latente
+        </div>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Síntese dialética:</strong> os dados quantitativos (porcentagem de respostas de forma pura, determinantes de cor ou movimento) se iluminam quando articulados com a análise semântica</p>
+        <p style="margin-top: 0.6rem;">Operacionalidade do diagnóstico forense: hipóteses em stand by</p>
+        <p style="margin-top: 0.6rem;"><strong>Mapeamento de recorrência e redundâncias:</strong> o perito utiliza as lâminas para descobrir onde estão as fixações que estagnam os aspectos ideacionais, emocionais e relacionais do periciado (ex.: respostas de conteúdo anatômico ou agressivo recorrentes)</p>
+        <p style="margin-top: 0.6rem;"><strong>Rastreio de recursos originais:</strong> mapear o potencial adaptativo e recursos criativos do sujeito que podem ser desenvolvidos</p>
+    </div>
+    <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Dinâmica das hipóteses:</strong> o perito deve levantar hipóteses e deixar "peças soltas" em stand by - ao cruzar os dados ao final da bateria, essas peças frenquentemente se encaixam de forma integrativa, desvelando a estrutura da personalidade do avaliado</p>
+    </div>
+<h4>Tópico 18 - Exame criminológico</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;">Foco da avaliação: periculosidade endógena, capacidade de autocrítica em relação ao crime cometido, tolerância à frustração e presença de traços psicopáticos que anulem a empatia</p>
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Modelo risco, necessidade e responsividade (RNR):</span></strong> avaliação e reabilitação de infratores - afasta o empirismo (achismo) e introduz critérios científicos</p>
+    <p style="margin-top: 0.6rem;"><strong>Tripé do modelo RNR:</strong>
+        <ul class="estudos-lista">
+            <li>Risco: casar a intensidade do tratamento ao nível de risco do sujeito</li>
+            <li>Necessidade: focar nos fatores dinâmicos que causam o crime (criminogênicos)</li>
+            <li>Responsividade: adaptar a intervenção à capacidade cognitiva e estilo do apenado</li>
+        </ul>
+        <p style="margin-top: 0.6rem;"><i>Fatores de risco estatísticos x dinâmicos: separar no laudo</i></p>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Uso do PCL-R e HCR-20:</strong></p>
+    <ul class="estudos-lista">
+        <li>PCL-R: fator 1 - interpessoal/afetivo = egocentrismo, manipulação, ausência de remorso, falta de empatia, charme superficia; fator 2 - desvio social, estilo de vida = impulsividade, irresponsabilidade, delinquência juvenil, versatilidade criminal</li>
+        <li><strong>Impacto VEP:</strong> pontuações muito elevadas no PCL-R indicam que o sujeito possui uma estrutura psicopática rígida, o que eleva o risco de reincidência a níveis críticos - alertando o juiz para a necessidade de extrema cautela na soltura</li>
+        <li>HCR-20: guia de julgamento profissional estruturado focado no risco de violência futura - avalia passado (histórico), presente (clínico) e futuro (gerenciamento de risco pós-soltura)</li>
+    </ul>
+</div>
+<h4>Tópico 19 - Nexo causal e gramática jurídica dos transtornos mentais</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>Critério biopsicológico (Art. 26 do Código Penal):</strong> perito precisa provar duas coisas integradas:
+        <ul class="estudos-lista">
+            <li>Elemento biológico: presença da doença mental ou desenvolvimento mental incompleto/retardado no momento do fato</li>
+            <li>Elemento psicológico: impacto real que a doença causou na capacidade de entendimento (cognição) e de autodeterminação (vontade) do sujeito na hora do crime</li>
+        </ul>
+</div>
+<div class="content-block">
+    <p style="margin-top: 0.6rem; color: var(--cor-acento);"><strong>Tríade da responsabilidade penal</strong>
+    <p style="margin-top: 0.6rem;"><strong>Inimputabilidade (isenção de pena):</strong></p>
+    <ul class="estudos-lista">
+        <li>Critério técnico: no momento da ação ou omissão, em razão de doença mental ou desenvolvimento mental incompleto/retardado, o sujeito era totalmente incapaz de entender o caráter ilícito do fato ou de determinar-se de acordo com esse entendimento</li>
+        <li>Consequência jurídica: o indivíduo não recebe um pena (prisão), pois não tem culpabilidade - ele recebe uma absolvição imprópria e é submetido a uma medida de segurança (internação em hospital de custódia ou tratamento ambulatorial por tempo indeterminado, até que a perícia médica/psicológica ateste a cessação da periculosidade)   
+    </ul>
+    <p style="margin-top: 0.6rem;"><strong>Semi-imputabilidade (responsabilidade diminuída):</strong> onde a doença não anulou a consciência, mas perturbou gravemente a saúde mental ou a capacidade de controle do sujeito</p>
+    <ul class="estudos-lista">
+        <li>Critério técnico: o sujeito entendia o que estava fazendo, mas a sua capacidade de se autogovernar ou de compreender plenamente a extensão do ato estava parcialmente reduzida - é o caso de transtornos de personalidade graves, dependência química em estágio agudo ou quadros depressivos maiores com severa agitação psicomotora</li>
+        <li>Consequência jurídica: o juiz condena o sujeito, mas reduz a pena de 1 a 1/3, ou pode substituir a pena de prisão pela internação/tratamento se o perito demonstrar que o tratamento é mais eficaz que o cárcere para aquele psiquismo</li>
+    </ul>
+    <p style="margin-top: 0.6rem;"><strong>Imputabilidade (responsabilidade total):</strong></p>
+    <ul class="estudos-lista">
+        <li>Critério técnico: mesmo que o indivíduo apresente um transtorno leve (como uma ansiedade generalizada ou traços neuróticos comuns), o quadro não afetou o seu julgamento da realidade nem seu controle de impulsos no momento - ele sabia que era errado e escolheu livremente fazê-lo</li>
+    </ul>
+</div>
 
         
        
