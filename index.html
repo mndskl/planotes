@@ -675,17 +675,13 @@
             padding: 0 !important;
         }
 
+       /* Correção para evitar que textos longos cortem a tela no Safari/iOS */
         .lista-tarefas li {
         display: flex;
         align-items: flex-start;
-        justify-content: flex-start;
-        font-size: 0.9rem;
-        font-weight: 400; /* ADICIONE ESTA LINHA: Trava o texto no peso normal/fino */
-        padding: 0.7rem 0.5rem;
-        border-bottom: 1px solid var(--cor-borda);
-        transition: background-color 0.3s ease; /* Substitua o "all" por background-color */
-        border-radius: 6px;
+        justify-content: space-between;
         width: 100%;
+        box-sizing: border-box;
         }
 
         .lista-tarefas li:hover {
@@ -693,14 +689,14 @@
         }
 
         .lista-tarefas li span {
-            cursor: pointer;
-            flex-grow: 1; /* Faz o texto consumir todo o espaço disponível à esquerda */
-            display: flex;
-            align-items: flex-start;
-            gap: 0.6rem;
-            text-align: left;
-            word-break: break-word;
-            margin-right: 10px; /* Garante distância do botão */
+        flex: 1;
+        min-width: 0;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+  
+        /* --- Correção para tirar o aspecto de negrito --- */
+        font-weight: normal !important; /* Força a fonte a ficar na espessura padrão (sem negrito) */
+        -webkit-font-smoothing: antialiased; /* Segredo do iOS: afina a letra e tira o aspecto "inchado" no modo escuro */
         }
 
         .lista-tarefas li span::before {
