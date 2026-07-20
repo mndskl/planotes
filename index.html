@@ -1486,6 +1486,44 @@
             color: var(--cor-acento) !important;
         }
         }
+        /* --- BLINDAGEM CONTRA BLOCOS SOBREPOSTOS NO MOBILE --- */
+html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important; /* Impede absolutamente qualquer vazamento lateral */
+}
+
+@media (max-width: 1000px) {
+    /* Força o container principal a ser uma coluna única, sem grid e sem sobreposição */
+    .container-estudos {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 1.5rem !important;
+        padding: 0 0.8rem !important;
+        margin: 1rem auto !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Trava a agenda na parte superior da tela sem deixar blocos passarem por trás */
+    .agenda-sidebar {
+        order: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        position: static !important; /* Desativa o modo 'sticky/flutuante' que causava a sobreposição */
+        top: auto !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Joga a área de estudos/resumos estritamente para baixo da agenda */
+    .estudos-area {
+        order: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
     <script type="module">
@@ -4585,7 +4623,7 @@
                 document.body.classList.add('modo-principal');
                 if (btnPrincipal) btnPrincipal.classList.add('ativo');
                 
-                viewEstudos.style.display = window.innerWidth <= 900 ? 'flex' : 'grid';
+                viewEstudos.style.display = ''; /* Remove a trava do JS e deixa o CSS controlar o layout perfeitamente! */
                 viewQuadro.style.display = 'none';
                 
                 if (secaoHome) secaoHome.style.display = 'block';
