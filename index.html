@@ -1527,6 +1527,50 @@ html, body {
         max-width: 100% !important;
         box-sizing: border-box !important;
     }
+    /* --- CORREÇÃO SUPREMA DE VAZAMENTO NO MOBILE (SAFARI/IPHONE) --- */
+        @media (max-width: 900px) {
+            /* 1. Trava a largura da tela e dos containers para não criar rolagem lateral */
+            html, body, .container-estudos {
+                max-width: 100vw !important;
+                overflow-x: hidden !important;
+                box-sizing: border-box !important;
+            }
+
+            /* 2. Trava a largura do quadro preto (Agenda) */
+            .agenda-sidebar {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                overflow: hidden !important; /* Impede absolutamente que o quadro cresça para os lados */
+            }
+
+            /* 3. A MÁGICA: Substitui Flexbox por Grid nas tarefas para o texto NUNCA vazar */
+            .lista-tarefas li span {
+                display: grid !important;
+                grid-template-columns: 16px 1fr !important; /* Col 1: Quadrado 16px | Col 2: Texto ocupa o resto */
+                gap: 0.8rem !important;
+                align-items: start !important;
+                min-width: 0 !important; /* Fundamental no Grid para respeitar a parede da tela */
+                word-break: break-word !important;
+                overflow-wrap: anywhere !important;
+                white-space: normal !important;
+                font-weight: 400 !important;
+                -webkit-font-smoothing: antialiased !important;
+            }
+
+            /* 4. Garante que a linha da tarefa e o botão '✕' fiquem dentro da caixa */
+            .lista-tarefas li {
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+                flex-wrap: nowrap !important;
+            }
+            
+            .lista-tarefas li button {
+                flex-shrink: 0 !important; /* Impede o botão de excluir de ser esmagado */
+                margin-left: 0.5rem !important;
+            }
+        }
 }
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
