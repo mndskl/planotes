@@ -1447,32 +1447,48 @@
         }
         /* --- CORREÇÃO DEFINITIVA DO NAVEGADOR DE SEMANAS NO IPHONE / MOBILE --- */
         @media (max-width: 900px) {
-            .agenda-sidebar .semana-nav,
-            .quadro-header .semana-nav,
-            div[class*="semana"].semana-nav {
-                display: flex !important;
-                flex-wrap: nowrap !important;
-                justify-content: center !important; /* ANULA O FLEX-START QUE ESTAVA DESENHANDO TORTO NO CELULAR */
-                align-items: center !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                gap: 0.8rem !important;             /* Espaçamento perfeito e simétrico para a tela do iPhone */
-                padding: 0.4rem 0.5rem !important;
-                margin: 0.5rem auto !important;
-                overflow: hidden !important;        /* Remove qualquer rolagem lateral acidental dentro da barra */
-            }
+          .agenda-sidebar .semana-nav,
+        .quadro-header .semana-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            justify-content: center !important; 
+            width: 100% !important;             
+            box-sizing: border-box !important;
+            background: var(--cor-fundo);
+            border: 1px solid var(--cor-borda);
+            border-radius: 6px;
+            padding: 0.5rem 0 !important;
+        }
 
-            .semana-nav span {
-                text-align: center !important;
-                flex-grow: 0 !important;            /* Impede que o texto estique e empurre as setas */
-                white-space: nowrap !important;     /* Garante que "semana atual" fique em uma linha só */
-                font-size: 0.82rem !important;
-            }
+        .agenda-sidebar .semana-nav span,
+        .quadro-header .semana-nav span {
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+            color: var(--cor-acento) !important;
+            margin: 0 1.5rem !important; /* O espaçamento simétrico perfeito é feito aqui agora! */
+            text-align: center !important;
+            flex: 0 0 auto !important; /* Impede que o texto estique e desalinhe */
+            white-space: nowrap !important;
+        }
 
-            .semana-nav button {
-                flex-shrink: 0 !important;          /* IMPEDE AS SETAS DE ENCOLHEREM OU SUMIREM */
-                padding: 0 0.4rem !important;
-            }
+        .agenda-sidebar .semana-nav button,
+        .quadro-header .semana-nav button {
+            background: transparent !important;
+            border: none !important;
+            color: var(--cor-texto-mutado) !important;
+            cursor: pointer !important;
+            font-size: 1.2rem !important; /* Restaura o tamanho elegante das setas */
+            padding: 0 0.5rem !important;
+            margin: 0 !important; /* Mata qualquer margem fantasma nativa do iOS Safari */
+            flex: 0 0 auto !important; /* Impede os botões de deformarem */
+            line-height: 1 !important;
+        }
+
+        .agenda-sidebar .semana-nav button:hover,
+        .quadro-header .semana-nav button:hover {
+            color: var(--cor-acento) !important;
+        }
         }
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
