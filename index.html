@@ -1317,6 +1317,49 @@
         .animar-comemoracao {
             animation: celebraDiaMinimalista 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
         }
+       /* --- EFEITO SATISFATÓRIO DE CONCLUSÃO (FUNDO AMARELADO SUAVE) --- */
+       /* --- GARANTE FONTE SEM NEGRITO PARA TODAS AS TAREFAS --- */
+        .lista-tarefas li,
+        .coluna-lista li,
+        .lista-tarefas li *,
+        .coluna-lista li * {
+            font-weight: normal !important;
+            -webkit-font-smoothing: antialiased !important;
+        }
+
+        /* --- EFEITO SATISFATÓRIO DE CONCLUSÃO (FUNDO AMARELADO SUAVE) --- */
+        @keyframes brilhoConclusaoSuave {
+            0% {
+                background-color: rgba(245, 215, 66, 0.35) !important;
+                transform: scale(0.98);
+            }
+            50% {
+                background-color: rgba(245, 215, 66, 0.15) !important;
+                transform: scale(1.01);
+            }
+            100% {
+                background-color: rgba(245, 215, 66, 0.07) !important;
+                border-color: rgba(245, 215, 66, 0.2) !important;
+                transform: scale(1);
+            }
+        }
+
+        .lista-tarefas li.concluida,
+        .coluna-lista li.concluida {
+            background-color: rgba(245, 215, 66, 0.07) !important;
+            border: 1px solid rgba(245, 215, 66, 0.2) !important;
+            opacity: 0.9 !important;
+            animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        }
+        
+
+        .lista-tarefas li.concluida,
+        .coluna-lista li.concluida {
+            background-color: rgba(245, 215, 66, 0.07) !important;
+            border: 1px solid rgba(245, 215, 66, 0.2) !important;
+            opacity: 0.9 !important;
+            animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+        }
 
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
@@ -4253,7 +4296,99 @@
                 <li><strong><span style="color: var(--cor-acento);">Perguntas funcionais:</span></strong> avaliam se os sintomas causaram prejuízo clinicamente significativo</li>
             </ul>
         </div>
-
+        <h4>Tópico 5 - Documentação e pontuação</h4>
+        <div class="content=block">
+            <p style="margin-top: 0.6rem;">Registro durante a entrevista:</p>
+            <ul class="estudos-lista">
+                <li>Folha de protocolo como documento principal - não reconstruir de memória</li>
+                <li>Captura de citações literais de sintomas clinicamente relevantes</li>
+                <li>Anotação de observações comportamentais junto com o conteúdo verbal</li>
+                </ul>
+                <p style="margin-top: 0.6rem;">Sistema de pontuação de 3 pontos (mais comum):</p>
+                <ul class="estudos-lista">
+                <li>Sintoma ausente</li>
+                <li>Subliminar - presente, mas não atende totalmente ao critério (ex.: frequência ou duração insuficiente)</li>
+                <li>Critério totalmente atendido</li>
+            </ul>
+            <div class="caixa-anotacao">
+                A categoria subliminar é clinicamente importante: captura clientes sintomáticos que não fecham diagnóstico completo, relevante para um planejamento terapêutico e monitoramento
+            </div>
+            </div>
+            <h4>Tópico 6 - Exame mental - delírios e distúrbios perceptivos</h4>
+            <div class="content-block">
+            <p style="margin-top: 0.6rem;"><strong>Definição e características centrais</strong></p>
+            <p style="margin-top: 0.6rem;"><strong>Delírio:</strong> alteração no conteúdo do pensamento (não na forma)</p>
+            <ul class="estudos-lista">
+                <li>Incompatíveis com a realidade objetiva</li>
+                <li>Tipicamente egossintomáticos - vivenciados pelo paciente como próprios e adequeados</li>
+                <li>Resistem à argumentação lógica e à refutação</li>
+                <li>Não são compartilhados por outros membros do mesmo grupo sociocultural</li>
+            </ul>
+            <p style="margin-top: 0.6rem;"><strong>Origem dos delírios</p>
+                <ul class="estudos-lista">
+                    <li>Primária: surgem sem um processo psicopatológico prévio identificável</li>
+                    <li>Secundária: seguem outras alterações no estado psíquico (ex.: episódios maníacos, depressivos ou secundários a alucinações)</li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Organização dos delírios</span></strong></p>
+                <ul class="estudos-lista">
+                    <li><strong>Tipo - sistematizados:</strong>Tema predominante, estrutura narrativa (mesmo sobre premissas falsas) - relatos marcantes/críveis que podem deixar o entrevistador incerto</li>
+                    <li><strong>Tipo - não sistematizados:</strong> Múltiplos temas, fragmentados, desconexos, geralmente menos críveis</li>
+                </ul>
+                <p style="margin-top: 0.6rem;"><i>Temas delirantes dominantes: referência, persecutórios, grandeza, somáticos, ruína, culpa, ciúmes</i></p>
+            </div>
+            <h6>Subtópico 1 - Percepção no exame mental</h6>    
+            <div class="content-block">
+                <p style="margin-top: 0.6rem;">O clínico deve determinar:</p>
+                <ul class="estudos-lista">
+                    <li>Relação apropriada entre sensaçõees/percepções e estímulos sensoriais</li>
+                    <li>Se as percepções são interpretadas e integradas de forma razoável na experiência mental geral</li>
+                </ul>
+                <p style="margin-top: 0.6rem;">Ferramentas do examinador:</p>
+                <ul class="estudos-lista">
+                    <li>Observação direta do comportamento (ex.: solilóquios, risos inadequados)</li>
+                    <li>Relatório espontâneo do paciente</li>
+                    <li>Perguntas específicas e estruturadas que incentivem a descrição de experiências perceptuais</li>
+                </ul>
+                <p style="margin-top: 0.6rem;">Mudanças perceptuais:</p>
+                <ul class="estudos-lista">
+                    <li><strong>Quantitativas:</strong> alterações ou agnosias (ex.: perda de sensibilidade perceptual) - domínio: tipicamente neurológico (mas devem ser reconhecidas pelo psiquiatra)</li>
+                    <li><strong>Qualitativas:</strong> experiências de estranhamento ew relação ao próprio corpo - domínio: tipicamente psiquiátrico</li>
+                </ul>
+            </div>
+            <h6>Subtóipico 2 - Despersonalização e desrealização</h6>
+            <div class="content-block">
+                <p style="margin-top: 0.rem;"><strong>Despersonalização:</strong> sensação de que o próprio corpo ou o eu não é real ou não pertence a si mesmo</p>
+                <p style="margin-top: 0.6rem;"><strong>Desrealização:</strong> sensação de que o ambiente perdeu proporção/perspectiva normal, ou que as pessoas ao redor não são reais</p>
+            </div>
+            <h6>Subtópico 3 - Ilusões e alucinações</h6>
+            <div class="content-block">
+                <p style="margin-top: 0.6rem;">Ilusões: estímulo externo real presente, mas sua percepção ou interpretação é distorcida - são muito comuns e nem sempre patológicas</p>
+                <p style="margin-top: 0.6rem;">Alucinação: percepções falsas, experiências sensoriais na ausência de estímulo externo - compartilham propriedades das percepções verdadeiras (corporeidade, estabilidade, extracorporeidade, involuntariedade)</p>
+                <p style="margin-top: 0.6rem;">Características fenomenológicas das alucinações:</p>
+                <ul class="estudos-lista">
+                    <li>Corporeidade e estabilidade perceptiva</li>
+                    <li>Extracorporeidade - localizadas externamente ao indivíduo</li>
+                    <li>Não está sob controle voluntário</li>
+                    <li>Vivenciadas como reais</li>
+                </ul>
+            </div>
+            <h6>Subtópico 4 -Implicações clínicas e impacto diagnóstico</h6>
+            <div class="content-block">
+                <p style="margin-top: 0.6rem;">O entrevistador dele registrar:</p>
+                <ul class="estudos-lista">
+                <li>Conteúdo específico</li>
+                <li>Nível de sistematização</li>
+                <li>Relação com o humor ou outra psicopatologia</li>
+                <li>Início e curso (ajudo, insidioso, flutuante)</li>
+                <li>Grau de convicção e insight do paciente</li>
+                </ul>
+                <p style="margin-top: 0.6rem;">A descrição fenomenológica precisa orienta:</p>
+                <li>Diagnóstico diferencial: transtorno psicótico primário x transtorno de humor com características psicóticas x delirium ou transtorno neurológico</li>
+                <li>Planejamento do tratamento</li>
+                <li>Avaliação de risco (ex.: periculosidade, comando alucinatório, ideação de ruína, culpa)</li>
+            </div>
 
             </section>
             
