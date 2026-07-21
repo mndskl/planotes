@@ -5349,11 +5349,19 @@
             }
         }
 
-        // Aguarda a conexão do Firebase no topo da página antes de carregar seus dados
+       // Aguarda a conexão do Firebase no topo da página antes de carregar seus dados
         window.addEventListener('firebasePronto', carregarDadosDaNuvem);
         
-        // Proteção: caso esteja sem internet ou demore muito, abre o sistema assim mesmo
+        // Proteção e Pré-carregamento Visual Imediato
         document.addEventListener('DOMContentLoaded', () => {
+            // --- NOVO: Desenha a estrutura instantaneamente para não ficar com a tela "vazia" ---
+            garantirSemanaExiste();
+            renderizarAbasLateral();
+            renderizarAgua();
+            renderizarDiaConcluido();
+            renderizarTarefasLateral();
+            // -----------------------------------------------------------------------------
+
             setTimeout(() => {
                 if (!dadosCarregadosDaNuvem) inicializarSistema();
             }, 2000);
