@@ -41,6 +41,7 @@
             --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.4);
             --raio-borda: 10px;
         }
+    
 
         .caixa-anotacao {
     background-color: #000000; /* Cor lilás */
@@ -1380,7 +1381,7 @@
                 <ul style="justify-content: center; margin-top: 0.8rem; gap: 1.5rem;">
                     <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">psicologia forense</a></li>
                     <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial psicológica</a></li>
-                    <li><a href="#" onclick="abrirTema('hipnoterapia'); return false;" id="btn-sub-hipnoterapia">hipnoterapia</a></li>
+                    <li><a href="#" onclick="abrirTema('avaliacaopsi'); return false;" id="btn-sub-avaliacaopsi">avaliação psicológica</a></li>
                 </ul>
             </nav>
     </header>
@@ -1429,16 +1430,16 @@
                         </div>
                     </div>
 
-                    <!-- Resumo Hipnoterapia -->
-                    <div class="card-resumo" id="card-resumo-hipnoterapia" onclick="abrirTema('hipnoterapia')">
+                    <!-- Resumo Avaliação Psicológica -->
+                    <div class="card-resumo" id="card-resumo-avaliacaopsi" onclick="abrirTema('avaliacaopsi')">
                         <div class="card-resumo-top">
-                            <h3>Hipnoterapia</h3>
+                            <h3>Avaliação Psicológica</h3>
                             <span class="badge-recente">Último Tópico Adicionado</span>
                         </div>
-                        <h4 id="card-titulo-hipnoterapia">carregando última anotação...</h4>
-                        <p id="card-texto-hipnoterapia">aguarde enquanto o sistema lê o caderno.</p>
+                        <h4 id="card-titulo-avaliacaopsi">carregando última anotação...</h4>
+                        <p id="card-texto-avaliacaopsi">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
-                            <span class="btn-acessar">ler todas as anotações de hipnoterapia ➔</span>
+                            <span class="btn-acessar">ler todas as anotações de avaliação psicológica ➔</span>
                         </div>
                     </div>
                 </div>
@@ -3810,7 +3811,11 @@
         </div>
         <h4>Tópico 12 - Violência Doméstica</h4>
         <div class="content-block">
-            <p><i>Anotações...</i></p>
+            <p style="margin-top: 0.6rem;"><strong>Avaliação de risco e comunicação</strong></p>
+            <p style="margin-top: 0.6rem;">Indicadores de risco: investigar se o risco é crônico (padrão de humilhação constante) ou iminente (ameaça de morte recente)</p>
+            <p style="margin-top: 0.6rem;">A escalada: a violência doméstica raramente começa com uma agressão física grave - o perito analisa a escalada - escalada rápida = risco maior</p>
+            <p style="margin-top: 0.6rem;">Meios letais: obrigatório perguntar sobre o acesso a armas de fogo, histórico de artes marciais ou ameaças de evenenamento</p>
+            <p style="margin-top: 0.6rem;">Comunicado ao juízo: a periciada apresenta indicadores de hipervigilância e restrição de autonomia compatíveis com o histórico</p>
         </div>
         <h4>Tópico 13 - Entrevistas semiestruturadas (preparação, condução e transcrição legal)</h4>
         <div class="content-block">
@@ -4094,19 +4099,162 @@
         <li>Critério técnico: mesmo que o indivíduo apresente um transtorno leve (como uma ansiedade generalizada ou traços neuróticos comuns), o quadro não afetou o seu julgamento da realidade nem seu controle de impulsos no momento - ele sabia que era errado e escolheu livremente fazê-lo</li>
     </ul>
 </div>
+<h4>Tópico 20 - Nexo de causalidade psíquica e conceitos de concausa</h4>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong>3 cenários de causalidade:</strong></p>
+    <ul class="estudos-lista">
+        <li>Evento traumático (assédio organizacional) - nexo causal direto = dano psíquico (depressão maior/TEPT)</li>
+        <li>Personalidade prévia + evento traumática - concausa (efeito gatilho) = dano psíquico</li>
+    </ul>
+
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Nexo causal direto:</span></strong> o sujeito era perfeitamente saudável, produtivo e sem histórico psiquátrico (filtra factual) - o evento é a causa única e direta do dano</p>
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Concausa antecendente:</span></strong> o sujeito já possuia uma vulnerabilidade na estrutura da personalidade - o evento traumático atuou como gatilho de descompensação</p>
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Nexo causal ausente:</span></strong> a doença é puramente endógena/biológica - os eventos alegados não possuem força psicodinâmica ou temporal para ter gerado o quadro</p>
+</div>
         
        
     
     </section>
 
 
-            <!-- SEÇÃO 3: HIPNOTERAPIA -->
-            <section id="hipnoterapia" class="tema-section">
-                <h2>Hipnoterapia</h2>
-                <h3>Abordagem Terapêutica</h3>
+            <!-- SEÇÃO 3: AVALIAÇÃO PSICOLÓGICA -->
+            <section id="avaliacaopsi" class="tema-section">
+                <h2>Avaliação Psicológica e Psicodiagnóstico</h2>
+                <h3>Elevity</h3>
+                <h4>Tópico 1- Premissa fundamental</h4>
                 <div class="content-block">
-                    <p>Hipnoterapia é uma abordagem terapêutica que utiliza a hipnose para promover mudanças no comportamento, pensamentos e emoções de um indivíduo. Durante a hipnoterapia, o paciente é guiado a um estado de relaxamento profundo, onde se torna mais receptivo a sugestões terapêuticas. Essa técnica pode ser utilizada para tratar uma variedade de condições, como ansiedade, fobias, dor crônica e hábitos indesejados.</p>
+                    <p style="margin-top: 0.6rem;">A avaliação psicológica nunca ocorre em um vácuo cultural</p>
+                    <p style="margin-top: 0.6rem;">Testes, entrevistas e escores são moldados pelo contexto cultural de origem e de aplicação</p>
+                    <p style="margin-top: 0.6rem;"><strong>Cultura não é um complemento = é o centro do processo avaliativo</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Todo teste é construído a partir de uma população, linguagem e conceitos específicos</li>
+                        <div class="caixa-anotacao">
+                            Aplicar um teste a alguém de outra origem não é apenas medir a pessoa, mas sim medir a distância entre o mundo dela e o mundo para o qual o teste foi desenhado
+                        </div>
+                    </ul>
                 </div>
+                <h4>Tópico 2 - Formas de viés cultural</h4>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong>3 formas de viés cultural (nível superficial):</strong></p>
+                    <ul class="estudos-lista">
+                        <li><strong>Linguístico:</strong> o idioma prejudica falantes não nativos em habilidades não relacionadas à linguagem</li>
+                        <li><strong>De conteúdo:</strong> itens pressupõem conhecimento de referências culturais específicas</li>
+                        <li><strong>De normatização:</strong> a amostra de padronização excluiu o grupo testado - normas não se aplicam</li>
+                    </ul>
+                    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Viés do construto (o mais profundo):</span></strong></p>
+                    <ul class="estudos-lista">
+                        <li>O construto em si não é conceitualmente equivalente entre culturas</li>
+                        <li>Exemplo: inteligência no ocidente = velocidade individual de solução de problemas x em outras culturas = sabedoria coletiva, paciência, harmonia social</li>
+                        <li>Conclusão: se o construto não se traduz, nenhuma tradução do teste resolve o problema</li>
+                    </ul>
+                    
+                </div>
+                <div class="content=block">
+                    <p style="margin-top: 0.6rem;"><strong>Pirâmide do viés social (do topo até a base):</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Viés do constructo</li>
+                        <li>Viés do método</li>
+                        <li>Viés do item</li>
+                        <li>Viés de normatização</li>
+                    </ul>
+                    <p style="margin-top: 0.6rem;"><i>Reconhecer o nível do viés indica qual tipo de correção é possível</i></p>
+                </div>
+                <div class="content-block">
+                <p style="margin-top: 0.6rem;"><strong>Seleção de testes - 4 perguntas essenciais:</strong></p>
+                    <ul class="estudos-lista">
+                        <li>A população do cliente está representada nas normas?</li>
+                        <li>Se há uma versão traduzida, foi validada ou apenas traduzida palavra por palavra?</li>
+                        <li>O construto significa a mesma coisa no contexto cultural do cliente?</li>
+                        <li>Os itens estão livres de carga cultural?</li>
+                        </li>
+                        <p style="margin-top: 0.6rem;"><i>Se falhar em qualquer ponto - substituir o teste ou interpretar com ressalvas significativas</i></p>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong>Testes culturalmente justos x livres de cultura</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Culturalmente justos: tarefas não verbais reduzem vantagem cultural, mas nãos são neutros</li>
+                        <li>Livres de cultura: ideal teórico inexistente - todo teste carrega valores de seus criadores</li>
+                    </ul>
+                    <p style="margin-top: 0.6rem;"><strong>Estratégia - não buscar perfeição:</strong> escolher o teste mais adequado e interpretar com cautela</p>
+                </div>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Entrevista de Formulação Cultural (CFI) do DSM-5:</span></strong> protocolo estruturado de 16 perguntas, 4 domínios:</p>
+                    <ul class="estudos-lista">
+                        <li>Identidade cultural</li>
+                        <li>Modelos explicativos</li>
+                        <li>Fatores de enfrentamento e busca de ajuda</li>
+                        <li>Elementos culturais da relação clínico-paciente</li>
+                    </ul>
+                    <p style="margin-top: 0.6rem;"><i>Não substitui o julgamento clínico - revela informações que poderiam ser perdidas</i></p>
+                </div>
+                <h4>Tópico 3 - Entrevistas diagnósticas estruturadas</h4>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong>2 formatos fundamentais</strong></p>
+                <table class="tabela-formatosfund" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+        <thead>
+            <tr style="background: #a7a01c; color: #000000;">
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Caracteríticas</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Totalmente estruturada</th>
+                <th style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; text-align: left;">Semiestruturada</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Perguntas</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Fixas, ordem invariável</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Perguntas-âncora padronizadas + sondagens livres</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Aplicador</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Leigo ou sistema automatizado</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Clínico treinado</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Confiabilidade</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Muito alta</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Alta (depende do treinamento)</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Riqueza dos dados</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Baixa (sem nuances)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Alta (permite esclarecimentos</td>
+            </tr>
+            <tr style="background: #000000;">
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0; font-weight: 600;">Uso típico</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Pesquisas epidemiológicas (ex.: CIDI)</td>
+                <td style="padding: 0.6rem 1rem; border: 1px solid #cbd5e0;">Prática clínica (ex.: SCID-5)</td>
+            </tr>
+        </tbody>
+        </table>
+        </div>
+        <div class="content-block">
+            <p style="margin-top: 0.6rem;">Escolha do formato depende do contexto e objetivo</p>
+            <p style="margin-top: 0.6rem;">Instrumentos comuns:</p>
+            <ul class="estudos-lista">
+                <li>SCID-5: semiestruturada - clínica e pesquisa</li>
+                <li>MINI: semiestruturada - quando o tempo é limitado</li>
+               <li>CIDI: totalmente estruturada - estudos epidemiológicos</li> 
+            </ul>
+        </div>
+        <h4>Tópico 4 - Sequência de sondagem</h4>
+        <div class="content-block">
+        <p style="margin-top: 0.6rem;"><strong>Etapas por módulo diagnóstico:</strong></p>
+        <ul class="estudos-lista">
+            <li><strong><span style="color: var(--cor-acento);">Perguntas amplas de rastreamento:</span></strong> verificar se o domínio de sintomas se aplica</li>
+            <li><strong><span style="color: var(--cor-acento);">Perguntas exploratórias no nível dos critérios:</span></strong> abordam diretamente cada critério diagnóstico</li>
+            <li><strong><span style="color: var(--cor-acento);">Esclarecimento:</span></strong> investiga momento, frequência ou impacto funcional quando resposta é ambígua</li>
+        </ul>
+        </div>
+        <div class="content-block">
+            <p style="margin-top: 0.6rem;"><strong>2 tipos essenciais de perguntas exploratórias:</strong></p>
+            <ul class="estudos-lista">
+                <li><strong><span style="color: var(--cor-acento);">Perguntas temporais:</span></strong> verificam se os sintomas atendem aos critérios de duração e se agrupam em um episódio distinto</li>
+                <li><strong><span style="color: var(--cor-acento);">Perguntas funcionais:</span></strong> avaliam se os sintomas causaram prejuízo clinicamente significativo</li>
+            </ul>
+        </div>
+
+
             </section>
             
         </main>
@@ -4263,7 +4411,7 @@
 
         // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
         function atualizarResumosAutomaticamente() {
-            const materias = ['psicologiaforense', 'pericia', 'hipnoterapia'];
+            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi'];
             
             materias.forEach(idMateria => {
                 const secao = document.getElementById(idMateria);
