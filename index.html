@@ -4508,7 +4508,17 @@
             </tr>
         </tbody>
     </table>
-            
+</div>
+<h6>Subtópico 1 - Coerência x logicidade</h6>
+<div class="content-block">
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Coerência:</span></strong> concatenação adequada das ideias entre si - base: forma de pensamento</p>
+    <ul class="estudos-lista">
+        <li>Exemplo: discurso organizado, ideias que seguem de forma compreensível</li>
+    </ul>
+    <p style="margin-top: 0.6rem;"><strong><span style="color: var(--cor-acento);">Logicidade:</span></strong> relação entre o conteúdo do pensamento e a realidade externa - base: conteúdo + teste de realidade</p>
+    <ul class="estudos-lista">
+        <li>Exemplo: crença em perseguição sem evidência (ilógica, mas pode ser formalmente coerente)</li>
+    </ul>
 </div>
             </section>
             
@@ -5293,7 +5303,7 @@
 
             let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
             if (!dadosAgendaAtual[diaAtivoLateral]) dadosAgendaAtual[diaAtivoLateral] = [];
-            dadosAgendaAtual[diaAtivoLateral].push({ texto: texto, concluida: false });
+            dadosAgendaAtual[diaAtivoLateral].unshift({ texto: texto, concluida: false });
             
             // --- TOCA O SOM DE NOVA TAREFA ---
             const audio = document.getElementById('audio-nova-tarefa');
@@ -5364,7 +5374,7 @@
 
             let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
             if (!dadosAgendaAtual[dia]) dadosAgendaAtual[dia] = [];
-            dadosAgendaAtual[dia].push({ texto: texto, concluida: false });
+            dadosAgendaAtual[dia].unshift({ texto: texto, concluida: false });
             
             // --- TOCA O SOM DE NOVA TAREFA ---
             const audio = document.getElementById('audio-nova-tarefa');
