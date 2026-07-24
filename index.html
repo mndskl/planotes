@@ -4950,6 +4950,19 @@
         const diaHojeLabel = dias[diaSemanaIndex === 0 ? 6 : diaSemanaIndex - 1];
         let diaAtivoLateral = diaHojeLabel;
 
+        // --- NOVO BANCO DE DADOS DE ÁGUA E DIA CONCLUÍDO ---
+let bancoAgua = JSON.parse(localStorage.getItem('bancoAguaHistorico')) || {};
+let bancoDiaConcluido = JSON.parse(localStorage.getItem('bancoDiaConcluidoHistorico')) || {};
+
+// Descobre a data exata em formato YYYY-MM-DD da aba que está clicada
+function obterDataAtiva() {
+    if (diaAtivoLateral === 'concluidas') return null; // A aba concluídas não tem água
+    let d = new Date(semanaVisualizada); 
+    let offset = dias.indexOf(diaAtivoLateral);
+    if (offset !== -1) d.setDate(d.getDate() + offset);
+    return formatarDataChave(d);
+}
+
         // --- SISTEMA DE PONTUAÇÃO POR SEMANA VISUALIZADA (SKOS) ---
         function calcularTotalSkosDaSemana() {
             let totalConcluidas = 0;
@@ -4980,79 +4993,69 @@
         }
 
         // --- SISTEMA DO QUADRO DE ÁGUA (300ml a 2.1L) ---
-        // --- SISTEMA DO QUADRO DE ÁGUA (300ml a 2.1L) ---
-        let waterCount = 0;
+function renderizarAgua() {
+    const dataAtiva = obterDataAtiva();
+    const waterContainer = document.querySelector('.water-tracker');
+    
+    // Esconde o quadro de água se estiver na aba "todas concluídas"
+    if (!dataAtiva) {
+        if(waterContainer) waterContainer.style.display = 'none';
+        return;
+    } else {
+        if(waterContainer) waterContainer.style.display = 'block';
+    }
 
-        // VERIFICA SE DEVE RESETAR A ÁGUA COM BASE NA DATA DE HOJE
-        function verificarResetDiarioAgua() {
-            const dataHoje = formatarDataChave(new Date());
-            const dataSalva = localStorage.getItem('dataUltimaAgua');
+    let waterCount = bancoAgua[dataAtiva] || 0;
 
-            if (dataSalva !== dataHoje) {
-                waterCount = 0;
-                localStorage.setItem('minhaAguaDiaria', '0');
-                localStorage.setItem('dataUltimaAgua', dataHoje);
-            } else {
-                // Se a data for de hoje, restaura a quantidade salva no navegador
-                const aguaSalva = localStorage.getItem('minhaAguaDiaria');
-                if (aguaSalva !== null) {
-                    waterCount = parseInt(aguaSalva, 10) || 0;
-                }
-            }
+    const grid = document.getElementById('water-grid');
+    const text = document.getElementById('water-text');
+    const bar = document.getElementById('water-bar');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    for (let i = 0; i < 7; i++) {
+        const box = document.createElement('div');
+        box.className = `water-box ${i < waterCount ? 'active' : ''}`;
+        box.innerHTML = i < waterCount ? '≈' : '';
+        box.onclick = () => alternarAgua(i);
+        grid.appendChild(box);
+    }
+
+    let mlTotal = waterCount * 300;
+    let litrosTexto = mlTotal >= 1000 ? `${(mlTotal / 1000).toFixed(1)} L` : `${mlTotal} ml`;
+    if (text) text.innerText = `${litrosTexto} / 2.1 L`;
+    if (bar) bar.style.width = `${(waterCount / 7) * 100}%`;
+}
+
+async function alternarAgua(index) {
+    const dataAtiva = obterDataAtiva();
+    if (!dataAtiva) return;
+
+    let currentCount = bancoAgua[dataAtiva] || 0;
+
+    if (currentCount === index + 1) {
+        bancoAgua[dataAtiva] = index; // desmarca
+    } else {
+        bancoAgua[dataAtiva] = index + 1; // marca
+        const audio = document.getElementById('audio-agua');
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
         }
-
-        function renderizarAgua() {
-            verificarResetDiarioAgua(); // Garante a checagem do dia sempre que renderizar
-
-            const grid = document.getElementById('water-grid');
-            const text = document.getElementById('water-text');
-            const bar = document.getElementById('water-bar');
-            if (!grid) return;
-
-            grid.innerHTML = '';
-            for (let i = 0; i < 7; i++) {
-                const box = document.createElement('div');
-                box.className = `water-box ${i < waterCount ? 'active' : ''}`;
-                box.innerHTML = i < waterCount ? '≈' : '';
-                box.onclick = () => alternarAgua(i);
-                grid.appendChild(box);
-            }
-
-            let mlTotal = waterCount * 300;
-            let litrosTexto = mlTotal >= 1000 ? `${(mlTotal / 1000).toFixed(1)} L` : `${mlTotal} ml`;
-            if (text) text.innerText = `${litrosTexto} / 2.1 L`;
-            if (bar) bar.style.width = `${(waterCount / 7) * 100}%`;
-        }
-
-        async function alternarAgua(index) {
-            if (waterCount === index + 1) {
-                waterCount = index;
-            } else {
-                waterCount = index + 1;
-                // --- TOCA O SOM SÓ QUANDO ADICIONA COPOS DE ÁGUA ---
-                const audio = document.getElementById('audio-agua');
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
-                }
-            }
-            
-            // O SEGREDO: Salva no navegador localmente na mesma hora do clique!
-            localStorage.setItem('minhaAguaDiaria', waterCount);
-            localStorage.setItem('dataUltimaAgua', formatarDataChave(new Date()));
-            
-            renderizarAgua();
-            
-            if (!window.db || !dadosCarregadosDaNuvem) return;
-            try {
-                await window.setDoc(window.doc(window.db, "meu_sistema", "agua"), {
-                    quantidade: waterCount,
-                    dataUltimaAgua: formatarDataChave(new Date())
-                });
-            } catch (e) {
-                console.error("Erro ao salvar água na nuvem: ", e);
-            }
-        }
+    }
+    
+    localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
+    renderizarAgua();
+    
+    if (!window.db || !dadosCarregadosDaNuvem) return;
+    try {
+        await window.setDoc(window.doc(window.db, "meu_sistema", "agua_historico"), {
+            registros: bancoAgua
+        }, { merge: true });
+    } catch (e) {
+        console.error("Erro ao salvar água na nuvem: ", e);
+    }
+}
         // --- SISTEMA DE DIA CONCLUÍDO ---
         let diaConcluidoHoje = false;
 
@@ -5070,55 +5073,63 @@
         }
 
         function renderizarDiaConcluido() {
-            verificarResetDiaConcluido();
-            const box = document.getElementById('box-dia-concluido');
-            const texto = document.getElementById('text-dia-concluido');
-            if (!box || !texto) return;
+        const dataAtiva = obterDataAtiva();
+        const box = document.getElementById('box-dia-concluido');
+        const texto = document.getElementById('text-dia-concluido');
+        if (!box || !texto) return;
 
-            if (diaConcluidoHoje) {
-                box.classList.add('concluido');
-                texto.innerHTML = '✨ dia concluído com sucesso!';
-            } else {
-                box.classList.remove('concluido', 'animar-comemoracao');
-                texto.innerHTML = '✨ encerrar o dia';
-            }
+        if (!dataAtiva) {
+        box.style.display = 'none'; // Esconde na aba concluídas
+        return;
+         } else {
+        box.style.display = 'flex';
+     }
+
+         let concluido = bancoDiaConcluido[dataAtiva] || false;
+
+        if (concluido) {
+        box.classList.add('concluido');
+        texto.innerHTML = '✨ dia concluído com sucesso!';
+        } else {
+        box.classList.remove('concluido', 'animar-comemoracao');
+        texto.innerHTML = '✨ encerrar o dia';
         }
+    }   
 
         async function alternarDiaConcluido() {
-            diaConcluidoHoje = !diaConcluidoHoje;
-            const box = document.getElementById('box-dia-concluido');
-            
-            if (diaConcluidoHoje) {
-                // Dispara a animação minimalista
-                if (box) {
-                    box.classList.remove('animar-comemoracao');
-                    void box.offsetWidth; // Força o reinício da animação no CSS
-                    box.classList.add('animar-comemoracao');
-                }
-                // Toca o som de comemoração
-                const audio = document.getElementById('audio-dia-concluido');
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.log("Áudio bloqueado:", e));
-                }
-            }
+        const dataAtiva = obterDataAtiva();
+        if (!dataAtiva) return;
 
-            // Salva no navegador
-            localStorage.setItem('diaConcluidoStatus', diaConcluidoHoje);
-            localStorage.setItem('dataUltimoDiaConcluido', formatarDataChave(new Date()));
-            renderizarDiaConcluido();
-
-            // Salva na nuvem Firebase se disponível
-            if (!window.db || !dadosCarregadosDaNuvem) return;
-            try {
-                await window.setDoc(window.doc(window.db, "meu_sistema", "dia_concluido"), {
-                    concluido: diaConcluidoHoje,
-                    dataUltimaAtualizacao: formatarDataChave(new Date())
-                });
-            } catch (e) {
-                console.error("Erro ao salvar dia concluído na nuvem: ", e);
-            }
+     let concluido = !(bancoDiaConcluido[dataAtiva] || false);
+     bancoDiaConcluido[dataAtiva] = concluido;
+    
+        const box = document.getElementById('box-dia-concluido');
+    
+    if (concluido) {
+        if (box) {
+            box.classList.remove('animar-comemoracao');
+            void box.offsetWidth; 
+            box.classList.add('animar-comemoracao');
         }
+        const audio = document.getElementById('audio-dia-concluido');
+        if (audio) {
+            audio.currentTime = 0;
+            audio.play().catch(e => console.log("Áudio bloqueado:", e));
+        }
+    }
+
+    localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
+    renderizarDiaConcluido();
+
+    if (!window.db || !dadosCarregadosDaNuvem) return;
+    try {
+        await window.setDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"), {
+            registros: bancoDiaConcluido
+        }, { merge: true });
+    } catch (e) {
+        console.error("Erro ao salvar dia concluído na nuvem: ", e);
+    }
+    }
 
         function migrarDadosAntigos() {
             let agendaAntiga = JSON.parse(localStorage.getItem('minhaAgendaMinimalista'));
@@ -5181,10 +5192,12 @@
         }
 
         function mudarSemanaLateral(delta) {
-            alterarSemanas(delta);
-            renderizarAbasLateral();
-            renderizarTarefasLateral();
-        }
+    alterarSemanas(delta);
+    renderizarAbasLateral();
+    renderizarTarefasLateral();
+    renderizarAgua(); // <--- ADCIONADO
+    renderizarDiaConcluido(); // <--- ADICIONADO
+}
 
         function mudarSemanaQuadro(delta) {
             alterarSemanas(delta);
@@ -5232,19 +5245,20 @@
         }
 
         function mudarAbaLateral(dia) {
-            diaAtivoLateral = dia;
-            renderizarAbasLateral();
-            renderizarTarefasLateral();
-            
-           const divInput = document.getElementById('containerInputTarefa');
-            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
-            if (diaAtivoLateral === 'concluidas') {
-                divInput.style.display = 'none';
-            } else {
-                divInput.style.display = 'flex';
-                document.getElementById('inputTarefa').focus();
-            }
-        }
+    diaAtivoLateral = dia;
+    renderizarAbasLateral();
+    renderizarTarefasLateral();
+    renderizarAgua(); // <--- ADCIONADO
+    renderizarDiaConcluido(); // <--- ADICIONADO
+    
+    const divInput = document.getElementById('containerInputTarefa');
+    if (diaAtivoLateral === 'concluidas') {
+        divInput.style.display = 'none';
+    } else {
+        divInput.style.display = 'flex';
+        document.getElementById('inputTarefa').focus();
+    }
+}
 
         function renderizarTarefasLateral() {
             const lista = document.getElementById('listaTarefas');
@@ -5439,36 +5453,19 @@
                     bancoSemanas = docTarefas.data().semanas || {};
                 }
 
-               // 2. Busca a Água da Nuvem
-                const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua"));
-                if (docAgua.exists()) {
-                    const dataHoje = formatarDataChave(new Date());
-                    const dataSalva = docAgua.data().dataUltimaAgua;
-                    if (dataSalva === dataHoje) {
-                        waterCount = docAgua.data().quantidade || 0;
-                    } else {
-                        waterCount = 0;
-                    }
-                    // SALVA NO NAVEGADOR PARA IMPEDIR QUE O SISTEMA ZERE AO DESENHAR A TELA!
-                    localStorage.setItem('minhaAguaDiaria', waterCount);
-                    localStorage.setItem('dataUltimaAgua', dataHoje);
-                }
+               // 2. Busca o Histórico de Água da Nuvem
+             const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua_historico"));
+            if (docAgua.exists()) {
+            bancoAgua = docAgua.data().registros || {};
+            localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
+            }
 
-                // 3. Busca o status de "Dia Concluído" da Nuvem
-                const docDia = await window.getDoc(window.doc(window.db, "meu_sistema", "dia_concluido"));
-                if (docDia.exists()) {
-                    const dataHoje = formatarDataChave(new Date());
-                    const dataSalva = docDia.data().dataUltimaAtualizacao;
-                    
-                    if (dataSalva === dataHoje) {
-                        diaConcluidoHoje = docDia.data().concluido || false;
-                    } else {
-                        diaConcluidoHoje = false;
-                    }
-                    
-                    localStorage.setItem('diaConcluidoStatus', diaConcluidoHoje);
-                    localStorage.setItem('dataUltimoDiaConcluido', dataHoje);
-                }
+                /// 3. Busca o Histórico de "Dia Concluído" da Nuvem
+            const docDia = await window.getDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"));
+            if (docDia.exists()) {
+            bancoDiaConcluido = docDia.data().registros || {};
+            localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
+            }
                 
                 dadosCarregadosDaNuvem = true;
                 inicializarSistema();
