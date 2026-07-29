@@ -1392,6 +1392,12 @@
             opacity: 0.9 !important;
             animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
         }
+        .marcatexto {
+        background-color: rgba(255, 241, 82, 0.496);
+        /* Opcional: arredondar as bordas para parecer mais com marca-texto */
+         border-radius: 4px;
+        padding: 0 2px;
+        }
 
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
@@ -1457,6 +1463,7 @@
                     <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;" id="btn-sub-psicologiaforense">psicologia forense</a></li>
                     <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial psicológica</a></li>
                     <li><a href="#" onclick="abrirTema('avaliacaopsi'); return false;" id="btn-sub-avaliacaopsi">avaliação psicológica</a></li>
+                    <li><a href="#" onclick="abrirTema('psicofarmacologia'); return false;" id="btn-sub-psicofarmacologia">psicofarmacologia</a></li>
                 </ul>
             </nav>
     </header>
@@ -1515,6 +1522,19 @@
                         <p id="card-texto-avaliacaopsi">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
                             <span class="btn-acessar">ler todas as anotações de avaliação psicológica ➔</span>
+                        </div>
+                    </div>
+                
+                <!-- Resumo Psicofarmacologia -->
+                    <div class="card-resumo" id="card-resumo-psicofarmacologia" onclick="abrirTema('psicofarmacologia')">
+                        <div class="card-resumo-top">
+                            <h3>Psicofarmacologia</h3>
+                            <span class="badge-recente">Último Tópico Adicionado</span>
+                        </div>
+                        <h4 id="card-titulo-psicofarmacologia">carregando última anotação...</h4>
+                        <p id="card-texto-psicofarmacologia">aguarde enquanto o sistema lê o caderno.</p>
+                        <div class="card-resumo-footer">
+                            <span class="btn-acessar">ler todas as anotações de psicofarmacologia ➔</span>
                         </div>
                     </div>
                 </div>
@@ -5079,9 +5099,154 @@
             <li>Feedback ao paciente</li>
             <li>Entrega do relatório por escrito ao requerente</li>
         </ol>
+    <p>Para que o processo seja denominado psicodiagnóstico há necessidade de:</p>
+    <ul class="estudos-lista">
+        <li>Utilização de testes</li>
+        <li>Outras estratégias</li>
+        <li>Avaliação sistemática, científica e orientada para resolução de problemas</li>
+    </ul>
+    <p><strong>Psicodiagnóstico interventivo:</strong> fundamentado no paradigma qualitativo de compreensão da realidade - referencial: psicanálise</p>
+    <ul class="estudos-lista">
+        <li>Efeito terapêutico: possibilita mudança e ajuda = uma vez que os conflitos do paciente vão se resolvendo</li>
+    </ul>
+    </div>
+    <div class="content-block">
+        <p><strong>Relatório x laudo</strong></p>
+        <table class="tabela">
+            <tr class="tabelahead">
+                <th class="linhahead">Tipo</th>
+                <th class="linhahead">Objetivo</th>
+                <th class="linhahead">Foco</th>
+            </tr>
+            <tr class="tabelalinha">
+                <td class="linhadados">Relatório psicológico</td>
+                <td class="linhadados">Descrever o trabalho, sua evolução e propor rumos</td>
+                <td class="linhadados">Atuação profissional desenvolvida</td>
+            </tr>
+            <tr class="tabelalinha">
+                <td class="linhadados">Laudo psicológico</td>
+                <td class="linhadados">Discutir processo de avaliação psicológica e fazer recomendações a partir de resultados</td>
+                <td class="linhadados">Avaliação e decisões sobre o quadro diagnósico</td>
+            </tr>
+        </table>
     </div>
  </section>
-            
+        <!-- SEÇÃO 1: PSICOLOGIA PSICOFARMACOLOGIA (COMPLETA) -->
+            <section id="psicofarmacologia" class="tema-section">
+                <h2>Psicofarmacologia</h2>
+                <h3>UFRN</h3>
+                
+                
+    <h4>Aula 1 - Do sintoma a síndrome na Atenção Primária em Saúde (APS)</h4>
+    <div class="content-block">
+    <p><strong>Funções do diagnóstico na prática clínica</strong></p> 
+    <ul class="estudos-lista">
+        <li><span class="marcatexto">Função explicativa:</span> fornece compreensão teórica sobre o fenômeno</li>
+        <li><span class="marcatexto">Função semiológica:</span> permite a identiicação e organização dos sinais e sintomas</li>
+        <li><span class="marcatexto">Função evolutiva:</span> auxilia na projeção do curso e prognóstico da condição</li>
+        <li><span class="marcatexto">Função administrativo-legal:</span> atende demandas burocráticas e jurídicas</li>
+        <li><span class="marcatexto">Função comunicativa:</span> estabelece linguagem comum entre profissionais</li>
+    </ul>
+    </div>
+    <div class="content-block">
+        <p><strong>Fundamentos históricos e epistemológicos da classificação psiquiátrica</strong></p>
+        <p><strong><span style="color: var(--cor-acento);">Taxonomia:</span></strong> deriva do grego <i>taxón</i> (ordem) e <i>nómos</i> (lei/ciência)</p>
+        <p>Os sistemas classificatórios constituem-se como estruturas hierárquicas de unidades taxonômicas</p>
+        <p>A base fenomenológica sustentou os primeiros sintomas, com distinção crucial entre fenômeno e sintoma</p>
+    </div>
+    <div class="content-block">
+        <p><strong>Marcos históricos relevantes</strong></p>
+        <ul class="estudos-lista">
+        <li>Censo inglês de 1880: categorização restrita a mania, melancolia, monomania e epilepsia</li>
+        <li>Primeira Guerra Mundial: ampliação do envolvimento psiquiátrico com seleção, processamento e tratamento de soldados, deslocando o foco das "instituições para doentes mentais"</li>
+        <li>Projeto diagnóstico EUA-Reino Unido: estudo piloto internacional sobre esquizofrenia</li>
+        </ul>
+    </div>
+    <div class="content-block">
+        <p><strong>Reformulação do DSM</strong></p>
+        <ul class="estudos-lista">
+            <li>1974: criação da nova revisão do DSM, com Robert Spitzer como colaborador</li>
+            <li>Objetivo primário: alinhamento com a Classificação Internacional de Doenças (OMS)</li>
+            <li>Mudança paradigmática: adoção de linguagem descritiva em inglês coloquial, abandonando pressupostos etiológicos</li>
+            <li>Consequência: aumento da sensibilidade diagnóstica, com padrões específicos de sintomas para cada categoria</li>
+        </ul>
+    </div>
+    <div class="content-block">
+        <p><strong>Crítica epistemológica da classificação</strong></p>
+        <p><strong><span style="color: var(--cor-acento);">Diagnóstico como construção histórico-social</span></strong></p>
+        <p>Toda classificação transcende a cientificidade pura ou o instrumentalismo político</p>
+        <p>Constitui-se como síntese desses fatores, exigindo que produtores e usuários reconheçam seus propósitos, finalidades e limites</p>
+        <p><strong><span style="color: var(--cor-acento);">Problemáticas terminológicas</span></strong></p>
+        <p>Disorder/transtorno: termo da língua inglesa adotado nas classificações OMS e APA</p>
+        <p>Trouble x transtorno: distinção semântica importante</p>
+        <p>Doença: termo que pressupõe etiologia específica ou processo fisiopatológico conhecido, frequentemente com tratamento específico</p>
+        <p>Síndrome: agrupamento de sinais e sintomas que coexistem como condição reconhecível, porém com etiologias e mecanismos diversos</p>
+        <p><strong><span style="color: var(--cor-acento);">Modelo de Kleinman (1973)</span></strong></p>
+        <p>Distinção fundamental entre:</p>
+        <ul class="estudos-lista">
+            <li>Disease (doença como entidade biológica)</li>
+            <li>Illness (adoecimento como experiência subjetiva)</li>
+            <li>Sickness (doença como fenômeno social)</li>
+        </ul>
+        <p><strong><span style="color: var(--cor-acento);">Diagnóstico categorial x espectro</span></strong></p>
+        <p>Exemplificado pelo transtorno de espectro autista</p>
+        <p>Contraposição entre categorias rígidas e abordagem dimensional</p>
+    </div>
+    <div class="content-block">
+        <p><strong>Sistemas diagnósticos contemporâneos</strong></p>
+        <p><strong><span style="color: var(--cor-acento);">Classes diagnósticas da CID-10 (capítulo V):</span></strong></p>
+        <ul class="estudos-lista">
+            <li>F0: transtornos mentais orgânicos, incluindo sintomáticos</li>
+            <li>F1: transtornos decorrentes de uso de substâncias</li>
+            <li>F2: esquizofrenia, transtornos esquizotípicos e delirantes</li>
+            <li>F3: transtornos do humor (afetivos)</li>
+            <li>F4: transtornos neuróticos, relacionados ao estresse e somatoformes</li>
+            <li>F5: síndromes associadas a perturbações fisiológicas</li>
+            <li>F6: transtornos de personalidade e comportamento</li>
+            <li>F7: retardo mental</li>
+            <li>F8: transtorno do desenvolvimento psicológico</li>
+            <li>F9: transtornos emocionais/comportamentais com início na infância/adolescência</li>
+        </ul>
+    </div>
+    <div class="content-block">
+        <p><strong>Desafios para a clínica na atenção primária</strong></p>
+        <p><strong><span style="color: var(--cor-acento);">Modelos explicativos (Kleinman, 2006)</span></strong></p>
+        <p>Questionamento fundamental para compreensão da experiência do adoecimento:</p>
+        <ul class="estudos-lista">
+            <li>Como a pessoa denomina seu problema?</li>
+            <li>Qual a causa atribuída></li>
+            <li>Qual o curso e gravidade esperados?</li>
+            <li>O que o problema causa no corpo?</li>
+            <li>Como afeta corpo e mente?</li>
+            <li>Quais os maiores temores sobre a condição?</li>
+            <li>Quais os maiores temores sobre o tratamento?</li>
+        </ul>
+        <p><strong>Ampliação do olhar na APS</strong></p>
+        <ul class="estudos-lista">
+            <li>Necessidade de transcender os diagnósticos psiquiátricos clássicos</li>
+            <li>Valorização das explicações dos usuários sobre seus sofrimentos</li>
+            <li>Estratégias de cuidado centradas na experiência subjetiva</li>
+            <li>Reconhecimento da diversidade de manifestações do sofrimento psíquico na atenção primária</li>
+        </ul>
+    </div>
+    <h4>Aula 2 - Síndromes depressivas</h4>
+    <div class="content-block">
+        <p><strong>Prevalência do sofrimento psíquico na APS</strong></p>
+        <p><span class="marcatexto">Sintomas subclínicos</span> (sem configuração de transtorno): representam 23% da clientela na atenção primária europeia (Garcia-Campayo, 1996, 1999)</p>
+        <ul class="estudos-lista">
+        <li>No Brasil: índices variam entre 30% a 56% da população atendida pelo Programa de Saúde na Família (Ludermir e Melo Filho, 2002; Fortes, 2004; Gonçalves, 2008)</li>
+        </ul>
+        <p><span class="marcatexto">Fatores socioeconômicos: apresentam relação explícita com o aparecimento de sintomatologia em saúde mental (Maragno, 2006; Roberts, 1998; Robins e Regier, 1991)</span></p>
+        <p><span class="marcatexto">Fragilidade estrutural:</span> abordagem dessas queixas ainda não está plenamente integrada às práticas de saúde básicas, sendo frequentemente tratada como "especialidade" (Sivalli et al., 2003)</p>
+        <p><strong>Dados epistemológicos</strong></p>
+        <ul class="estudos-lista">
+            <li>Incidência ao longo da vida: 1 a cada 20 pessoas é acometida por episódio depressivo moderado ou grave</li>
+            <li>Taxa de internação: 1 em cada 50 casos de depressão necessita de hospitalização</li>
+            <li>Mortalidade: entre os deprimidos, 15% cometem suicídio</li>
+            <li>Dados brasileiros: estudo de morbidade em três capitais revelou que 5% da população sofria de depressão grave</li>
+            <li>Caráter recorrente: risco de segundo episódio = 50%; risco de terceiro episódio = 70-80%</li>
+        </ul>
+    </div>
 </main>
 
         <!-- COLUNA DIREITA: AGENDA LATERAL -->
@@ -5243,7 +5408,7 @@
 
         // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
         function atualizarResumosAutomaticamente() {
-            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi'];
+            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi', 'psicofarmacologia'];
             
             materias.forEach(idMateria => {
                 const secao = document.getElementById(idMateria);
