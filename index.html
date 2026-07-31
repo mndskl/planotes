@@ -27,20 +27,20 @@
     <meta name="apple-mobile-web-app-title" content="planotes"> 
     
     <style>
-        /* ESTILOS MINIMALISTAS & TEMA ESCURO COM ACENTOS AMARELOS */
-        :root {
-            color-scheme: dark;           /* Força controles nativos (scroll/inputs) ficarem escuros */
-            --cor-fundo: #121212;         /* Grafite muito escuro para o fundo geral */
-            --cor-card: #1E1E1E;          /* Cinza escuro suave para caixas e cards */
-            --cor-primaria: #2D2814;      /* Amarelo escuro suave para blocos de destaque */
-            --cor-acento: #F5D742;        /* Amarelo Pastel/Brilhante para bordas e títulos */
-            --cor-acento-hover: #E0C22B;
-            --cor-texto: #E0E0E0;         /* Branco suave (não cansa a vista) */
-            --cor-texto-mutado: #9E9E9E;  /* Cinza claro para textos secundários */
-            --cor-borda: #2F2F2F;         /* Linhas divisórias discretas */
-            --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.4);
-            --raio-borda: 10px;
-        }
+        /* ESTILOS INSPIRADOS NO GITHUB DARK HIGH CONTRAST */
+    :root {
+        color-scheme: dark;           
+        --cor-fundo: #0a0c10;         /* Fundo super escuro (quase preto) típico do High Contrast */
+        --cor-card: #010409;          /* Fundo secundário para destacar cards e caixas */
+        --cor-primaria: #1E2D3D; /* Azul escuro e dessaturado */
+        --cor-acento: #79c0ff;        /* Azul claro neon para links, tags e foco */
+        --cor-acento-hover: #2f81f7;  /* Azul intermediário vibrante para interações (hover) */
+        --cor-texto: #f0f6fc;         /* Branco super claro para contraste máximo */
+        --cor-texto-mutado: #8b949e;  /* Cinza claro para textos de apoio (mantendo boa leitura) */
+        --cor-borda: #7a828e;         /* Bordas mais claras e muito mais marcadas (característica do HC) */
+        --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.8); /* Sombra mais densa contra o fundo escuro */
+        --raio-borda: 10px;
+    }
     
 
         .caixa-anotacao {
@@ -230,7 +230,7 @@
 
         .search-bar input:focus {
             border-color: var(--cor-acento);
-            box-shadow: 0 0 0 3px rgba(245, 215, 66, 0.15);
+            box-shadow: 0 0 0 3px rgba(121, 192, 255, 0.15);
         }
 
         /* --- ESTILOS DO PAINEL GERAL (RESUMOS / PÁGINA INICIAL) --- */
@@ -309,7 +309,7 @@
         .badge-recente {
             background-color: var(--cor-primaria);
             color: var(--cor-acento);
-            border: 1px solid rgba(245, 215, 66, 0.3);
+            border: 1px solid rgba(121, 192, 255, 0.3);
             font-size: 0.75rem;
             font-weight: 600;
             padding: 0.2rem 0.6rem;
@@ -403,7 +403,7 @@
             margin: 1rem 0;
             padding: 1rem 1.2rem;
             background-color: var(--cor-primaria);
-            border: 1px solid rgba(245, 215, 66, 0.1);
+            border: 1px solid rgba(121, 192, 255, 0.1);
             border-radius: 8px;
             font-size: 0.95rem;
             color: #E0E0E0;
@@ -474,14 +474,14 @@
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
-            box-shadow: 0 2px 8px rgba(245, 215, 66, 0.15);
+            box-shadow: 0 2px 8px rgba(121, 192, 255, 0.15);
             transition: all 0.2s ease;
             white-space: nowrap;
         }
 
         .placar-skos:hover {
             transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(245, 215, 66, 0.25);
+            box-shadow: 0 4px 12px rgba(121, 192, 255, 0.25);
         }
 
         /* --- QUADRO DE HIDRATAÇÃO (ÁGUA) --- */
@@ -544,7 +544,7 @@
             background: var(--cor-primaria);
             border-color: var(--cor-acento);
             color: var(--cor-acento);
-            box-shadow: 0 0 8px rgba(245, 215, 66, 0.2);
+            box-shadow: 0 0 8px rgba(121, 192, 255, 0.2);
         }
 
         .water-progress-bar {
@@ -839,8 +839,8 @@
         }
 
         .coluna-dia.hoje {
-            border: 1.5px solid var(--cor-acento);
-            background-color: #242218;
+            border: 1.5px solid #79c0ff;
+            background-color: rgba(121, 192, 255, 0.15);
         }
 
         .coluna-dia.passado {
@@ -860,7 +860,7 @@
         }
 
         .coluna-dia.hoje .coluna-titulo {
-            color: var(--cor-acento);
+            color: #79c0ff;
         }
 
         .coluna-input {
@@ -998,7 +998,7 @@
         .btn-rolar-fim:hover {
             color: var(--cor-acento);
             border-color: var(--cor-acento);
-            background-color: rgba(245, 215, 66, 0.05);
+            background-color: rgba(121, 192, 255, 0.05);
         }
 
         /* Container do título para manter o botão alinhado ao lado direito */
@@ -1054,7 +1054,7 @@
         }
 
         .table-responsive-wrapper tr:hover {
-            background-color: rgba(245, 215, 66, 0.03) !important;
+            background-color: rgba(121, 192, 255, 0.03) !important;
         }
 
         /* Ajustes finos exclusivos para telas de celular pequenas */
@@ -1162,7 +1162,7 @@
         color: #121212 !important;
         border-color: var(--cor-acento) !important;
         font-weight: 600 !important;
-        box-shadow: 0 2px 6px rgba(245, 215, 66, 0.2) !important;
+        box-shadow: 0 2px 6px rgba(121, 192, 255, 0.2) !important;
     }
 
     /* --- 4. MANTÉM SUA AGENDA LATERAL PARADA NO TOPO AO ROLAR --- */
@@ -1325,7 +1325,7 @@
         .day-completed-box.concluido {
             background: var(--cor-primaria);
             border-color: var(--cor-acento);
-            box-shadow: 0 0 15px rgba(245, 215, 66, 0.25);
+            box-shadow: 0 0 15px rgba(121, 192, 255, 0.25);
         }
 
         .day-completed-box.concluido .day-completed-title {
@@ -1341,9 +1341,9 @@
 
         /* EFEITO MINIMALISTA DE COMEMORAÇÃO (ONDA DOURADA) */
         @keyframes celebraDiaMinimalista {
-            0% { box-shadow: 0 0 0 0 rgba(245, 215, 66, 0.7); transform: scale(0.98); }
-            50% { box-shadow: 0 0 0 12px rgba(245, 215, 66, 0); transform: scale(1.02); }
-            100% { box-shadow: 0 0 15px rgba(245, 215, 66, 0.25); transform: scale(1); }
+            0% { box-shadow: 0 0 0 0 rgba(121, 192, 255, 0.7); transform: scale(0.98); }
+            50% { box-shadow: 0 0 0 12px rgba(121, 192, 255, 0); transform: scale(1.02); }
+            100% { box-shadow: 0 0 15px rgba(121, 192, 255, 0.25); transform: scale(1); }
         }
 
         .animar-comemoracao {
@@ -1362,24 +1362,24 @@
         /* --- EFEITO SATISFATÓRIO DE CONCLUSÃO (FUNDO AMARELADO SUAVE) --- */
         @keyframes brilhoConclusaoSuave {
             0% {
-                background-color: rgba(245, 215, 66, 0.35) !important;
+                background-color: rgba(121, 192, 255, 0.35) !important;
                 transform: scale(0.98);
             }
             50% {
-                background-color: rgba(245, 215, 66, 0.15) !important;
+                background-color: rgba(121, 192, 255, 0.15) !important;
                 transform: scale(1.01);
             }
             100% {
-                background-color: rgba(245, 215, 66, 0.07) !important;
-                border-color: rgba(245, 215, 66, 0.2) !important;
+                background-color: rgba(121, 192, 255, 0.07) !important;
+                border-color: rgba(121, 192, 255, 0.2) !important;
                 transform: scale(1);
             }
         }
 
         .lista-tarefas li.concluida,
         .coluna-lista li.concluida {
-            background-color: rgba(245, 215, 66, 0.07) !important;
-            border: 1px solid rgba(245, 215, 66, 0.2) !important;
+            background-color: rgba(121, 192, 255, 0.07) !important;
+            border: 1px solid rgba(121, 192, 255, 0.2) !important;
             opacity: 0.9 !important;
             animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
         }
@@ -1387,17 +1387,18 @@
 
         .lista-tarefas li.concluida,
         .coluna-lista li.concluida {
-            background-color: rgba(245, 215, 66, 0.07) !important;
-            border: 1px solid rgba(245, 215, 66, 0.2) !important;
+            background-color: rgba(121, 192, 255, 0.07) !important;
+            border: 1px solid rgba(121, 192, 255, 0.2) !important;
             opacity: 0.9 !important;
             animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
         }
         .marcatexto {
-        background-color: rgba(255, 241, 82, 0.496);
-        /* Opcional: arredondar as bordas para parecer mais com marca-texto */
-         border-radius: 4px;
-        padding: 0 2px;
-        }
+        background-color: rgba(126, 231, 135, 0.25); /* Fundo verde neon suave (GitHub Strings) */
+        color: #7ee787; /* Texto verde neon para contraste extra */
+        border-radius: 4px;
+        padding: 0 4px;
+        font-weight: 600; /* No High Contrast, pesos maiores ajudam na leitura */
+    }
 
     </style>
 <!-- BIBLIOTECAS DO FIREBASE (VERSÃO 12.16.0 - COM FIRESTORE & CACHE OFFLINE) -->
