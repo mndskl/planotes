@@ -93,29 +93,27 @@
             </div>
 
         </div>
-        <!-- MODAL DE CONQUISTAS -->
+        <!-- MODAL DE CONQUISTAS (VERSÃO PRO) -->
         <div class="modal-conquistas-overlay" id="modal-conquistas">
             <div class="modal-conquistas-conteudo">
+
                 <div class="modal-conquistas-header">
-                    <h3>Suas Conquistas</h3>
-                    <!-- O botão abaixo fechará a janela -->
+                    <h3>dias concluídos com sucesso</h3>
                     <button class="modal-fechar-btn" onclick="fecharModalConquistas()">×</button>
                 </div>
 
                 <div class="conquista-card-principal">
                     <span class="conquista-icone-grande">🏅</span>
-                    <div>
-                        <h4>Iniciante</h4>
-                        <p>Continue estudando para desbloquear mais medalhas!</p>
+
+                    <div class="conquista-textos">
+                        <!-- O ID exato que o seu JS usa -->
+                        <h4 id="placar-medalhas">0</h4>
+                        <p>total acumulado</p>
                     </div>
                 </div>
 
-                <div class="conquista-mensagem">
-                    <p>Aqui ficarão registradas todas as suas vitórias.</p>
-                </div>
             </div>
         </div>
-
         <!-- MENU DE SUB-ABAS (EXCLUSIVO DA ABA DE ESTUDOS) -->
         <nav id="nav-modulos" style="display: none; width: 100%;">
             <ul style="justify-content: center; margin-top: 0.8rem; gap: 1.5rem;">
@@ -9329,8 +9327,114 @@
                             <td class="linhadados">Primeira linha; eficácia em TAG; monitorar PA (venlafaxina
                                 dose-dependente)</td>
                         </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Antidepressivos com ação sedativa</td>
+                            <td class="linhadados">Mirtazapina, trazodona</td>
+                            <td class="linhadados">Evidência moderada</td>
+                            <td class="linhadados">Úteis quando há insônia associada; ganho de peso (mirtazapina)</td>
+                        </tr>
+                    </table>
+                    <p><strong>Ansiolíticos não-benzodiazepínicos - buspirona</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Mecanismo: agonista parcial dos receptores 5-HT₁A (serotonina)</li>
+                        <li>Indicação: TAG (em alguns casos) - não é eficaz para pânico ou ansiedade aguda</li>
+                        <li>Início de ação: 2 semanas ou mais para começar a fazer efeito (diferente dos
+                            benzodiazepínicos)</li>
+                        <li>Vantagens: não causa dependência, não causa sedação significativa, não interage com álcool
+                        </li>
+                        <li>Desvantagens: efeito lento; não serve para crises; requer 2-3 tomadas/dia (meia-vida curta)
+                        </li>
+                    </ul>
+                    <p><strong>Benzodiazepínicos (uso limitado)</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Mecanismo: modulação GABAenérgica (potencialização do GABA)</li>
+                        <li>Efeito: melhoram a ansiedade rapidamente - em geral de forma imediata</li>
+                        <li>Exemplos: alprazolam, diazepam, clonazepam, lorazepam</li>
+                        <li>Alertas: risco de dependência e tolerância; não devem ser usados como monoterapia crônica
+                        </li>
+                        <li>Indicação: uso limitado - início do tratamento com ISRS (ponte), crises agudas, ou em
+                            situações de curto prazo</li>
+                        <li>Retirada: sempre gradual - abstinência pode causar ansiedade de rebote, insônia e convulsões
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">Escolha farmacológica - síntese</span></strong>
+                    </p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhadados">Situação</th>
+                            <th class="linhadados">Conduta</th>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">TAG leve a moderado</td>
+                            <td class="linhadados">Psicoterapia como primeira linha; medicação se optativa</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">TAG moderado a grave</td>
+                            <td class="linhadados">ISRS ou IRSN + psicoterapia (tratamento combinado)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">TAG com insônia significativa</td>
+                            <td class="linhadados">Mirtazapina ou trazodona (ação sedativa) ou ISRS com dose matinal +
+                                benzodiazepínico noturno (curto prazo)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">TAG com comorbidade (depressão)</td>
+                            <td class="linhadados">ISRS ou IRSN (tratam ambas)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Preocupação com dependência</td>
+                            <td class="linhadados">Buspirona (embora mais lenta)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Crise aguda</td>
+                            <td class="linhadados">Benzodiazepínicos (uso pontual)</td>
+                        </tr>
                     </table>
                 </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">TAG x ansiedade normal - quadro
+                                síntese</span></strong></p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <td class="linhahead">Aspecto</td>
+                            <td class="linhahead">Ansiedade normal</td>
+                            <td class="linhahead">TAG</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Preocupação</td>
+                            <td class="linhadados">Proporcional ao estímulo</td>
+                            <td class="linhadados">Excessiva, desproporcional</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Foco</td>
+                            <td class="linhadados">Específico e situacional</td>
+                            <td class="linhadados">Generalizado, difuso</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Duração</td>
+                            <td class="linhadados">Curta (dias), limitada ao estressor</td>
+                            <td class="linhadados">Prolongada (≥ 6 meses)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Controle</td>
+                            <td class="linhadados">A pessoa consegue controlar</td>
+                            <td class="linhadados">Difícil controlar, mesmo reconhecendo que é excessiva</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Funcionamento</td>
+                            <td class="linhadados">Mantido</td>
+                            <td class="linhadados">Prejudicial (social, ocupacional)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Sintomas físicos</td>
+                            <td class="linhadados">Leves, transitórios</td>
+                            <td class="linhadados">Intensos, persistentes (tensão muscular, insônia, fadiga)</td>
+                        </tr>
+                    </table>
+                </div>
+
 
         </main>
 
@@ -9349,53 +9453,52 @@
                         <div id="placar-skos-lateral" class="placar-skos" style="color: var(--cor-acento);"
                             title="Pontos conquistados nesta semana visualizada!">✦ 0 skos</div>
 
-
                         <div id="placar-medalhas-lateral">
                             <button class="contador-medalhas" id="btn-medalhas" onclick="abrirModalConquistas()"
                                 style="color: #F5D742;" title="Dias totais concluídos com sucesso!">🏅<span
-                                    id=" num-medalhas">0</span>
+                                    id="num-medalhas">0</span>
                             </button>
-
                         </div>
-
                     </div>
 
-                    <!-- NAVEGADOR DE SEMANAS (LATERAL) -->
-                    <div class="semana-nav">
-                        <button onclick="mudarSemanaLateral(-1)" title="Semana Anterior">&#8592;</button>
-                        <span id="nav-semana-label-lateral">semana atual</span>
-                        <button onclick="mudarSemanaLateral(1)" title="Próxima Semana">&#8594;</button>
-                    </div>
                 </div>
 
-                <div class="abas-semana" id="abas-container"></div>
-
-                <div class="input-tarefa-group" id="containerInputTarefa">
-                    <input type="text" id="inputTarefa" placeholder="nova tarefa..."
-                        onkeypress="if(event.key === 'Enter') adicionarTarefaLateral()">
-                    <button onclick="adicionarTarefaLateral()">+</button>
+                <!-- NAVEGADOR DE SEMANAS (LATERAL) -->
+                <div class="semana-nav">
+                    <button onclick="mudarSemanaLateral(-1)" title="Semana Anterior">&#8592;</button>
+                    <span id="nav-semana-label-lateral">semana atual</span>
+                    <button onclick="mudarSemanaLateral(1)" title="Próxima Semana">&#8594;</button>
                 </div>
+            </div>
 
-                <ul class="lista-tarefas" id="listaTarefas"></ul>
+            <div class="abas-semana" id="abas-container"></div>
 
-                <!-- QUADRO DINÂMICO DE HIDRATAÇÃO -->
-                <div class="water-tracker">
-                    <div class="water-header">
-                        <span class="water-title">💧 hidratação diária</span>
-                        <span class="water-info" id="water-text">0 ml / 2.1 L</span>
-                    </div>
-                    <div class="water-grid" id="water-grid">
-                        <!-- 7 copos de 300ml = 2.100ml (2.1L) generados por JS -->
-                    </div>
-                    <div class="water-progress-bar">
-                        <div class="water-progress-fill" id="water-bar"></div>
-                    </div>
+            <div class="input-tarefa-group" id="containerInputTarefa">
+                <input type="text" id="inputTarefa" placeholder="nova tarefa..."
+                    onkeypress="if(event.key === 'Enter') adicionarTarefaLateral()">
+                <button onclick="adicionarTarefaLateral()">+</button>
+            </div>
+
+            <ul class="lista-tarefas" id="listaTarefas"></ul>
+
+            <!-- QUADRO DINÂMICO DE HIDRATAÇÃO -->
+            <div class="water-tracker">
+                <div class="water-header">
+                    <span class="water-title">💧 hidratação diária</span>
+                    <span class="water-info" id="water-text">0 ml / 2.1 L</span>
                 </div>
-                <!-- QUADRO ÚNICO: DIA CONCLUÍDO -->
-                <div class="day-completed-box" id="box-dia-concluido" onclick="alternarDiaConcluido()">
-                    <span class="day-completed-title" id="text-dia-concluido">✨ encerrar o dia</span>
-                    <div class="day-completed-check" id="check-dia-concluido">✓</div>
+                <div class="water-grid" id="water-grid">
+                    <!-- 7 copos de 300ml = 2.100ml (2.1L) generados por JS -->
                 </div>
+                <div class="water-progress-bar">
+                    <div class="water-progress-fill" id="water-bar"></div>
+                </div>
+            </div>
+            <!-- QUADRO ÚNICO: DIA CONCLUÍDO -->
+            <div class="day-completed-box" id="box-dia-concluido" onclick="alternarDiaConcluido()">
+                <span class="day-completed-title" id="text-dia-concluido">✨ encerrar o dia</span>
+                <div class="day-completed-check" id="check-dia-concluido">✓</div>
+            </div>
 
         </aside>
     </div>
@@ -9915,22 +10018,29 @@
                     }
                 }
                 // --- SISTEMA DE DIA CONCLUÍDO ---
-                // NOVA FUNÇÃO: Conta as medalhas baseadas nos dias concluídos
+                // NOVA FUNÇÃO: Conta as medalhas e atualiza os lugares corretos diretamente
                 function atualizarPlacarMedalhas() {
                     let totalMedalhas = 0;
 
-                    // Vasculha o seu banco de dados atual e conta cada dia que está marcado como "true"
+                    // Vasculha o histórico e conta cada dia concluído
                     for (let data in bancoDiaConcluido) {
                         if (bancoDiaConcluido[data] === true) {
                             totalMedalhas++;
                         }
                     }
 
-                    // Atualiza o texto na tela (precisamos colocar esse ID no seu HTML depois)
-                    const placar = document.getElementById('placar-medalhas');
-                    if (placar) {
-                        placar.innerText = `🏅 ${totalMedalhas}`; // Você pode mudar o emoji se quiser
+                    // 1. Atualiza o número gigante do Modal (usando o ID placar-medalhas)
+                    const placarModal = document.getElementById('placar-medalhas');
+                    if (placarModal) {
+                        placarModal.innerText = totalMedalhas;
                     }
+
+                    // 2. Atualiza TODOS os pequenos contadores da tela (Agenda Lateral e Topo)
+                    // O querySelectorAll garante que, se houver mais de um, todos serão atualizados
+                    const spansMedalhas = document.querySelectorAll('#num-medalhas');
+                    spansMedalhas.forEach(span => {
+                        span.innerText = totalMedalhas;
+                    });
                 }
                 let diaConcluidoHoje = false;
 
@@ -10386,39 +10496,44 @@
                     }
                 }
 
-                // Função que conta os dias concluídos e atualiza os contadores
-                async function atualizarMedalhas() {
-                    const diasConcluidos = document.querySelectorAll('.day-completed-box.concluido').length;
-
-                    // Atualiza o topo
+                // Função que atualiza os elementos visuais na tela
+                function renderizarMedalhasNaTela(totalMedalhas) {
                     const spanMedalhasTopo = document.getElementById('num-medalhas');
                     if (spanMedalhasTopo) {
-                        spanMedalhasTopo.innerText = diasConcluidos;
+                        spanMedalhasTopo.innerText = totalMedalhas;
                     }
 
-                    // Atualiza o quadro lateral
-                    const elementosQuadro = document.querySelectorAll('.agenda-sidebar *, .agenda-header *, header *');
-                    elementosQuadro.forEach(el => {
-                        if (el.children.length === 0 && el.textContent.includes('🏅')) {
-                            el.innerHTML = `🏅 ${diasConcluidos}`;
-                        }
-                    });
 
-                    // Salva na nuvem e local
-                    await salvarMedalhasNuvem(diasConcluidos);
                 }
 
-                // Carrega as medalhas salvas assim que a página abre (buscando do Firebase ou localStorage)
-                async function carregarMedalhas() {
-                    let valorSalvo = localStorage.getItem('planotes_medalhas') || 0;
+                // Função para somar ou subtrair medalha do total perpétuo
+                async function atualizarTotalMedalhas(alteracao) {
+                    let totalMedalhas = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
 
-                    // Tenta buscar do Firebase primeiro para garantir o dado mais atualizado da nuvem
+                    totalMedalhas += alteracao;
+                    if (totalMedalhas < 0) totalMedalhas = 0; // Impede que fique negativo
+
+                    // Atualiza localmente e na tela imediatamente
+                    localStorage.setItem('planotes_medalhas', totalMedalhas);
+                    renderizarMedalhasNaTela(totalMedalhas);
+
+                    // Salva na nuvem
+                    if (typeof salvarMedalhasNuvem === 'function') {
+                        await salvarMedalhasNuvem(totalMedalhas);
+                    }
+                }
+
+                // Carrega as medalhas salvas assim que a página abre
+                async function carregarMedalhas() {
+                    let valorSalvo = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
+
+                    // Busca do Firebase primeiro
                     if (window.db && window.getDoc && window.doc) {
                         try {
                             const docRef = window.doc(window.db, "usuarios", "meu_perfil_planotes");
                             const docSnap = await window.getDoc(docRef);
                             if (docSnap.exists() && docSnap.data().medalhas !== undefined) {
-                                valorSalvo = docSnap.data().medalhas;
+                                valorSalvo = parseInt(docSnap.data().medalhas);
                                 localStorage.setItem('planotes_medalhas', valorSalvo);
                             }
                         } catch (erro) {
@@ -10426,28 +10541,31 @@
                         }
                     }
 
-                    // Aplica nos elementos da tela
-                    const spanMedalhasTopo = document.getElementById('num-medalhas');
-                    if (spanMedalhasTopo) {
-                        spanMedalhasTopo.innerText = valorSalvo;
-                    }
-
-                    const elementosQuadro = document.querySelectorAll('.agenda-sidebar *, .agenda-header *, header *');
-                    elementosQuadro.forEach(el => {
-                        if (el.children.length === 0 && el.textContent.includes('🏅')) {
-                            el.innerHTML = `🏅 ${valorSalvo}`;
-                        }
-                    });
+                    renderizarMedalhasNaTela(valorSalvo);
                 }
 
-                // Carrega ao iniciar a página ou assim que o Firebase conectar
+                // Inicializadores
                 window.addEventListener('DOMContentLoaded', carregarMedalhas);
                 window.addEventListener('firebasePronto', carregarMedalhas);
 
-                // Aciona a atualização ao clicar em um dia concluído
+                // Aciona a adição/remoção ao clicar no dia
                 document.addEventListener('click', (e) => {
-                    if (e.target.closest('.day-completed-box')) {
-                        setTimeout(atualizarMedalhas, 150);
+                    const box = e.target.closest('.day-completed-box');
+                    if (box) {
+                        // Verifica o estado atual ANTES do clique processar
+                        const estavaConcluido = box.classList.contains('concluido');
+
+                        // Aguarda a classe "concluido" ser alterada pelo seu outro script de interface
+                        setTimeout(() => {
+                            const estaConcluido = box.classList.contains('concluido');
+
+                            // Só mexe no contador se o estado realmente mudou
+                            if (!estavaConcluido && estaConcluido) {
+                                atualizarTotalMedalhas(1); // Marcou o dia: ganha 1 medalha
+                            } else if (estavaConcluido && !estaConcluido) {
+                                atualizarTotalMedalhas(-1); // Desmarcou o dia: perde 1 medalha
+                            }
+                        }, 150);
                     }
                 });
 
