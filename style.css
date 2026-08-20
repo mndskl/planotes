@@ -209,12 +209,13 @@
 
     /* ÁREA DE ESTUDOS (BANCO DE DADOS) */
     .search-bar {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
+        margin-top: -1.5rem;
     }
 
     .search-bar input {
         width: 100%;
-        padding: 0.9rem 1.2rem;
+        padding: 0.7rem 1rem;
         border: 1px solid var(--cor-borda);
         border-radius: var(--raio-borda);
         font-size: 0.95rem;
@@ -1128,16 +1129,19 @@
         color: var(--cor-texto-mutado);
         font-size: 0.72rem;
         font-weight: 500;
-        padding: 0.25rem 0.6rem;
+        padding: 0.3rem 0.4rem;
         border-radius: 20px;
         cursor: pointer;
         transition: all 0.2s ease;
         display: inline-flex;
         align-items: center;
-        gap: 0.3rem;
-        margin-left: auto;
+        justify-content: center;
+        gap: 0.1rem;
+        margin-left: -10rem;
         /* Empurra para o canto direito */
         white-space: nowrap;
+        margin-bottom: 0.3rem;
+
     }
 
     .btn-rolar-fim:hover {
@@ -1268,6 +1272,7 @@
             /* Bem fininho */
             border-radius: 8px;
             border: 1px solid var(--cor-borda);
+            margin-bottom: 0.5rem !important;
         }
 
         .main-tab-btn {
@@ -1294,6 +1299,8 @@
             margin: 0 !important;
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
         }
 
         #nav-modulos::-webkit-scrollbar,
@@ -1347,6 +1354,7 @@
             margin-top: 0 !important;
             position: static !important;
             top: auto !important;
+            padding: 1rem !important;
         }
 
         .estudos-area {
