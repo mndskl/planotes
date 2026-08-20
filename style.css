@@ -467,10 +467,11 @@
     .placar-skos {
         background: linear-gradient(135deg, #2D2814, #3a3218);
         border: 1px solid var(--cor-acento);
+        border-color: rgb(92, 193, 255);
         color: var(--cor-acento);
         padding: 0.35rem 0.85rem;
         border-radius: 20px;
-        font-size: 0.85rem;
+        font-size: 1rem;
         font-weight: 700;
         display: inline-flex;
         align-items: center;
@@ -492,6 +493,9 @@
         border-radius: 8px;
         padding: 1rem;
         margin-top: 1.8rem;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .water-header {
@@ -499,6 +503,9 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 0.8rem;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
     }
 
     .water-title {
@@ -508,18 +515,21 @@
         display: flex;
         align-items: center;
         gap: 0.4rem;
+        white-space: nowrap !important;
     }
 
     .water-info {
         font-size: 0.75rem;
         color: var(--cor-acento);
         font-weight: 600;
+        white-space: nowrap !important;
     }
 
     .water-grid {
         display: grid;
         grid-template-columns: repeat(7, 1fr);
         gap: 0.4rem;
+        width: 100% !important;
     }
 
     .water-box {
@@ -554,6 +564,7 @@
         border-radius: 2px;
         margin-top: 0.8rem;
         overflow: hidden;
+        width: 100% !important;
     }
 
     .water-progress-fill {
@@ -566,43 +577,65 @@
     /* AGENDA LATERAL (ESTUDOS) */
     .agenda-sidebar {
         background: var(--cor-card);
-        padding: 1.8rem;
+        padding: 1.2rem;
         border-radius: var(--raio-borda);
         border: 1px solid var(--cor-borda);
         box-shadow: var(--sombra-suave);
         position: sticky;
         top: 6rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        /* Corta qualquer conteúdo que ouse escapar */
     }
 
-    .agenda-header {
-        display: flex;
-        flex-direction: column;
-        gap: 0.8rem;
-        margin-bottom: 1.2rem;
-    }
-
+    /* Cabeçalho flexível com quebra automática de linha */
+    .agenda-header,
     .agenda-header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        gap: 0.5rem;
+        display: flex !important;
+        flex-wrap: wrap !important;
+        /* Permite que os itenschem para a linha de baixo se faltar espaço */
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.8rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
 
+    /* Agrupamento do título e dos selos (100 skos, 1) */
+    .agenda-header-left,
+    .agenda-title-group {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        flex: 1 1 200px !important;
+        /* Ocupa o espaço disponível, mas com base mínima */
+    }
+
+    /* Estilo do Título Principal do Quadro */
     .agenda-header h2 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        line-height: 1.2;
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-texto) !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
     }
 
     /* NAVEGADOR DE SEMANAS */
+    /* O seletor de semana atual agora se adapta e nunca estoura */
     .semana-nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: var(--cor-fundo);
-        border: 1px solid var(--cor-borda);
-        border-radius: 6px;
-        padding: 0.3rem 0.5rem;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: var(--cor-fundo) !important;
+        border: 1px solid var(--cor-borda) !important;
+        border-radius: 6px !important;
+        padding: 0.4rem 0.6rem !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        flex: 0 1 auto !important;
     }
 
     .semana-nav button {
@@ -661,6 +694,7 @@
 
     .input-tarefa-group {
         display: flex;
+        width: 100%;
         gap: 0.5rem;
         margin-bottom: 1.5rem;
     }
@@ -701,6 +735,7 @@
         min-height: 0 !important;
         height: auto !important;
         margin-bottom: 0.5rem;
+        margin-top: -0.5rem;
         padding: 0 !important;
     }
 
@@ -897,17 +932,16 @@
         text-transform: lowercase;
     }
 
-    /* ESTILOS DO QUADRO SEMANAL EM 2 LINHAS */
-    .quadro-header {
-        margin-bottom: 1.5rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        border-bottom: 1px solid var(--cor-borda);
-        padding-bottom: 0.8rem;
-        flex-wrap: wrap;
-        gap: 1rem;
+    /* --- CORREÇÃO DEFINITIVA DO CABEÇALHO DO QUADRO --- */
+    .agenda-header {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+        margin-bottom: 1.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
     }
+
 
     .quadro-header-titulos h2 {
         font-size: 1.3rem;
@@ -1417,6 +1451,13 @@
             /* Ajusta a fonte para os 3 botões superiores caberem perfeitamente no iPhone */
             padding: 0.4rem 0.2rem !important;
         }
+
+        .agenda-sidebar {
+            position: static !important;
+            width: 100% !important;
+            padding: 1rem !important;
+        }
+
     }
 
     /* --- BOTÃO DIA CONCLUÍDO & EFEITO DE COMEMORAÇÃO --- */
@@ -1434,11 +1475,9 @@
         position: relative;
         overflow: hidden;
         user-select: none;
-    }
-
-    .day-completed-box:hover {
-        border-color: var(--cor-acento);
-        transform: translateY(-2px);
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 
     .day-completed-title {
@@ -1449,6 +1488,10 @@
         align-items: center;
         gap: 0.5rem;
         transition: color 0.3s;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .day-completed-check {
@@ -1463,6 +1506,8 @@
         color: transparent;
         font-size: 0.8rem;
         font-weight: bold;
+        flex-shrink: 0;
+        margin-left: 0.5rem;
     }
 
     /* ESTADO ATIVO (QUANDO O DIA ESTÁ CONCLUÍDO) */
@@ -1560,4 +1605,294 @@
         padding: 0 4px;
         font-weight: 600;
         /* No High Contrast, pesos maiores ajudam na leitura */
+    }
+
+    /* --- ABA INDIVIDUAL DE MEDALHAS --- */
+    .contador-medalhas {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: linear-gradient(135deg, #1d1a0d, #3a3218);
+        /* Fundo escuro do HC */
+        border: 1px solid #ffeb7b !important;
+        padding: 0.1rem 0.3rem !important;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #FFD700 !important;
+        box-shadow: 0 2px 8px rgba(121, 192, 255, 0.15);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        outline: none;
+    }
+
+    .contador-medalhas:hover {
+        border-color: #FFD700;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.3) !important;
+        transform: translateY(-2px);
+    }
+
+    /* Animação de pulso para quando o usuário ganhar a medalha */
+    @keyframes pulsoMedalha {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+            color: #FFD700;
+            border-color: #FFD700;
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .animar-medalha {
+        animation: pulsoMedalha 0.5s ease-out;
+    }
+
+    /* --- CORREÇÃO BLINDADA: Trava total de largura --- */
+    .agenda-header {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    /* Linha superior contendo Título e Contadores */
+    .agenda-header-top,
+    .agenda-header>div:first-child {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        gap: 0.3rem !important;
+    }
+
+    /* Título principal */
+    .agenda-header h2 {
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-texto) !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* Bloco dos contadores no canto direito */
+    .agenda-header-top-actions,
+    .agenda-header-top>div:last-child {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0.25rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Redução drástica para garantir encaixe nos badges */
+    .placar-skos {
+        padding: 0.1rem 0.3rem !important;
+        font-size: 0.70rem !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+    }
+
+    .contador-medalhas {
+        padding: 0.1rem 0.3rem !important;
+        font-size: 0.70rem !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+        border-color: #FFD700;
+    }
+
+    /* BARRA DE SEMANA TRAVADA DENTRO DO CARD */
+    .semana-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: var(--cor-fundo) !important;
+        border: 1px solid var(--cor-borda) !important;
+        border-radius: 6px !important;
+        padding: 0.25rem 0.5rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        clear: both !important;
+    }
+
+    .semana-nav button {
+        background: none !important;
+        border: none !important;
+        color: var(--cor-texto-mutado) !important;
+        cursor: pointer !important;
+        font-size: 0.8rem !important;
+        padding: 0 0.2rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .semana-nav span {
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-acento) !important;
+        white-space: nowrap !important;
+    }
+
+    /* --- ESTILOS DO MODAL DE CONQUISTAS --- */
+    .modal-conquistas-overlay {
+        display: none;
+        /* Escondido por padrão */
+        position: fixed;
+        /* Fixa o modal na tela, ignorando a rolagem */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        /* Fundo escuro semitransparente */
+        z-index: 99999 !important;
+        /* Garante que ficará na frente de tudo */
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Fundo e texto do modal principal */
+    .modal-conquistas-conteudo {
+        background-color: #1a1b1e;
+        /* Cor escura que combina com o seu app */
+        color: #ffffff;
+        /* Texto em branco para dar contraste */
+        border: 1px solid #2d2d2d;
+        /* Bordinha sutil */
+        border-radius: 12px;
+        padding: 24px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        /* Sombra para destacar o modal */
+    }
+
+    @keyframes modalEntrada {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Título e botão de fechar */
+    .modal-conquistas-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .modal-conquistas-header h3 {
+        color: #ffffff;
+        margin: 0;
+    }
+
+    .modal-fechar-btn {
+        background: none;
+        border: none;
+        color: #888;
+        font-size: 24px;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .modal-fechar-btn:hover {
+        color: #ffffff;
+    }
+
+    .conquista-card-principal {
+        background-color: #25262b;
+        /* Um tom um pouco mais claro que o fundo do modal */
+        border: 1px solid #373a40;
+        border-radius: 8px;
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .conquista-icone-grande {
+        font-size: 2.5rem !important;
+    }
+
+    .conquista-card-principal h4 {
+        color: #64b5f6;
+        /* Um azul claro para destacar o nome da medalha */
+        margin: 0 0 4px 0;
+        font-size: 18px;
+    }
+
+    .conquista-card-principal p {
+        color: #a6a7ab;
+        /* Cinza claro para a descrição */
+        margin: 0;
+        font-size: 14px;
+    }
+
+    /* Mensagem de rodapé */
+    .conquista-mensagem p {
+        color: #707278;
+        font-size: 14px;
+        text-align: center;
+        margin: 0;
+    }
+
+    /* --- AJUSTE DE ESPAÇAMENTO DA LINHA (CONCLUÍDAS E INPUT) --- */
+    .agenda-sidebar hr {
+        margin-top: 18px !important;
+        /* Espaço ACIMA da linha (afasta do texto "concluídas") */
+        margin-bottom: 35px !important;
+        /* Espaço ABAIXO da linha (afasta do input "nova tarefa") */
+        border: none !important;
+        border-top: 1px solid var(--cor-borda) !important;
+        width: 100% !important;
+    }
+
+    .input-tarefa-group {
+        margin-top: 18px !important;
+    }
+
+    /* --- DEIXAR MEDALHAS E SKOS COM O MESMO TAMANHO NA AGENDA LATERAL --- */
+    .agenda-sidebar .placar-skos,
+    .agenda-sidebar .contador-medalhas {
+        padding: 0.5rem 0.5rem !important;
+        font-size: 0.70rem !important;
+        border-radius: 20px !important;
+        /* Deixa ambos com o formato de pílula arredondada */
+        height: 25px !important;
+        width: auto !important;
+        /* Força a exata mesma altura para os dois */
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+        margin: -1px !important;
+    }
+
+    /* Garante que o ícone da medalha não empurre o layout do botão */
+    .agenda-sidebar .contador-medalhas span {
+        margin-left: 4px !important;
     }
