@@ -1,0 +1,1924 @@
+    /* ESTILOS INSPIRADOS NO GITHUB DARK HIGH CONTRAST */
+    :root {
+        color-scheme: dark;
+        --cor-fundo: #0a0c10;
+        /* Fundo super escuro (quase preto) típico do High Contrast */
+        --cor-card: #010409;
+        /* Fundo secundário para destacar cards e caixas */
+        --cor-primaria: #1E2D3D;
+        /* Azul escuro e dessaturado */
+        --cor-acento: #79c0ff;
+        /* Azul claro neon para links, tags e foco */
+        --cor-acento-hover: #2f81f7;
+        /* Azul intermediário vibrante para interações (hover) */
+        --cor-texto: #f0f6fc;
+        /* Branco super claro para contraste máximo */
+        --cor-texto-mutado: #8b949e;
+        /* Cinza claro para textos de apoio (mantendo boa leitura) */
+        --cor-borda: #7a828e;
+        /* Bordas mais claras e muito mais marcadas (característica do HC) */
+        --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.8);
+        /* Sombra mais densa contra o fundo escuro */
+        --raio-borda: 10px;
+    }
+
+
+    .caixa-anotacao {
+        background-color: #000000;
+        /* Cor lilás */
+        border: 1px solid rgb(255, 255, 255);
+        /* Borda preta */
+        padding: 15px;
+        /* Espaçamento interno */
+        border-radius: 0px;
+        /* Cantos arredondados */
+        font-size: 16px;
+        /* Tamanho do texto */
+        margin: 20px 0;
+        /* Espaço externo */
+        text-align: center;
+        /* Centraliza o texto horizontalmente */
+        display: flex;
+        /* Habilita o modo flexbox */
+        justify-content: center;
+        /* Garante o alinhamento horizontal */
+        align-items: center;
+        /* Centraliza o texto verticalmente, se a caixa tiver altura definida */
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        scrollbar-width: thin;
+        /* Firefox: barra fina */
+        scrollbar-color: #3F3F3F transparent;
+        /* Firefox: cor da barra e fundo */
+    }
+
+    /* ESTILIZAÇÃO PERSONALIZADA DA BARRA DE ROLAGEM */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 8px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #3F3F3F;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: var(--cor-acento);
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto);
+        line-height: 1.6;
+        padding-bottom: 3rem;
+    }
+
+    /* CABEÇALHO CLEAN COM ABAS PRINCIPAIS */
+    header {
+        background-color: var(--cor-card);
+        border-bottom: 1px solid var(--cor-borda);
+        padding: 1.2rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .header-content {
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    header h1 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        letter-spacing: -0.5px;
+        color: var(--cor-texto);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    header h1::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-color: var(--cor-acento);
+        border-radius: 50%;
+    }
+
+    /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
+    /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
+    .main-tabs {
+        display: flex;
+        gap: 0.3rem;
+        background: var(--cor-fundo);
+        padding: 0.2rem;
+        /* Bem fininho */
+        border-radius: 8px;
+        border: 1px solid var(--cor-borda);
+    }
+
+    .main-tab-btn {
+        background: none;
+        border: none;
+        padding: 0.35rem 0.85rem;
+        /* Reduz o espaço interno, deixando o botão bem compacto */
+        font-size: 0.78rem;
+        /* Diminui levemente a letra para combinar com o topo */
+        font-weight: 500;
+        color: var(--cor-texto-mutado);
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s;
+    }
+
+    .main-tab-btn:hover {
+        color: var(--cor-texto);
+    }
+
+    .main-tab-btn.ativo {
+        background-color: var(--cor-acento);
+        color: #121212;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.2rem;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        color: var(--cor-texto-mutado);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.2s;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
+    }
+
+    nav a:hover {
+        color: var(--cor-acento);
+        background: var(--cor-fundo);
+    }
+
+    nav a.sub-nav-active {
+        color: #121212;
+        background: var(--cor-acento);
+        font-weight: 600;
+    }
+
+    /* LAYOUT GERAL E CONTAINERS */
+    .container-estudos {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 2.5rem;
+        max-width: 1300px;
+        margin: 2.5rem auto;
+        padding: 0 1.5rem;
+        align-items: start;
+    }
+
+    .container-quadro {
+        max-width: 1300px;
+        margin: 2rem auto;
+        padding: 0 1.5rem;
+        display: none;
+    }
+
+    /* ÁREA DE ESTUDOS (BANCO DE DADOS) */
+    .search-bar {
+        margin-bottom: 1rem;
+        margin-top: -1.5rem;
+    }
+
+    .search-bar input {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda);
+        font-size: 0.95rem;
+        background-color: var(--cor-card);
+        color: var(--cor-texto);
+        box-shadow: var(--sombra-suave);
+        transition: border-color 0.2s, box-shadow 0.2s;
+        outline: none;
+    }
+
+    .search-bar input:focus {
+        border-color: var(--cor-acento);
+        box-shadow: 0 0 0 3px rgba(121, 192, 255, 0.15);
+    }
+
+    /* --- ESTILOS DO PAINEL GERAL (RESUMOS / PÁGINA INICIAL) --- */
+    .painel-header {
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid var(--cor-borda);
+        padding-bottom: 0.8rem;
+    }
+
+    .painel-header h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+    }
+
+    .painel-header p {
+        font-size: 0.85rem;
+        color: var(--cor-texto-mutado);
+    }
+
+    .grid-resumos {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .card-resumo {
+        background: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda);
+        padding: 1.8rem;
+        box-shadow: var(--sombra-suave);
+        transition: all 0.25s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-resumo:hover {
+        border-color: var(--cor-acento);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .card-resumo::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background-color: var(--cor-acento);
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+
+    .card-resumo:hover::before {
+        opacity: 1;
+    }
+
+    .card-resumo-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 0.8rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .card-resumo-top h3 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+    }
+
+    .badge-recente {
+        background-color: var(--cor-primaria);
+        color: var(--cor-acento);
+        border: 1px solid rgba(121, 192, 255, 0.3);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .card-resumo h4 {
+        font-size: 0.9rem;
+        color: var(--cor-acento);
+        margin-bottom: 0.8rem;
+        font-weight: 500;
+    }
+
+    .card-resumo p {
+        font-size: 0.9rem;
+        color: var(--cor-texto-mutado);
+        line-height: 1.6;
+        margin-bottom: 1.2rem;
+    }
+
+    .card-resumo-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        border-top: 1px solid var(--cor-borda);
+        padding-top: 1rem;
+    }
+
+    .btn-acessar {
+        background: none;
+        border: none;
+        color: var(--cor-acento);
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: transform 0.2s;
+    }
+
+    .card-resumo:hover .btn-acessar {
+        transform: translateX(4px);
+    }
+
+    /* --- SEÇÕES DE ESTUDOS COMPLETOS --- */
+    .tema-section {
+        background: var(--cor-card);
+        padding: 2rem;
+        border-radius: var(--raio-borda);
+        border: 1px solid var(--cor-borda);
+        margin-bottom: 1.5rem;
+        box-shadow: var(--sombra-suave);
+        display: none;
+    }
+
+    .tema-section h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        color: var(--cor-texto);
+    }
+
+    .tema-section h3 {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--cor-acento);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 1.2rem;
+    }
+
+    .tema-section h4 {
+        font-size: 0.9rem;
+        color: var(--cor-texto-mutado);
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+
+    .tema-section h5 {
+        font-size: 0.9rem;
+        color: var(--cor-texto);
+        margin-bottom: 0.4rem;
+        font-weight: 600;
+    }
+
+    .content-block {
+        margin: 1rem 0;
+        padding: 1rem 1.2rem;
+        background-color: var(--cor-primaria);
+        border: 1px solid rgba(121, 192, 255, 0.1);
+        border-radius: 8px;
+        font-size: 0.95rem;
+        color: #E0E0E0;
+    }
+
+    .sub-block {
+        margin-top: 0.8rem;
+        padding-left: 0.8rem;
+        border-left: 2px solid var(--cor-acento);
+    }
+
+    .comparativo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    ul.estudos-lista {
+        margin-left: 1.2rem;
+        margin-top: 0.5rem;
+    }
+
+    ul.estudos-lista li {
+        margin-bottom: 0.3rem;
+    }
+
+    ol.estudos-lista {
+        margin-left: 1.2rem;
+        margin-top: 0.5rem;
+    }
+
+    ol.estudos-lista li {
+        margin-bottom: 0.3rem;
+    }
+
+    table.tabela {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+    }
+
+    tr.tabelahead {
+        background: #a7a01c;
+        color: #000000;
+    }
+
+    th.linhahead {
+        padding: 0.6rem 1rem;
+        border: 1px solid #cbd5e0;
+        text-align: left;
+    }
+
+    tr.tabeladados {
+        background: #000000;
+
+    }
+
+    td.linhadados {
+        padding: 0.6rem 1rem;
+        border: 1px solid #cbd5e0;
+    }
+
+    p {
+        margin-top: 0.6rem;
+    }
+
+    /* --- SISTEMA DE PONTOS (SKOS) --- */
+    .placar-skos {
+        background: linear-gradient(135deg, #2D2814, #3a3218);
+        border: 1px solid var(--cor-acento);
+        border-color: rgb(92, 193, 255);
+        color: var(--cor-acento);
+        padding: 0.35rem 0.85rem;
+        border-radius: 20px;
+        font-size: 1rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        box-shadow: 0 2px 8px rgba(121, 192, 255, 0.15);
+        transition: all 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .placar-skos:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 12px rgba(121, 192, 255, 0.25);
+    }
+
+    /* --- QUADRO DE HIDRATAÇÃO (ÁGUA) --- */
+    .water-tracker {
+        background: var(--cor-fundo);
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-top: 1.8rem;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .water-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        flex-wrap: wrap !important;
+        gap: 0.5rem !important;
+        width: 100% !important;
+    }
+
+    .water-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        white-space: nowrap !important;
+    }
+
+    .water-info {
+        font-size: 0.75rem;
+        color: var(--cor-acento);
+        font-weight: 600;
+        white-space: nowrap !important;
+    }
+
+    .water-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 0.4rem;
+        width: 100% !important;
+    }
+
+    .water-box {
+        aspect-ratio: 1;
+        background: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        color: transparent;
+    }
+
+    .water-box:hover {
+        border-color: var(--cor-acento);
+        transform: translateY(-2px);
+    }
+
+    .water-box.active {
+        background: var(--cor-primaria);
+        border-color: var(--cor-acento);
+        color: var(--cor-acento);
+        box-shadow: 0 0 8px rgba(121, 192, 255, 0.2);
+    }
+
+    .water-progress-bar {
+        height: 4px;
+        background: var(--cor-card);
+        border-radius: 2px;
+        margin-top: 0.8rem;
+        overflow: hidden;
+        width: 100% !important;
+    }
+
+    .water-progress-fill {
+        height: 100%;
+        background: var(--cor-acento);
+        width: 0%;
+        transition: width 0.3s ease;
+    }
+
+    /* AGENDA LATERAL (ESTUDOS) */
+    .agenda-sidebar {
+        background: var(--cor-card);
+        padding: 1.2rem;
+        border-radius: var(--raio-borda);
+        border: 1px solid var(--cor-borda);
+        box-shadow: var(--sombra-suave);
+        position: sticky;
+        top: 6rem;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+        /* Corta qualquer conteúdo que ouse escapar */
+    }
+
+    /* Cabeçalho flexível com quebra automática de linha */
+    .agenda-header,
+    .agenda-header-top {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        /* Permite que os itenschem para a linha de baixo se faltar espaço */
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 0.8rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Agrupamento do título e dos selos (100 skos, 1) */
+    .agenda-header-left,
+    .agenda-title-group {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
+        flex: 1 1 200px !important;
+        /* Ocupa o espaço disponível, mas com base mínima */
+    }
+
+    /* Estilo do Título Principal do Quadro */
+    .agenda-header h2 {
+        font-size: 1.2rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-texto) !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+    }
+
+    /* NAVEGADOR DE SEMANAS */
+    /* O seletor de semana atual agora se adapta e nunca estoura */
+    .semana-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: var(--cor-fundo) !important;
+        border: 1px solid var(--cor-borda) !important;
+        border-radius: 6px !important;
+        padding: 0.4rem 0.6rem !important;
+        box-sizing: border-box !important;
+        max-width: 100% !important;
+        flex: 0 1 auto !important;
+    }
+
+    .semana-nav button {
+        background: none;
+        border: none;
+        color: var(--cor-texto-mutado);
+        cursor: pointer;
+        font-size: 1.1rem;
+        padding: 0 0.5rem;
+        transition: color 0.2s;
+    }
+
+    .semana-nav button:hover {
+        color: var(--cor-acento);
+    }
+
+    .semana-nav span {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--cor-acento);
+    }
+
+    /* BARRA DE ABAS DA AGENDA */
+    .abas-semana {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 1.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid var(--cor-borda);
+    }
+
+    .aba-btn {
+        background: none;
+        border: none;
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--cor-texto-mutado);
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s;
+        white-space: nowrap;
+    }
+
+    .aba-btn:hover {
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto);
+    }
+
+    .aba-btn.ativa {
+        background-color: var(--cor-acento);
+        color: #121212;
+        font-weight: 600;
+    }
+
+    .input-tarefa-group {
+        display: flex;
+        width: 100%;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .input-tarefa-group input {
+        flex: 1;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        font-size: 0.85rem;
+        outline: none;
+        background: var(--cor-fundo);
+        color: var(--cor-texto);
+    }
+
+    .input-tarefa-group input:focus {
+        border-color: var(--cor-acento);
+        background: var(--cor-card);
+    }
+
+    .input-tarefa-group button {
+        background-color: var(--cor-acento);
+        color: #121212;
+        border: none;
+        padding: 0 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+    }
+
+    .input-tarefa-group button:hover {
+        background-color: var(--cor-acento-hover);
+    }
+
+    .lista-tarefas {
+        list-style: none;
+        min-height: 0 !important;
+        height: auto !important;
+        margin-bottom: 0.5rem;
+        margin-top: -0.5rem;
+        padding: 0 !important;
+    }
+
+    .lista-tarefas li {
+        display: flex;
+        align-items: flex-start;
+        /* Força início no topo */
+        justify-content: flex-start;
+        /* Força início na esquerda */
+        font-size: 0.9rem;
+        padding: 0.7rem 0.5rem;
+        border-bottom: 1px solid var(--cor-borda);
+        transition: all 0.4s ease;
+        border-radius: 6px;
+        width: 100%;
+        /* Garante que a linha ocupe toda a largura */
+    }
+
+    .lista-tarefas li:hover {
+        background-color: var(--cor-fundo);
+    }
+
+    .lista-tarefas li span {
+        cursor: pointer;
+        flex-grow: 1;
+        /* Faz o texto consumir todo o espaço disponível à esquerda */
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+        text-align: left;
+        word-break: break-word;
+        margin-right: 10px;
+        /* Garante distância do botão */
+    }
+
+    .lista-tarefas li span::before {
+        content: "";
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        border: 1px solid #666666;
+        border-radius: 4px;
+        flex-shrink: 0;
+        margin-top: 3px;
+    }
+
+    .lista-tarefas li button {
+        background: none;
+        border: none;
+        color: #666666;
+        cursor: pointer;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        /* Impede que o botão encolha */
+        padding: 0;
+        margin-top: 2px;
+        align-self: flex-start;
+    }
+
+    /* --- OPÇÃO: CARDS DE FÁRMACOS (NÃO AFETA AS TABELAS) --- */
+    .lista-farmacos {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-top: 2rem;
+        /* Espaço para separar da sua tabela original */
+        margin-bottom: 2rem;
+    }
+
+    .card-farmaco {
+        background-color: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda);
+        padding: 1.2rem;
+        box-shadow: var(--sombra-suave);
+        transition: all 0.2s ease;
+    }
+
+    .card-farmaco:hover {
+        border-color: var(--cor-acento);
+        transform: translateY(-2px);
+    }
+
+    .farmaco-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(121, 192, 255, 0.15);
+        padding-bottom: 0.8rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .farmaco-nome {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--cor-acento);
+    }
+
+    .farmaco-dose {
+        background-color: rgba(121, 192, 255, 0.1);
+        color: var(--cor-acento);
+        border: 1px solid var(--cor-acento);
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: bold;
+    }
+
+    .farmaco-info {
+        margin-bottom: 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: var(--cor-texto-mutado);
+        margin-right: 0.4rem;
+    }
+
+    .info-valor {
+        color: var(--cor-texto);
+    }
+
+    .farmaco-observacao p {
+        margin-top: 0.3rem;
+        font-size: 0.9rem;
+        color: var(--cor-texto);
+        line-height: 1.5;
+        background-color: var(--cor-fundo);
+        padding: 0.8rem;
+        border-radius: 6px;
+        border-left: 3px solid var(--cor-borda);
+    }
+
+
+    /* Classes auxiliares (conclusão) */
+    .lista-tarefas li.concluindo {
+        opacity: 0;
+        transform: translateX(20px);
+        pointer-events: none;
+    }
+
+    .lista-tarefas li.concluida {
+        background: transparent;
+        border-color: transparent;
+        opacity: 0.7;
+    }
+
+    .lista-tarefas li.concluida span {
+        text-decoration: line-through;
+        color: #666666;
+    }
+
+    .lista-tarefas li.concluida span::before {
+        background-color: var(--cor-acento);
+        border-color: var(--cor-acento);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23121212' width='10px' height='10px'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .lista-tarefas li button:hover {
+        color: #FF6B6B;
+    }
+
+    .agenda-vazia {
+        text-align: center;
+        color: var(--cor-texto-mutado);
+        font-size: 0.85rem;
+        margin: 0.8rem 0;
+        /* Espaço pequeno e equilibrado em cima e embaixo */
+        font-style: italic;
+    }
+
+    .tag-dia {
+        font-size: 0.68rem;
+        /* Fonte levemente menor e mais elegante */
+        background: #242424;
+        /* Fundo escuro suave */
+        padding: 0.15rem 0.45rem;
+        border-radius: 4px;
+        margin-right: 0.5rem;
+        color: #CCCCCC;
+        font-weight: 600;
+        display: inline-flex;
+        /* Força o alinhamento em bloco horizontal */
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap !important;
+        /* O SEGREDO: impede absolutamente que as letras separem ou quebrem linha */
+        flex-shrink: 0;
+        /* Impede que o texto longo da tarefa esmague a caixinha do dia */
+        letter-spacing: 0.5px;
+        text-transform: lowercase;
+    }
+
+    /* --- CORREÇÃO DEFINITIVA DO CABEÇALHO DO QUADRO --- */
+    .agenda-header {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+        margin-bottom: 1.5rem !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+
+    .quadro-header-titulos h2 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+    }
+
+    .quadro-header-titulos span {
+        font-size: 0.85rem;
+        color: var(--cor-texto-mutado);
+    }
+
+    .quadro-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 1.2rem;
+    }
+
+    .coluna-dia {
+        background: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: var(--raio-borda);
+        padding: 0.9rem;
+        box-shadow: var(--sombra-suave);
+        display: flex;
+        flex-direction: column;
+        grid-column: span 3;
+    }
+
+    .coluna-dia:nth-child(5),
+    .coluna-dia:nth-child(6),
+    .coluna-dia:nth-child(7) {
+        grid-column: span 4;
+    }
+
+    .coluna-dia.hoje {
+        border: 1.5px solid #79c0ff;
+        background-color: rgba(121, 192, 255, 0.15);
+    }
+
+    .coluna-dia.passado {
+        opacity: 0.65;
+    }
+
+    .coluna-titulo {
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding-bottom: 0.6rem;
+        margin-bottom: 0.6rem;
+        border-bottom: 1px solid var(--cor-borda);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--cor-texto);
+    }
+
+    .coluna-dia.hoje .coluna-titulo {
+        color: #79c0ff;
+    }
+
+    .coluna-input {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .coluna-input input {
+        flex: 1;
+        padding: 0.4rem 0.6rem;
+        border: 1px solid var(--cor-borda);
+        border-radius: 6px;
+        font-size: 0.8rem;
+        outline: none;
+        background: var(--cor-fundo);
+        color: var(--cor-texto);
+    }
+
+    .coluna-input input:focus {
+        border-color: var(--cor-acento);
+        background: var(--cor-card);
+    }
+
+    .coluna-input button {
+        background: var(--cor-acento);
+        border: none;
+        border-radius: 6px;
+        padding: 0 0.6rem;
+        font-weight: bold;
+        cursor: pointer;
+        color: #121212;
+        font-size: 0.9rem;
+    }
+
+    .coluna-input button:hover {
+        background: var(--cor-acento-hover);
+    }
+
+    .coluna-lista {
+        list-style: none;
+        flex: 1;
+        max-height: 220px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+
+    .coluna-lista li {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.5rem;
+        background: var(--cor-fundo);
+        border: 1px solid var(--cor-borda);
+        border-radius: 6px;
+        margin-bottom: 0.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: all 0.4s ease;
+    }
+
+    .coluna-lista li.concluindo {
+        opacity: 0;
+        transform: translateX(20px);
+        pointer-events: none;
+    }
+
+    .coluna-lista li.concluida {
+        background: transparent;
+        border-color: transparent;
+        opacity: 0.7;
+    }
+
+    .coluna-lista li span {
+        cursor: pointer;
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        line-height: 1.3;
+    }
+
+    .coluna-lista li span::before {
+        content: "";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1px solid #666666;
+        border-radius: 3px;
+        flex-shrink: 0;
+    }
+
+    .coluna-lista li.concluida span {
+        text-decoration: line-through;
+        color: #666666;
+    }
+
+    .coluna-lista li.concluida span::before {
+        background-color: var(--cor-acento);
+        border-color: var(--cor-acento);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23121212' width='8px' height='8px'%3E%3Cpath d='M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z'/%3E%3C/svg%3E");
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .coluna-lista li button {
+        background: none;
+        border: none;
+        color: #666666;
+        cursor: pointer;
+        font-size: 0.8rem;
+        padding: 0.1rem 0.3rem;
+    }
+
+    .coluna-lista li button:hover {
+        color: #FF6B6B;
+    }
+
+    /* Botão discreto para rolar até a última anotação */
+    .btn-rolar-fim {
+        background: none;
+        border: 1px solid var(--cor-borda);
+        color: var(--cor-texto-mutado);
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 0.3rem 0.4rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.1rem;
+        margin-left: -10rem;
+        /* Empurra para o canto direito */
+        white-space: nowrap;
+        margin-bottom: 0.3rem;
+
+    }
+
+    .btn-rolar-fim:hover {
+        color: var(--cor-acento);
+        border-color: var(--cor-acento);
+        background-color: rgba(121, 192, 255, 0.05);
+    }
+
+    /* Container do título para manter o botão alinhado ao lado direito */
+    .header-tema-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.3rem;
+    }
+
+    /* --- CORREÇÃO DEFINITIVA PARA TABELAS NO CELULAR (SEM VAZAMENTO) --- */
+    .table-responsive-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        /* Ativa o deslize suave e nativo no iPhone */
+        margin: 1.2rem 0 !important;
+        border-radius: 8px !important;
+        border: 1px solid var(--cor-borda) !important;
+        background: var(--cor-card) !important;
+        box-shadow: var(--sombra-suave) !important;
+    }
+
+    .table-responsive-wrapper table {
+        width: 100% !important;
+        min-width: 500px !important;
+        /* Garante largura mínima para as colunas não ficarem esmagadas */
+        border-collapse: collapse !important;
+        margin: 0 !important;
+        font-size: 0.9rem !important;
+    }
+
+    .table-responsive-wrapper th,
+    .table-responsive-wrapper td {
+        padding: 0.75rem 0.85rem !important;
+        text-align: left !important;
+        border: 1px solid var(--cor-borda) !important;
+        line-height: 1.4 !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Padroniza automaticamente o visual de todas as tabelas com o seu tema dark/amarelo */
+    .table-responsive-wrapper th {
+        background-color: var(--cor-primaria) !important;
+        color: var(--cor-acento) !important;
+        font-weight: 600 !important;
+        white-space: nowrap !important;
+        /* Evita que os títulos dos cabeçalhos quebrem feio */
+    }
+
+    .table-responsive-wrapper tr {
+        background-color: var(--cor-fundo) !important;
+        transition: background-color 0.2s;
+    }
+
+    .table-responsive-wrapper tr:hover {
+        background-color: rgba(121, 192, 255, 0.03) !important;
+    }
+
+    /* Ajustes finos exclusivos para telas de celular pequenas */
+    @media (max-width: 600px) {
+        .table-responsive-wrapper table {
+            min-width: 460px !important;
+            /* Ativa a rolagem lateral na medida certa para o iPhone */
+            font-size: 0.82rem !important;
+            /* Letra ligeiramente mais delicada no celular */
+        }
+
+        .table-responsive-wrapper th,
+        .table-responsive-wrapper td {
+            padding: 0.55rem 0.65rem !important;
+            /* Ganha espaço na tela reduzindo o respiro interno */
+        }
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 1000px) {
+        .quadro-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .coluna-dia,
+        .coluna-dia:nth-child(5),
+        .coluna-dia:nth-child(6),
+        .coluna-dia:nth-child(7) {
+            grid-column: span 1;
+        }
+    }
+
+    @media (max-width: 900px) {
+
+        /* --- 1. CABEÇALHO COMPACTO E BEM DISTRIBUÍDO --- */
+        header {
+            padding: 0.6rem 0.8rem !important;
+        }
+
+        .header-content {
+            gap: 0.6rem !important;
+            /* Aumenta ligeiramente o espaço entre as linhas */
+            justify-content: center !important;
+        }
+
+        header h1 {
+            font-size: 1rem !important;
+            /* Título mais delicado */
+            margin-bottom: 0.1rem !important;
+            width: 100% !important;
+            text-align: center !important;
+            justify-content: center !important;
+        }
+
+        /* --- 2. CAIXA DOS BOTÕES PRINCIPAIS (ESTUDOS / PLANEJAMENTO) --- */
+        /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
+        .main-tabs {
+            display: flex;
+            gap: 0.3rem;
+            background: var(--cor-fundo);
+            padding: 0.2rem;
+            /* Bem fininho */
+            border-radius: 8px;
+            border: 1px solid var(--cor-borda);
+            margin-bottom: 0.5rem !important;
+        }
+
+        .main-tab-btn {
+            background: none;
+            border: none;
+            font-size: 0.65rem !important;
+            padding: 0.2rem 0.4rem !important;
+            /* Letra bem sutil e minimalista */
+            font-weight: 500;
+            color: var(--cor-texto-mutado);
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        /* --- 3. LINHA DESLIZANTE DE MATÉRIAS (SEM ENCAVALAR E SEM BARRA) --- */
+        #nav-modulos {
+            width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            padding-top: 0.2rem !important;
+            /* Respiro na parte de cima das pílulas */
+            padding-bottom: 0.4rem !important;
+            margin: 0 !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            margin-top: 0.5rem !important;
+            margin-bottom: 0.5rem !important;
+        }
+
+        #nav-modulos::-webkit-scrollbar,
+        #nav-modulos ul::-webkit-scrollbar {
+            display: none !important;
+            width: 0px !important;
+            height: 0px !important;
+            background: transparent !important;
+            -webkit-appearance: none !important;
+        }
+
+        #nav-modulos ul {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            gap: 0.5rem !important;
+            width: max-content !important;
+            margin: 0 !important;
+        }
+
+        #nav-modulos a {
+            padding: 0.35rem 0.75rem !important;
+            /* Pílula mais compacta */
+            font-size: 0.75rem !important;
+            /* Fonte reduzida para caber melhor na tela */
+            white-space: nowrap !important;
+            background-color: var(--cor-card) !important;
+            border: 1px solid var(--cor-borda) !important;
+            border-radius: 20px !important;
+            transition: all 0.2s ease !important;
+        }
+
+        #nav-modulos a.sub-nav-active {
+            background-color: var(--cor-acento) !important;
+            color: #121212 !important;
+            border-color: var(--cor-acento) !important;
+            font-weight: 600 !important;
+            box-shadow: 0 2px 6px rgba(121, 192, 255, 0.2) !important;
+        }
+
+        /* --- 4. MANTÉM SUA AGENDA LATERAL PARADA NO TOPO AO ROLAR --- */
+        .container-estudos {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 1.5rem !important;
+            padding: 0 1rem !important;
+        }
+
+        .agenda-sidebar {
+            order: 1 !important;
+            width: 100% !important;
+            margin-top: 0 !important;
+            position: static !important;
+            top: auto !important;
+            padding: 1rem !important;
+        }
+
+        .estudos-area {
+            order: 2 !important;
+            width: 100% !important;
+        }
+
+        .quadro-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .quadro-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* --- 5. QUADRO DE AFAZERES COM ALTURA DINÂMICA (CRESCE COM AS TAREFAS) --- */
+    .agenda-sidebar,
+    .agenda-sidebar>div,
+    .agenda-sidebar .card,
+    .agenda-sidebar ul,
+    #lista-tarefas,
+    .todo-list,
+    .lista-afazeres {
+        height: auto !important;
+        /* Libera a altura fixa */
+        max-height: none !important;
+        /* Remove o limite/trava de crescimento */
+        overflow: visible !important;
+        /* Remove qualquer barra de rolagem interna do quadro */
+    }
+
+    /* Dá um respiro e um visual mais limpo entre uma tarefa e outra no toque */
+    .agenda-sidebar li,
+    #lista-tarefas li {
+        padding: 0.6rem 0.4rem !important;
+        margin-bottom: 0.3rem !important;
+    }
+
+    /* --- 6. CORREÇÃO DEFINITIVA: QUEBRA DE LINHA PARA OS DIAS E CONCLUÍDAS --- */
+
+    /* 1. Trava a largura máxima de TODOS os cards e blocos da agenda para 100% da tela */
+    .agenda-sidebar,
+    .agenda-sidebar * {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. Força QUALQUER linha de botões (dias da semana/concluídas) a quebrar linha */
+    .agenda-sidebar div[class*="dias"],
+    .agenda-sidebar div[class*="semana"],
+    .agenda-sidebar ul,
+    .agenda-sidebar .card>div {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        /* O SEGREDO: Se não couber, joga para a linha de baixo! */
+        justify-content: center !important;
+        /* Centraliza bem bonito na tela */
+        gap: 0.35rem !important;
+        width: 100% !important;
+        height: auto !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* 3. Garante que os botões (Seg, Ter, ..., Concluídas) fiquem em tamanho compacto */
+    .agenda-sidebar button,
+    .agenda-sidebar a {
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        flex: 0 0 auto !important;
+        font-size: 0.78rem !important;
+        padding: 0.4rem 0.6rem !important;
+    }
+
+    /* --- TELA EXCLUSIVA PARA PLANEJAMENTO SEMANAL NO MOBILE --- */
+    body.modo-planejamento .estudos-area,
+    body.modo-planejamento .agenda-sidebar {
+        display: none !important;
+        /* Esconde as anotações E TAMBÉM a agenda lateral no modo planejamento! */
+    }
+
+    body.modo-planejamento #view-quadro {
+        display: block !important;
+        width: 100% !important;
+        margin-top: 1rem !important;
+    }
+
+    /* --- REGRAS DEFINITIVAS DE EXIBIÇÃO DAS 3 ABAS SUPERIORES --- */
+    body.modo-estudos .agenda-sidebar {
+        display: none !important;
+        /* Esconde a agenda na aba de estudos! */
+    }
+
+    body.modo-estudos .container-estudos {
+        grid-template-columns: 1fr !important;
+        /* Estica a anotação para ocupar a tela inteira */
+    }
+
+    body.modo-principal #nav-modulos,
+    body.modo-planejamento #nav-modulos {
+        display: none !important;
+        /* Oculta a barra inferior de matérias quando não estiver na aba de estudos */
+    }
+
+    @media (max-width: 900px) {
+        .main-tab-btn {
+            font-size: 0.70rem !important;
+            /* Ajusta a fonte para os 3 botões superiores caberem perfeitamente no iPhone */
+            padding: 0.4rem 0.2rem !important;
+        }
+
+        .agenda-sidebar {
+            position: static !important;
+            width: 100% !important;
+            padding: 1rem !important;
+        }
+
+    }
+
+    /* --- BOTÃO DIA CONCLUÍDO & EFEITO DE COMEMORAÇÃO --- */
+    .day-completed-box {
+        background: var(--cor-fundo);
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        padding: 0.9rem 1rem;
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        user-select: none;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .day-completed-title {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--cor-texto);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: color 0.3s;
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .day-completed-check {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #666666;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        color: transparent;
+        font-size: 0.8rem;
+        font-weight: bold;
+        flex-shrink: 0;
+        margin-left: 0.5rem;
+    }
+
+    /* ESTADO ATIVO (QUANDO O DIA ESTÁ CONCLUÍDO) */
+    .day-completed-box.concluido {
+        background: var(--cor-primaria);
+        border-color: var(--cor-acento);
+        box-shadow: 0 0 15px rgba(121, 192, 255, 0.25);
+    }
+
+    .day-completed-box.concluido .day-completed-title {
+        color: var(--cor-acento);
+    }
+
+    .day-completed-box.concluido .day-completed-check {
+        background-color: var(--cor-acento);
+        border-color: var(--cor-acento);
+        color: #121212;
+        transform: scale(1.1);
+    }
+
+    /* EFEITO MINIMALISTA DE COMEMORAÇÃO (ONDA DOURADA) */
+    @keyframes celebraDiaMinimalista {
+        0% {
+            box-shadow: 0 0 0 0 rgba(121, 192, 255, 0.7);
+            transform: scale(0.98);
+        }
+
+        50% {
+            box-shadow: 0 0 0 12px rgba(121, 192, 255, 0);
+            transform: scale(1.02);
+        }
+
+        100% {
+            box-shadow: 0 0 15px rgba(121, 192, 255, 0.25);
+            transform: scale(1);
+        }
+    }
+
+    .animar-comemoracao {
+        animation: celebraDiaMinimalista 0.6s cubic-bezier(0, 0, 0.2, 1) forwards;
+    }
+
+    /* --- EFEITO SATISFATÓRIO DE CONCLUSÃO (FUNDO AMARELADO SUAVE) --- */
+    /* --- GARANTE FONTE SEM NEGRITO PARA TODAS AS TAREFAS --- */
+    .lista-tarefas li,
+    .coluna-lista li,
+    .lista-tarefas li *,
+    .coluna-lista li * {
+        font-weight: normal !important;
+        -webkit-font-smoothing: antialiased !important;
+    }
+
+    /* --- EFEITO SATISFATÓRIO DE CONCLUSÃO (FUNDO AMARELADO SUAVE) --- */
+    @keyframes brilhoConclusaoSuave {
+        0% {
+            background-color: rgba(121, 192, 255, 0.35) !important;
+            transform: scale(0.98);
+        }
+
+        50% {
+            background-color: rgba(121, 192, 255, 0.15) !important;
+            transform: scale(1.01);
+        }
+
+        100% {
+            background-color: rgba(121, 192, 255, 0.07) !important;
+            border-color: rgba(121, 192, 255, 0.2) !important;
+            transform: scale(1);
+        }
+    }
+
+    .lista-tarefas li.concluida,
+    .coluna-lista li.concluida {
+        background-color: rgba(121, 192, 255, 0.07) !important;
+        border: 1px solid rgba(121, 192, 255, 0.2) !important;
+        opacity: 0.9 !important;
+        animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+    }
+
+
+    .lista-tarefas li.concluida,
+    .coluna-lista li.concluida {
+        background-color: rgba(121, 192, 255, 0.07) !important;
+        border: 1px solid rgba(121, 192, 255, 0.2) !important;
+        opacity: 0.9 !important;
+        animation: brilhoConclusaoSuave 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards !important;
+    }
+
+    .marcatexto {
+        background-color: rgba(126, 231, 135, 0.25);
+        /* Fundo verde neon suave (GitHub Strings) */
+        color: #7ee787;
+        /* Texto verde neon para contraste extra */
+        border-radius: 4px;
+        padding: 0 4px;
+        font-weight: 600;
+        /* No High Contrast, pesos maiores ajudam na leitura */
+    }
+
+    /* --- ABA INDIVIDUAL DE MEDALHAS --- */
+    .contador-medalhas {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        background: linear-gradient(135deg, #1d1a0d, #3a3218);
+        /* Fundo escuro do HC */
+        border: 1px solid #ffeb7b !important;
+        padding: 0.1rem 0.2rem !important;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #FFD700 !important;
+        box-shadow: 0 2px 8px rgba(121, 192, 255, 0.15);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        outline: none;
+    }
+
+    .contador-medalhas:hover {
+        border-color: #FFD700;
+        box-shadow: 0 0 8px rgba(255, 215, 0, 0.3) !important;
+        transform: translateY(-2px);
+    }
+
+    /* Animação de pulso para quando o usuário ganhar a medalha */
+    @keyframes pulsoMedalha {
+        0% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.2);
+            color: #FFD700;
+            border-color: #FFD700;
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .animar-medalha {
+        animation: pulsoMedalha 0.5s ease-out;
+    }
+
+    /* --- CORREÇÃO BLINDADA: Trava total de largura --- */
+    .agenda-header {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        margin-bottom: 1rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    /* Linha superior contendo Título e Contadores */
+    .agenda-header-top,
+    .agenda-header>div:first-child {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        gap: 0.3rem !important;
+    }
+
+    /* Título principal */
+    .agenda-header h2 {
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-texto) !important;
+        margin: 0 !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* Bloco dos contadores no canto direito */
+    .agenda-header-top-actions,
+    .agenda-header-top>div:last-child {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0.25rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Redução drástica para garantir encaixe nos badges */
+    .placar-skos {
+        padding: 0.1rem 0.2rem !important;
+        font-size: 0.70rem !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+    }
+
+    .contador-medalhas {
+        padding: 0.1rem 0.2em !important;
+        font-size: 0.70rem !important;
+        border-radius: 6px !important;
+        white-space: nowrap !important;
+        margin: 0 !important;
+        border-color: #FFD700;
+    }
+
+    /* BARRA DE SEMANA TRAVADA DENTRO DO CARD */
+    .semana-nav {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: var(--cor-fundo) !important;
+        border: 1px solid var(--cor-borda) !important;
+        border-radius: 6px !important;
+        padding: 0.25rem 0.5rem !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        clear: both !important;
+    }
+
+    .semana-nav button {
+        background: none !important;
+        border: none !important;
+        color: var(--cor-texto-mutado) !important;
+        cursor: pointer !important;
+        font-size: 0.8rem !important;
+        padding: 0 0.2rem !important;
+        flex-shrink: 0 !important;
+    }
+
+    .semana-nav span {
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        color: var(--cor-acento) !important;
+        white-space: nowrap !important;
+    }
+
+    /* --- ESTILOS DO MODAL DE CONQUISTAS (AJUSTADO) --- */
+    .modal-conquistas-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(9, 9, 11, 0.75);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 99999 !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-conquistas-conteudo {
+        background-color: #121214;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 32px;
+        width: 90%;
+        max-width: 340px;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6);
+        animation: modalEntrada 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes modalEntrada {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.96);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    /* Cabeçalho com letras minúsculas */
+    .modal-conquistas-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+
+    .modal-conquistas-header h3 {
+        color: #a1a1aa;
+        margin: 0;
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: none;
+        /* Mantém em minúsculas como o resto do app */
+        letter-spacing: 0px;
+    }
+
+    .modal-fechar-btn {
+        background: none;
+        border: none;
+        color: #52525b;
+        font-size: 22px;
+        cursor: pointer;
+        transition: color 0.2s ease;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal-fechar-btn:hover {
+        color: #fafafa;
+    }
+
+    /* Card central */
+    .conquista-card-principal {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        padding: 24px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .conquista-icone-grande {
+        font-size: 2.6rem !important;
+        line-height: 1;
+        filter: drop-shadow(0 0 16px rgba(250, 219, 95, 0.15));
+    }
+
+    .conquista-textos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Número menor, elegante e proporcional */
+    .conquista-textos h4 {
+        color: #ffffff;
+        margin: 0;
+        font-size: 2rem;
+        /* Reduzido para ficar mais harmônico */
+        font-weight: 600;
+        line-height: 1;
+        letter-spacing: -1px;
+    }
+
+    /* Subtítulo em minúsculas */
+    .conquista-textos p {
+        color: #71717a;
+        margin: 4px 0 0 0;
+        font-size: 13px;
+        font-weight: 400;
+        text-transform: none;
+        /* Removido o maiúsculo forçado */
+        letter-spacing: 0px;
+    }
+
+    /* --- AJUSTE DE ESPAÇAMENTO DA LINHA (CONCLUÍDAS E INPUT) --- */
+    .agenda-sidebar hr {
+        margin-top: 18px !important;
+        /* Espaço ACIMA da linha (afasta do texto "concluídas") */
+        margin-bottom: 35px !important;
+        /* Espaço ABAIXO da linha (afasta do input "nova tarefa") */
+        border: none !important;
+        border-top: 1px solid var(--cor-borda) !important;
+        width: 100% !important;
+    }
+
+    .input-tarefa-group {
+        margin-top: 18px !important;
+    }
+
+    /* --- DEIXAR MEDALHAS E SKOS COM O MESMO TAMANHO NA AGENDA LATERAL --- */
+    .agenda-sidebar .placar-skos,
+    .agenda-sidebar .contador-medalhas {
+        padding: 0.5rem 0.4rem !important;
+        font-size: 0.70rem !important;
+        border-radius: 20px !important;
+        /* Deixa ambos com o formato de pílula arredondada */
+        height: 25px !important;
+        width: auto !important;
+        /* Força a exata mesma altura para os dois */
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+        margin: 0.5px !important;
+    }
+
+    /* Garante que o ícone da medalha não empurre o layout do botão */
+    .agenda-sidebar .contador-medalhas span {
+        margin-left: 4px !important;
+    }
