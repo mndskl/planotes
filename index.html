@@ -10095,836 +10095,837 @@
     <div class="container-quadro" id="view-quadro">
         <div class="quadro-header">
             <div class="quadro-header-titulos">
-                <div style="align-items: center; flex-wrap: wrap;">
-                    <h2 style="text-align: center; margin-top: 2rem;" font-size: 10px;>quadro de planejamento da semana
-                    </h2>
-                    <!-- PLACARES DO QUADRO SEMANAL -->
-                    <div style="display: inline-flex; align-items: center; gap: 3px; flex-shrink: 0;">
+                <!-- PLACARES DO QUADRO SEMANAL -->
+                <div style="display: inline-flex; align-items: center; gap: 3px; flex-shrink: 0;">
 
-                        <div id="placar-skos-quadro" class="placar-skos" style="margin: 0;"
-                            title="Pontos conquistados nesta semana visualizada!">✦ 0 skos</div>
+                    <div id="placar-skos-quadro" class="placar-skos" style="margin: 0;"
+                        title="Pontos conquistados nesta semana visualizada!">✦ 0 skos</div>
 
-                        <div id="placar-medalhas-quadro" class="placar-skos"
-                            style="color: #F5D742; cursor: default; margin: 0;"
-                            title="Dias totais concluídos com sucesso!">
-                            🏅 0
-                        </div>
-                        <br>
-                        <br>
-
+                    <div id="placar-medalhas-quadro" class="placar-skos"
+                        style="color: #F5D742; cursor: default; margin: 0;" title="Dias totais concluídos com sucesso!">
+                        🏅 0
                     </div>
+                    <br>
+                    <br>
 
                 </div>
 
-                <div class="semana-nav" style="margin-bottom: 0.8;">
-                    <button onclick="mudarSemanaQuadro(-1)" title="Semana Anterior">&#8592;</button>
-                    <span id="nav-semana-label-quadro">semana atual</span>
-                    <button onclick="mudarSemanaQuadro(1)" title="Próxima Semana">&#8594;</button>
-                </div>
             </div>
 
-            <div class="quadro-grid" id="quadro-grid-container" style="margin-top: 0.8rem;"></div>
+            <div class="semana-nav" style="margin-bottom: 0.8;">
+                <button onclick="mudarSemanaQuadro(-1)" title="Semana Anterior">&#8592;</button>
+                <span id="nav-semana-label-quadro">semana atual</span>
+                <button onclick="mudarSemanaQuadro(1)" title="Próxima Semana">&#8594;</button>
+            </div>
         </div>
 
-        <!-- JAVASCRIPT GERAL -->
-        <script>
-            // Função para abrir o modal de conquistas
-            function abrirModalConquistas() {
-                const modal = document.getElementById('modal-conquistas'); // ATUALIZADO COM O HÍFEN
-                if (modal) {
-                    modal.style.display = 'flex';
-                }
+        <div class="quadro-grid" id="quadro-grid-container" style="margin-top: 0.8rem;"></div>
+    </div>
+
+    <!-- JAVASCRIPT GERAL -->
+    <script>
+        // Função para abrir o modal de conquistas
+        function abrirModalConquistas() {
+            const modal = document.getElementById('modal-conquistas'); // ATUALIZADO COM O HÍFEN
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Função para fechar o modal (clicando no X ou fora da caixa)
+        function fecharModalConquistas(event) {
+            const modal = document.getElementById('modal-conquistas'); // ATUALIZADO COM O HÍFEN
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+        const somConclusao = new Audio('audio-conclusao'); // substitua pelo nome do seu arquivo
+        somConclusao.preload = 'auto';
+        somConclusao.load(); // Força o navegador a deixar o som pronto para tocar
+        // --- FUNÇÃO ABRIR TEMA CORRIGIDA (SEM Pulos ou Recargas) ---
+        let temaAtivo = 'principal';
+
+        function abrirTema(idTema, event) {
+            // Se houver um evento de clique, impede o comportamento padrão do link (#)
+            if (event) {
+                event.preventDefault();
             }
 
-            // Função para fechar o modal (clicando no X ou fora da caixa)
-            function fecharModalConquistas(event) {
-                const modal = document.getElementById('modal-conquistas'); // ATUALIZADO COM O HÍFEN
-                if (modal) {
-                    modal.style.display = 'none';
-                }
+            temaAtivo = idTema;
+            const secoesEstudo = document.getElementsByClassName('tema-section');
+            const secaoHome = document.getElementById('home-resumo');
+
+            document.querySelectorAll('#nav-modulos a').forEach(btn => {
+                btn.classList.remove('sub-nav-active');
+            });
+
+            const btnAtivo = document.getElementById(`btn-sub-${idTema}`);
+            if (btnAtivo) btnAtivo.classList.add('sub-nav-active');
+
+            // Esconde todas as seções de estudo
+            for (let sec of secoesEstudo) {
+                sec.style.display = 'none';
             }
-            const somConclusao = new Audio('audio-conclusao'); // substitua pelo nome do seu arquivo
-            somConclusao.preload = 'auto';
-            somConclusao.load(); // Força o navegador a deixar o som pronto para tocar
-            // --- FUNÇÃO ABRIR TEMA CORRIGIDA (SEM Pulos ou Recargas) ---
-            let temaAtivo = 'principal';
 
-            function abrirTema(idTema, event) {
-                // Se houver um evento de clique, impede o comportamento padrão do link (#)
-                if (event) {
-                    event.preventDefault();
-                }
+            if (idTema === 'home' || idTema === 'principal') {
+                if (secaoHome) secaoHome.style.display = 'block';
+            } else {
+                if (secaoHome) secaoHome.style.display = 'none';
+                const secaoSelecionada = document.getElementById(idTema);
 
-                temaAtivo = idTema;
-                const secoesEstudo = document.getElementsByClassName('tema-section');
-                const secaoHome = document.getElementById('home-resumo');
+                if (secaoSelecionada) {
+                    secaoSelecionada.style.display = 'block';
 
-                document.querySelectorAll('#nav-modulos a').forEach(btn => {
-                    btn.classList.remove('sub-nav-active');
-                });
+                    // Injeção do botão "rolar até anotação mais recente"
+                    const h2 = secaoSelecionada.querySelector('h2');
+                    if (h2 && !secaoSelecionada.querySelector('.btn-rolar-fim')) {
+                        const wrapper = document.createElement('div');
+                        wrapper.className = 'header-tema-flex';
+                        h2.parentNode.insertBefore(wrapper, h2);
+                        wrapper.appendChild(h2);
 
-                const btnAtivo = document.getElementById(`btn-sub-${idTema}`);
-                if (btnAtivo) btnAtivo.classList.add('sub-nav-active');
+                        const btnRolar = document.createElement('button');
+                        btnRolar.className = 'btn-rolar-fim';
+                        btnRolar.innerHTML = '↓ mais recente';
+                        btnRolar.title = 'Rolar até o final desta área';
 
-                // Esconde todas as seções de estudo
-                for (let sec of secoesEstudo) {
-                    sec.style.display = 'none';
-                }
+                        btnRolar.onclick = (e) => {
+                            e.stopPropagation();
+                            const blocos = secaoSelecionada.querySelectorAll('.content-block, h4');
+                            if (blocos.length > 0) {
+                                const ultimoBloco = blocos[blocos.length - 1];
+                                const alturaHeader = document.querySelector('header').offsetHeight || 80;
+                                const posicaoFinal = (ultimoBloco.getBoundingClientRect().top + window.scrollY) - (alturaHeader + 20);
 
-                if (idTema === 'home' || idTema === 'principal') {
-                    if (secaoHome) secaoHome.style.display = 'block';
-                } else {
-                    if (secaoHome) secaoHome.style.display = 'none';
-                    const secaoSelecionada = document.getElementById(idTema);
+                                window.scrollTo({
+                                    top: Math.max(0, posicaoFinal),
+                                    behavior: 'smooth'
+                                });
+                            }
+                        };
+                        wrapper.appendChild(btnRolar);
+                    }
 
-                    if (secaoSelecionada) {
-                        secaoSelecionada.style.display = 'block';
-
-                        // Injeção do botão "rolar até anotação mais recente"
-                        const h2 = secaoSelecionada.querySelector('h2');
-                        if (h2 && !secaoSelecionada.querySelector('.btn-rolar-fim')) {
+                    // Envelope responsivo automático para tabelas no celular
+                    secaoSelecionada.querySelectorAll('table').forEach(tabela => {
+                        if (!tabela.parentElement.classList.contains('table-responsive-wrapper')) {
                             const wrapper = document.createElement('div');
-                            wrapper.className = 'header-tema-flex';
-                            h2.parentNode.insertBefore(wrapper, h2);
-                            wrapper.appendChild(h2);
-
-                            const btnRolar = document.createElement('button');
-                            btnRolar.className = 'btn-rolar-fim';
-                            btnRolar.innerHTML = '↓ mais recente';
-                            btnRolar.title = 'Rolar até o final desta área';
-
-                            btnRolar.onclick = (e) => {
-                                e.stopPropagation();
-                                const blocos = secaoSelecionada.querySelectorAll('.content-block, h4');
-                                if (blocos.length > 0) {
-                                    const ultimoBloco = blocos[blocos.length - 1];
-                                    const alturaHeader = document.querySelector('header').offsetHeight || 80;
-                                    const posicaoFinal = (ultimoBloco.getBoundingClientRect().top + window.scrollY) - (alturaHeader + 20);
-
-                                    window.scrollTo({
-                                        top: Math.max(0, posicaoFinal),
-                                        behavior: 'smooth'
-                                    });
-                                }
-                            };
-                            wrapper.appendChild(btnRolar);
+                            wrapper.className = 'table-responsive-wrapper';
+                            tabela.parentNode.insertBefore(wrapper, tabela);
+                            wrapper.appendChild(tabela);
                         }
-
-                        // Envelope responsivo automático para tabelas no celular
-                        secaoSelecionada.querySelectorAll('table').forEach(tabela => {
-                            if (!tabela.parentElement.classList.contains('table-responsive-wrapper')) {
-                                const wrapper = document.createElement('div');
-                                wrapper.className = 'table-responsive-wrapper';
-                                tabela.parentNode.insertBefore(wrapper, tabela);
-                                wrapper.appendChild(tabela);
-                            }
-                        });
-                    }
+                    });
                 }
-
-                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
-            // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
-            function atualizarResumosAutomaticamente() {
-                const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi', 'psicofarmacologia'];
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-                materias.forEach(idMateria => {
-                    const secao = document.getElementById(idMateria);
-                    if (!secao) return;
+        // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
+        function atualizarResumosAutomaticamente() {
+            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi', 'psicofarmacologia'];
 
-                    // Procura os títulos e blocos de conteúdo da matéria
-                    const elementos = secao.querySelectorAll('h3, h4, .content-block p');
-                    let ultimoTitulo = "";
-                    let ultimoResumo = "";
+            materias.forEach(idMateria => {
+                const secao = document.getElementById(idMateria);
+                if (!secao) return;
 
-                    // Percorre de trás para frente para pegar exatamente o último item inserido no HTML
-                    for (let i = elementos.length - 1; i >= 0; i--) {
-                        const el = elementos[i];
-                        if (!ultimoResumo && el.tagName === 'P') {
-                            ultimoResumo = el.innerText.replace(/^.*?:/g, '').trim(); // Remove prefixos como "Conceito:" ou "Definição:"
-                        }
-                        if (!ultimoTitulo && (el.tagName === 'H4' || el.tagName === 'H3')) {
-                            ultimoTitulo = el.innerText.trim();
-                        }
-                        if (ultimoTitulo && ultimoResumo) break;
+                // Procura os títulos e blocos de conteúdo da matéria
+                const elementos = secao.querySelectorAll('h3, h4, .content-block p');
+                let ultimoTitulo = "";
+                let ultimoResumo = "";
+
+                // Percorre de trás para frente para pegar exatamente o último item inserido no HTML
+                for (let i = elementos.length - 1; i >= 0; i--) {
+                    const el = elementos[i];
+                    if (!ultimoResumo && el.tagName === 'P') {
+                        ultimoResumo = el.innerText.replace(/^.*?:/g, '').trim(); // Remove prefixos como "Conceito:" ou "Definição:"
                     }
+                    if (!ultimoTitulo && (el.tagName === 'H4' || el.tagName === 'H3')) {
+                        ultimoTitulo = el.innerText.trim();
+                    }
+                    if (ultimoTitulo && ultimoResumo) break;
+                }
 
-                    if (ultimoTitulo) {
-                        const h4Card = document.getElementById(`card-titulo-${idMateria}`);
-                        if (h4Card) h4Card.innerText = ultimoTitulo;
+                if (ultimoTitulo) {
+                    const h4Card = document.getElementById(`card-titulo-${idMateria}`);
+                    if (h4Card) h4Card.innerText = ultimoTitulo;
+                }
+                if (ultimoResumo) {
+                    const pCard = document.getElementById(`card-texto-${idMateria}`);
+                    // Limita o resumo a 180 caracteres com reticências para manter o design clean
+                    if (pCard) {
+                        pCard.innerText = ultimoResumo.length > 180
+                            ? ultimoResumo.substring(0, 180) + '...'
+                            : ultimoResumo;
                     }
-                    if (ultimoResumo) {
-                        const pCard = document.getElementById(`card-texto-${idMateria}`);
-                        // Limita o resumo a 180 caracteres com reticências para manter o design clean
-                        if (pCard) {
-                            pCard.innerText = ultimoResumo.length > 180
-                                ? ultimoResumo.substring(0, 180) + '...'
-                                : ultimoResumo;
-                        }
-                    }
+                }
+            });
+        }
+
+        // --- SISTEMA DE BUSCA INTELIGENTE (COM ROLAGEM DE PRECISÃO) ---
+        function filtrarEstudos() {
+            let input = document.getElementById('searchInput').value.toLowerCase().trim();
+            let secoes = document.getElementsByClassName('tema-section');
+            let secaoHome = document.getElementById('home-resumo');
+            let encontrouAlgum = false;
+            let primeiroElementoExato = null;
+
+            // Função para limpar marcações anteriores
+            function removerHighlights(element) {
+                let highlights = element.querySelectorAll('.highlight');
+                highlights.forEach(h => {
+                    let parent = h.parentNode;
+                    parent.replaceChild(document.createTextNode(h.textContent), h);
+                    parent.normalize();
                 });
             }
 
-            // --- SISTEMA DE BUSCA INTELIGENTE (COM ROLAGEM DE PRECISÃO) ---
-            function filtrarEstudos() {
-                let input = document.getElementById('searchInput').value.toLowerCase().trim();
-                let secoes = document.getElementsByClassName('tema-section');
-                let secaoHome = document.getElementById('home-resumo');
-                let encontrouAlgum = false;
-                let primeiroElementoExato = null;
+            // Função para destacar o texto e capturar o primeiro elemento exato
+            function aplicarHighlight(element, termo) {
+                let regex = new RegExp(`(${termo})`, 'gi');
+                let walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+                let nosParaModificar = [];
 
-                // Função para limpar marcações anteriores
-                function removerHighlights(element) {
-                    let highlights = element.querySelectorAll('.highlight');
-                    highlights.forEach(h => {
-                        let parent = h.parentNode;
-                        parent.replaceChild(document.createTextNode(h.textContent), h);
-                        parent.normalize();
-                    });
+                while (walker.nextNode()) {
+                    if (walker.currentNode.textContent.toLowerCase().includes(termo)) {
+                        nosParaModificar.push(walker.currentNode);
+                    }
                 }
 
-                // Função para destacar o texto e capturar o primeiro elemento exato
-                function aplicarHighlight(element, termo) {
-                    let regex = new RegExp(`(${termo})`, 'gi');
-                    let walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
-                    let nosParaModificar = [];
-
-                    while (walker.nextNode()) {
-                        if (walker.currentNode.textContent.toLowerCase().includes(termo)) {
-                            nosParaModificar.push(walker.currentNode);
-                        }
+                nosParaModificar.forEach(node => {
+                    // Se ainda não achamos o primeiro elemento exato para focar, guardamos o pai deste texto
+                    if (!primeiroElementoExato) {
+                        primeiroElementoExato = node.parentElement;
                     }
 
-                    nosParaModificar.forEach(node => {
-                        // Se ainda não achamos o primeiro elemento exato para focar, guardamos o pai deste texto
-                        if (!primeiroElementoExato) {
-                            primeiroElementoExato = node.parentElement;
-                        }
+                    let span = document.createElement('span');
+                    span.className = 'highlight';
+                    span.style.backgroundColor = '#F5D742';
+                    span.style.color = '#121212';
+                    span.style.fontWeight = 'bold';
+                    span.style.padding = '0 2px';
+                    span.style.borderRadius = '3px';
 
-                        let span = document.createElement('span');
-                        span.className = 'highlight';
-                        span.style.backgroundColor = '#F5D742';
-                        span.style.color = '#121212';
-                        span.style.fontWeight = 'bold';
-                        span.style.padding = '0 2px';
-                        span.style.borderRadius = '3px';
+                    let parts = node.textContent.split(regex);
+                    let fragmento = document.createDocumentFragment();
 
-                        let parts = node.textContent.split(regex);
-                        let fragmento = document.createDocumentFragment();
-
-                        parts.forEach(part => {
-                            if (part.toLowerCase() === termo.toLowerCase()) {
-                                let s = span.cloneNode(true);
-                                s.textContent = part;
-                                fragmento.appendChild(s);
-                            } else {
-                                fragmento.appendChild(document.createTextNode(part));
-                            }
-                        });
-                        node.parentNode.replaceChild(fragmento, node);
-                    });
-                }
-
-                // LÓGICA PRINCIPAL DE BUSCA
-                if (input !== "") {
-                    if (secaoHome) secaoHome.style.display = 'none';
-                    primeiroElementoExato = null; // Reseta o alvo da rolagem
-
-                    for (let i = 0; i < secoes.length; i++) {
-                        let section = secoes[i];
-                        removerHighlights(section);
-
-                        if (section.innerText.toLowerCase().includes(input)) {
-                            section.style.display = "block"; // Força a exibição da matéria para o cálculo da rolagem funcionar
-                            section.style.border = "2px solid #F5D742";
-                            encontrouAlgum = true;
-                            aplicarHighlight(section, input);
+                    parts.forEach(part => {
+                        if (part.toLowerCase() === termo.toLowerCase()) {
+                            let s = span.cloneNode(true);
+                            s.textContent = part;
+                            fragmento.appendChild(s);
                         } else {
-                            section.style.display = "none";
+                            fragmento.appendChild(document.createTextNode(part));
                         }
-                    }
-                } else {
-                    // Se a busca estiver vazia, restaura o estado inicial
-                    for (let i = 0; i < secoes.length; i++) {
-                        removerHighlights(secoes[i]);
-                        secoes[i].style.border = "1px solid #2F2F2F";
-                    }
-                    abrirTema(temaAtivo);
-                    encontrouAlgum = true;
-                }
-
-                // GESTÃO DA MENSAGEM DE ERRO
-                let mensagemErro = document.getElementById('erroBusca');
-                if (!mensagemErro) {
-                    mensagemErro = document.createElement('p');
-                    mensagemErro.id = 'erroBusca';
-                    mensagemErro.style.textAlign = 'center';
-                    document.querySelector('.estudos-area').appendChild(mensagemErro);
-                }
-
-                if (input !== "" && !encontrouAlgum) {
-                    mensagemErro.innerText = "Nenhum resultado encontrado em suas anotações.";
-                } else {
-                    mensagemErro.innerText = "";
-
-                    // ROLAGEM DE PRECISÃO ATÉ O ALVO
-                    if (primeiroElementoExato && input !== "") {
-                        setTimeout(() => {
-                            // Calcula a altura real do cabeçalho dinamicamente
-                            const alturaHeader = document.querySelector('header').offsetHeight || 80;
-                            const espacoRespiro = 30; // Margem extra para não grudar no topo
-
-                            const posicaoElemento = primeiroElementoExato.getBoundingClientRect().top + window.scrollY;
-                            const posicaoFinal = posicaoElemento - (alturaHeader + espacoRespiro);
-
-                            window.scrollTo({
-                                top: Math.max(0, posicaoFinal),
-                                behavior: 'smooth'
-                            });
-                        }, 150); // Timeout de 150ms garante que o DOM expandiu os blocos antes de rolar
-                    }
-                }
-            }
-
-            // --- ALTERNÂNCIA DE MODOS DE VISÃO DINÂMICA (CORRIGIDA) ---
-            function mudarModoVisao(modo) {
-                const viewEstudos = document.getElementById('view-estudos');
-                const viewQuadro = document.getElementById('view-quadro');
-                const btnPrincipal = document.getElementById('btn-tab-principal');
-                const btnEstudos = document.getElementById('btn-tab-estudos');
-                const btnQuadro = document.getElementById('btn-tab-quadro');
-                const navModulos = document.getElementById('nav-modulos');
-                const secaoHome = document.getElementById('home-resumo');
-                const agendaSidebar = document.querySelector('.agenda-sidebar');
-
-                // Limpa marcações ativas
-                [btnPrincipal, btnEstudos, btnQuadro].forEach(btn => {
-                    if (btn) btn.classList.remove('ativo');
-                });
-                document.body.classList.remove('modo-planejamento', 'modo-estudos', 'modo-principal');
-
-                if (modo === 'principal') {
-                    document.body.classList.add('modo-principal');
-                    if (btnPrincipal) btnPrincipal.classList.add('ativo');
-
-                    viewEstudos.style.display = window.innerWidth <= 900 ? 'flex' : 'grid';
-                    viewQuadro.style.display = 'none';
-
-                    if (secaoHome) secaoHome.style.display = 'block';
-                    if (agendaSidebar) agendaSidebar.style.display = 'block';
-                    if (navModulos) navModulos.style.display = 'none';
-
-                    document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
-
-                    renderizarAbasLateral();
-                    renderizarTarefasLateral();
-                    renderizarAgua();
-
-                } else if (modo === 'estudos') {
-                    document.body.classList.add('modo-estudos');
-                    if (btnEstudos) btnEstudos.classList.add('ativo');
-
-                    viewEstudos.style.display = 'block';
-                    viewQuadro.style.display = 'none';
-
-                    if (secaoHome) secaoHome.style.display = 'none';
-                    if (agendaSidebar) agendaSidebar.style.display = 'none';
-                    if (navModulos) navModulos.style.display = 'block'; // Mostra o menu superior de disciplinas
-
-                    // Abre a última matéria ativa ou cai na padrão de forense de forma estável
-                    if (temaAtivo === 'home' || temaAtivo === 'principal' || !temaAtivo) {
-                        abrirTema('psicologiaforense');
-                    } else {
-                        abrirTema(temaAtivo);
-                    }
-
-                } else if (modo === 'quadro') {
-                    document.body.classList.add('modo-planejamento');
-                    if (btnQuadro) btnQuadro.classList.add('ativo');
-
-                    viewEstudos.style.display = 'none';
-                    viewQuadro.style.display = 'block';
-                    if (navModulos) navModulos.style.display = 'none';
-
-                    renderizarQuadroSemanal();
-                }
-            }
-            // --- SISTEMA DE DADOS & SEMANAS DO PLANEJADOR ---
-            function obterSegundaFeira(data) {
-                let d = new Date(data);
-                let dia = d.getDay();
-                let diff = d.getDate() - dia + (dia === 0 ? -6 : 1);
-                d.setDate(diff);
-                d.setHours(0, 0, 0, 0);
-                return d;
-            }
-
-            function formatarDataChave(d) {
-                let ano = d.getFullYear();
-                let mes = ('0' + (d.getMonth() + 1)).slice(-2);
-                let dia = ('0' + d.getDate()).slice(-2);
-                return `${ano}-${mes}-${dia}`;
-            }
-
-            function formatarLabelSemana(segundaFeira) {
-                let d1 = new Date(segundaFeira);
-                let d2 = new Date(segundaFeira);
-                d2.setDate(d1.getDate() + 6);
-
-                let f1 = `${('0' + d1.getDate()).slice(-2)}/${('0' + (d1.getMonth() + 1)).slice(-2)}`;
-                let f2 = `${('0' + d2.getDate()).slice(-2)}/${('0' + (d2.getMonth() + 1)).slice(-2)}`;
-                return `${f1} a ${f2}`;
-            }
-
-            const dataHojeReal = new Date();
-            const segundaAtualReal = obterSegundaFeira(dataHojeReal);
-            const chaveSemanaReal = formatarDataChave(segundaAtualReal);
-
-            let semanaVisualizada = obterSegundaFeira(dataHojeReal);
-            let chaveSemanaVisualizada = formatarDataChave(semanaVisualizada);
-
-            let bancoSemanas = {};
-            let dadosCarregadosDaNuvem = false;
-
-            // Abreviações ajustadas para leitura limpa
-            const dias = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
-            const nomesCompletos = {
-                'seg': 'segunda-feira', 'ter': 'terça-feira', 'qua': 'quarta-feira',
-                'qui': 'quinta-feira', 'sex': 'sexta-feira', 'sáb': 'sábado', 'dom': 'domingo',
-                'concluidas': 'todas as tarefas concluídas'
-            };
-
-            const diaSemanaIndex = dataHojeReal.getDay();
-            const diaHojeLabel = dias[diaSemanaIndex === 0 ? 6 : diaSemanaIndex - 1];
-            let diaAtivoLateral = diaHojeLabel;
-
-            // --- NOVO BANCO DE DADOS DE ÁGUA E DIA CONCLUÍDO ---
-            let bancoAgua = JSON.parse(localStorage.getItem('bancoAguaHistorico')) || {};
-            let bancoDiaConcluido = JSON.parse(localStorage.getItem('bancoDiaConcluidoHistorico')) || {};
-
-            // Descobre a data exata em formato YYYY-MM-DD da aba que está clicada
-            function obterDataAtiva() {
-                if (diaAtivoLateral === 'concluidas') return null; // A aba concluídas não tem água
-                let d = new Date(semanaVisualizada);
-                let offset = dias.indexOf(diaAtivoLateral);
-                if (offset !== -1) d.setDate(d.getDate() + offset);
-                return formatarDataChave(d);
-            }
-
-            // --- SISTEMA DE PONTUAÇÃO POR SEMANA VISUALIZADA (SKOS) ---
-            function calcularTotalSkosDaSemana() {
-                let totalConcluidas = 0;
-                let semanaAtiva = bancoSemanas[chaveSemanaVisualizada];
-
-                if (semanaAtiva) {
-                    for (let dia in semanaAtiva) {
-                        if (Array.isArray(semanaAtiva[dia])) {
-                            semanaAtiva[dia].forEach(tarefa => {
-                                if (tarefa.concluida) {
-                                    totalConcluidas++;
-                                }
-                            });
-                        }
-                    }
-                }
-                let pontos = totalConcluidas * 5;
-                let texto = pontos === 1 ? `${pontos} sko` : `${pontos} skos`;
-                return `✦ ${texto}`;
-            }
-
-            function atualizarPlacarSkos() {
-                const textoPlacar = calcularTotalSkosDaSemana();
-                const placarLateral = document.getElementById('placar-skos-lateral');
-                const placarQuadro = document.getElementById('placar-skos-quadro');
-                if (placarLateral) placarLateral.innerText = textoPlacar;
-                if (placarQuadro) placarQuadro.innerText = textoPlacar;
-            }
-
-            // --- SISTEMA DO QUADRO DE ÁGUA (300ml a 2.1L) ---
-            function renderizarAgua() {
-                const dataAtiva = obterDataAtiva();
-                const waterContainer = document.querySelector('.water-tracker');
-
-                // Esconde o quadro de água se estiver na aba "todas concluídas"
-                if (!dataAtiva) {
-                    if (waterContainer) waterContainer.style.display = 'none';
-                    return;
-                } else {
-                    if (waterContainer) waterContainer.style.display = 'block';
-                }
-
-                let waterCount = bancoAgua[dataAtiva] || 0;
-
-                const grid = document.getElementById('water-grid');
-                const text = document.getElementById('water-text');
-                const bar = document.getElementById('water-bar');
-                if (!grid) return;
-
-                grid.innerHTML = '';
-                for (let i = 0; i < 7; i++) {
-                    const box = document.createElement('div');
-                    box.className = `water-box ${i < waterCount ? 'active' : ''}`;
-                    box.innerHTML = i < waterCount ? '≈' : '';
-                    box.onclick = () => alternarAgua(i);
-                    grid.appendChild(box);
-                }
-
-                let mlTotal = waterCount * 300;
-                let litrosTexto = mlTotal >= 1000 ? `${(mlTotal / 1000).toFixed(1)} L` : `${mlTotal} ml`;
-                if (text) text.innerText = `${litrosTexto} / 2.1 L`;
-                if (bar) bar.style.width = `${(waterCount / 7) * 100}%`;
-            }
-
-            async function alternarAgua(index) {
-                const dataAtiva = obterDataAtiva();
-                if (!dataAtiva) return;
-
-                let currentCount = bancoAgua[dataAtiva] || 0;
-
-                if (currentCount === index + 1) {
-                    bancoAgua[dataAtiva] = index; // desmarca
-                } else {
-                    bancoAgua[dataAtiva] = index + 1; // marca
-                    const audio = document.getElementById('audio-agua');
-                    if (audio) {
-                        audio.currentTime = 0;
-                        audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
-                    }
-                }
-
-                localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
-                renderizarAgua();
-
-                if (!window.db || !dadosCarregadosDaNuvem) return;
-                try {
-                    await window.setDoc(window.doc(window.db, "meu_sistema", "agua_historico"), {
-                        registros: bancoAgua
-                    }, { merge: true });
-                } catch (e) {
-                    console.error("Erro ao salvar água na nuvem: ", e);
-                }
-            }
-            // --- SISTEMA DE DIA CONCLUÍDO ---
-            // NOVA FUNÇÃO: Conta as medalhas e atualiza os lugares corretos diretamente
-            function atualizarPlacarMedalhas() {
-                let totalMedalhas = 0;
-
-                // Vasculha o histórico e conta cada dia concluído
-                for (let data in bancoDiaConcluido) {
-                    if (bancoDiaConcluido[data] === true) {
-                        totalMedalhas++;
-                    }
-                }
-
-                // 1. Atualiza o número gigante do Modal (usando o ID placar-medalhas)
-                const placarModal = document.getElementById('placar-medalhas');
-                if (placarModal) {
-                    placarModal.innerText = totalMedalhas;
-                }
-
-                // 2. Atualiza TODOS os pequenos contadores da tela (Agenda Lateral e Topo)
-                // O querySelectorAll garante que, se houver mais de um, todos serão atualizados
-                const spansMedalhas = document.querySelectorAll('#num-medalhas');
-                spansMedalhas.forEach(span => {
-                    span.innerText = totalMedalhas;
-                });
-            }
-            let diaConcluidoHoje = false;
-
-            function verificarResetDiaConcluido() {
-                const dataHoje = formatarDataChave(new Date());
-                const dataSalva = localStorage.getItem('dataUltimoDiaConcluido');
-
-                if (dataSalva !== dataHoje) {
-                    diaConcluidoHoje = false;
-                    localStorage.setItem('diaConcluidoStatus', 'false');
-                    localStorage.setItem('dataUltimoDiaConcluido', dataHoje);
-                } else {
-                    diaConcluidoHoje = localStorage.getItem('diaConcluidoStatus') === 'true';
-                }
-            }
-
-            function renderizarDiaConcluido() {
-                const dataAtiva = obterDataAtiva();
-                const box = document.getElementById('box-dia-concluido');
-                const texto = document.getElementById('text-dia-concluido');
-                if (!box || !texto) return;
-
-                if (!dataAtiva) {
-                    box.style.display = 'none'; // Esconde na aba concluídas
-                    return;
-                } else {
-                    box.style.display = 'flex';
-                }
-
-                let concluido = bancoDiaConcluido[dataAtiva] || false;
-
-                if (concluido) {
-                    box.classList.add('concluido');
-                    texto.innerHTML = '✨ dia concluído com sucesso!';
-                } else {
-                    box.classList.remove('concluido', 'animar-comemoracao');
-                    texto.innerHTML = '✨ encerrar o dia';
-                }
-                // ADICIONE ESTA LINHA AQUI: Atualiza as medalhas sempre que a tela do dia concluído renderizar
-                atualizarPlacarMedalhas();
-            }
-
-            async function alternarDiaConcluido() {
-                const dataAtiva = obterDataAtiva();
-                if (!dataAtiva) return;
-
-                let concluido = !(bancoDiaConcluido[dataAtiva] || false);
-                bancoDiaConcluido[dataAtiva] = concluido;
-
-                const box = document.getElementById('box-dia-concluido');
-
-                if (concluido) {
-                    if (box) {
-                        box.classList.remove('animar-comemoracao');
-                        void box.offsetWidth;
-                        box.classList.add('animar-comemoracao');
-                    }
-                    const audio = document.getElementById('audio-dia-concluido');
-                    if (audio) {
-                        audio.currentTime = 0;
-                        audio.play().catch(e => console.log("Áudio bloqueado:", e));
-                    }
-                }
-
-                localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
-                renderizarDiaConcluido();
-
-                if (!window.db || !dadosCarregadosDaNuvem) return;
-                try {
-                    await window.setDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"), {
-                        registros: bancoDiaConcluido
-                    }, { merge: true });
-                } catch (e) {
-                    console.error("Erro ao salvar dia concluído na nuvem: ", e);
-                }
-            }
-
-            function migrarDadosAntigos() {
-                let agendaAntiga = JSON.parse(localStorage.getItem('minhaAgendaMinimalista'));
-                if (agendaAntiga && !bancoSemanas[chaveSemanaReal]) {
-                    bancoSemanas[chaveSemanaReal] = agendaAntiga;
-                    localStorage.removeItem('minhaAgendaMinimalista');
-                    salvarBancoSemanas();
-                }
-            }
-
-            function garantirSemanaExiste() {
-                if (!bancoSemanas[chaveSemanaVisualizada]) {
-                    bancoSemanas[chaveSemanaVisualizada] = {};
-                }
-            }
-
-            async function salvarBancoSemanas() {
-                atualizarPlacarSkos();
-                if (!window.db || !dadosCarregadosDaNuvem) return;
-                try {
-                    await window.setDoc(window.doc(window.db, "meu_sistema", "tarefas"), {
-                        semanas: bancoSemanas
                     });
-                } catch (e) {
-                    console.error("Erro ao salvar tarefas na nuvem: ", e);
+                    node.parentNode.replaceChild(fragmento, node);
+                });
+            }
+
+            // LÓGICA PRINCIPAL DE BUSCA
+            if (input !== "") {
+                if (secaoHome) secaoHome.style.display = 'none';
+                primeiroElementoExato = null; // Reseta o alvo da rolagem
+
+                for (let i = 0; i < secoes.length; i++) {
+                    let section = secoes[i];
+                    removerHighlights(section);
+
+                    if (section.innerText.toLowerCase().includes(input)) {
+                        section.style.display = "block"; // Força a exibição da matéria para o cálculo da rolagem funcionar
+                        section.style.border = "2px solid #F5D742";
+                        encontrouAlgum = true;
+                        aplicarHighlight(section, input);
+                    } else {
+                        section.style.display = "none";
+                    }
+                }
+            } else {
+                // Se a busca estiver vazia, restaura o estado inicial
+                for (let i = 0; i < secoes.length; i++) {
+                    removerHighlights(secoes[i]);
+                    secoes[i].style.border = "1px solid #2F2F2F";
+                }
+                abrirTema(temaAtivo);
+                encontrouAlgum = true;
+            }
+
+            // GESTÃO DA MENSAGEM DE ERRO
+            let mensagemErro = document.getElementById('erroBusca');
+            if (!mensagemErro) {
+                mensagemErro = document.createElement('p');
+                mensagemErro.id = 'erroBusca';
+                mensagemErro.style.textAlign = 'center';
+                document.querySelector('.estudos-area').appendChild(mensagemErro);
+            }
+
+            if (input !== "" && !encontrouAlgum) {
+                mensagemErro.innerText = "Nenhum resultado encontrado em suas anotações.";
+            } else {
+                mensagemErro.innerText = "";
+
+                // ROLAGEM DE PRECISÃO ATÉ O ALVO
+                if (primeiroElementoExato && input !== "") {
+                    setTimeout(() => {
+                        // Calcula a altura real do cabeçalho dinamicamente
+                        const alturaHeader = document.querySelector('header').offsetHeight || 80;
+                        const espacoRespiro = 30; // Margem extra para não grudar no topo
+
+                        const posicaoElemento = primeiroElementoExato.getBoundingClientRect().top + window.scrollY;
+                        const posicaoFinal = posicaoElemento - (alturaHeader + espacoRespiro);
+
+                        window.scrollTo({
+                            top: Math.max(0, posicaoFinal),
+                            behavior: 'smooth'
+                        });
+                    }, 150); // Timeout de 150ms garante que o DOM expandiu os blocos antes de rolar
                 }
             }
+        }
 
-            function pegarDadosDaSemanaAtiva() {
-                return bancoSemanas[chaveSemanaVisualizada];
-            }
+        // --- ALTERNÂNCIA DE MODOS DE VISÃO DINÂMICA (CORRIGIDA) ---
+        function mudarModoVisao(modo) {
+            const viewEstudos = document.getElementById('view-estudos');
+            const viewQuadro = document.getElementById('view-quadro');
+            const btnPrincipal = document.getElementById('btn-tab-principal');
+            const btnEstudos = document.getElementById('btn-tab-estudos');
+            const btnQuadro = document.getElementById('btn-tab-quadro');
+            const navModulos = document.getElementById('nav-modulos');
+            const secaoHome = document.getElementById('home-resumo');
+            const agendaSidebar = document.querySelector('.agenda-sidebar');
 
-            function temConcluidas(dia) {
-                let dados = pegarDadosDaSemanaAtiva();
-                if (!dados[dia]) return false;
-                return dados[dia].some(t => t.concluida);
-            }
+            // Limpa marcações ativas
+            [btnPrincipal, btnEstudos, btnQuadro].forEach(btn => {
+                if (btn) btn.classList.remove('ativo');
+            });
+            document.body.classList.remove('modo-planejamento', 'modo-estudos', 'modo-principal');
 
-            function inicializarSistema() {
-                migrarDadosAntigos();
-                garantirSemanaExiste();
-                atualizarLabelsDeNavegacao();
+            if (modo === 'principal') {
+                document.body.classList.add('modo-principal');
+                if (btnPrincipal) btnPrincipal.classList.add('ativo');
+
+                viewEstudos.style.display = window.innerWidth <= 900 ? 'flex' : 'grid';
+                viewQuadro.style.display = 'none';
+
+                if (secaoHome) secaoHome.style.display = 'block';
+                if (agendaSidebar) agendaSidebar.style.display = 'block';
+                if (navModulos) navModulos.style.display = 'none';
+
+                document.querySelectorAll('.tema-section').forEach(sec => sec.style.display = 'none');
+
                 renderizarAbasLateral();
                 renderizarTarefasLateral();
-                atualizarPlacarSkos();
                 renderizarAgua();
-                renderizarDiaConcluido();
-                atualizarResumosAutomaticamente();
-                abrirTema('principal');
-                mudarModoVisao('principal')
-            }
 
-            // --- CONTROLE DA NAVEGAÇÃO DE SEMANAS ---
-            function alterarSemanas(delta) {
-                semanaVisualizada.setDate(semanaVisualizada.getDate() + (delta * 7));
-                chaveSemanaVisualizada = formatarDataChave(semanaVisualizada);
-                garantirSemanaExiste();
-                atualizarLabelsDeNavegacao();
-                atualizarPlacarSkos(); // Atualiza o placar para refletir a nova semana exibida
-            }
+            } else if (modo === 'estudos') {
+                document.body.classList.add('modo-estudos');
+                if (btnEstudos) btnEstudos.classList.add('ativo');
 
-            function mudarSemanaLateral(delta) {
-                alterarSemanas(delta);
-                renderizarAbasLateral();
-                renderizarTarefasLateral();
-                renderizarAgua(); // <--- ADCIONADO
-                renderizarDiaConcluido(); // <--- ADICIONADO
-            }
+                viewEstudos.style.display = 'block';
+                viewQuadro.style.display = 'none';
 
-            function mudarSemanaQuadro(delta) {
-                alterarSemanas(delta);
+                if (secaoHome) secaoHome.style.display = 'none';
+                if (agendaSidebar) agendaSidebar.style.display = 'none';
+                if (navModulos) navModulos.style.display = 'block'; // Mostra o menu superior de disciplinas
+
+                // Abre a última matéria ativa ou cai na padrão de forense de forma estável
+                if (temaAtivo === 'home' || temaAtivo === 'principal' || !temaAtivo) {
+                    abrirTema('psicologiaforense');
+                } else {
+                    abrirTema(temaAtivo);
+                }
+
+            } else if (modo === 'quadro') {
+                document.body.classList.add('modo-planejamento');
+                if (btnQuadro) btnQuadro.classList.add('ativo');
+
+                viewEstudos.style.display = 'none';
+                viewQuadro.style.display = 'block';
+                if (navModulos) navModulos.style.display = 'none';
+
                 renderizarQuadroSemanal();
             }
+        }
+        // --- SISTEMA DE DADOS & SEMANAS DO PLANEJADOR ---
+        function obterSegundaFeira(data) {
+            let d = new Date(data);
+            let dia = d.getDay();
+            let diff = d.getDate() - dia + (dia === 0 ? -6 : 1);
+            d.setDate(diff);
+            d.setHours(0, 0, 0, 0);
+            return d;
+        }
 
-            function atualizarLabelsDeNavegacao() {
-                let label = (chaveSemanaVisualizada === chaveSemanaReal)
-                    ? "semana atual"
-                    : formatarLabelSemana(semanaVisualizada);
+        function formatarDataChave(d) {
+            let ano = d.getFullYear();
+            let mes = ('0' + (d.getMonth() + 1)).slice(-2);
+            let dia = ('0' + d.getDate()).slice(-2);
+            return `${ano}-${mes}-${dia}`;
+        }
 
-                document.getElementById('nav-semana-label-lateral').innerText = label;
+        function formatarLabelSemana(segundaFeira) {
+            let d1 = new Date(segundaFeira);
+            let d2 = new Date(segundaFeira);
+            d2.setDate(d1.getDate() + 6);
 
-                let labelQuadro = document.getElementById('nav-semana-label-quadro');
-                if (labelQuadro) labelQuadro.innerText = label;
+            let f1 = `${('0' + d1.getDate()).slice(-2)}/${('0' + (d1.getMonth() + 1)).slice(-2)}`;
+            let f2 = `${('0' + d2.getDate()).slice(-2)}/${('0' + (d2.getMonth() + 1)).slice(-2)}`;
+            return `${f1} a ${f2}`;
+        }
+
+        const dataHojeReal = new Date();
+        const segundaAtualReal = obterSegundaFeira(dataHojeReal);
+        const chaveSemanaReal = formatarDataChave(segundaAtualReal);
+
+        let semanaVisualizada = obterSegundaFeira(dataHojeReal);
+        let chaveSemanaVisualizada = formatarDataChave(semanaVisualizada);
+
+        let bancoSemanas = {};
+        let dadosCarregadosDaNuvem = false;
+
+        // Abreviações ajustadas para leitura limpa
+        const dias = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
+        const nomesCompletos = {
+            'seg': 'segunda-feira', 'ter': 'terça-feira', 'qua': 'quarta-feira',
+            'qui': 'quinta-feira', 'sex': 'sexta-feira', 'sáb': 'sábado', 'dom': 'domingo',
+            'concluidas': 'todas as tarefas concluídas'
+        };
+
+        const diaSemanaIndex = dataHojeReal.getDay();
+        const diaHojeLabel = dias[diaSemanaIndex === 0 ? 6 : diaSemanaIndex - 1];
+        let diaAtivoLateral = diaHojeLabel;
+
+        // --- NOVO BANCO DE DADOS DE ÁGUA E DIA CONCLUÍDO ---
+        let bancoAgua = JSON.parse(localStorage.getItem('bancoAguaHistorico')) || {};
+        let bancoDiaConcluido = JSON.parse(localStorage.getItem('bancoDiaConcluidoHistorico')) || {};
+
+        // Descobre a data exata em formato YYYY-MM-DD da aba que está clicada
+        function obterDataAtiva() {
+            if (diaAtivoLateral === 'concluidas') return null; // A aba concluídas não tem água
+            let d = new Date(semanaVisualizada);
+            let offset = dias.indexOf(diaAtivoLateral);
+            if (offset !== -1) d.setDate(d.getDate() + offset);
+            return formatarDataChave(d);
+        }
+
+        // --- SISTEMA DE PONTUAÇÃO POR SEMANA VISUALIZADA (SKOS) ---
+        function calcularTotalSkosDaSemana() {
+            let totalConcluidas = 0;
+            let semanaAtiva = bancoSemanas[chaveSemanaVisualizada];
+
+            if (semanaAtiva) {
+                for (let dia in semanaAtiva) {
+                    if (Array.isArray(semanaAtiva[dia])) {
+                        semanaAtiva[dia].forEach(tarefa => {
+                            if (tarefa.concluida) {
+                                totalConcluidas++;
+                            }
+                        });
+                    }
+                }
+            }
+            let pontos = totalConcluidas * 5;
+            let texto = pontos === 1 ? `${pontos} sko` : `${pontos} skos`;
+            return `✦ ${texto}`;
+        }
+
+        function atualizarPlacarSkos() {
+            const textoPlacar = calcularTotalSkosDaSemana();
+            const placarLateral = document.getElementById('placar-skos-lateral');
+            const placarQuadro = document.getElementById('placar-skos-quadro');
+            if (placarLateral) placarLateral.innerText = textoPlacar;
+            if (placarQuadro) placarQuadro.innerText = textoPlacar;
+        }
+
+        // --- SISTEMA DO QUADRO DE ÁGUA (300ml a 2.1L) ---
+        function renderizarAgua() {
+            const dataAtiva = obterDataAtiva();
+            const waterContainer = document.querySelector('.water-tracker');
+
+            // Esconde o quadro de água se estiver na aba "todas concluídas"
+            if (!dataAtiva) {
+                if (waterContainer) waterContainer.style.display = 'none';
+                return;
+            } else {
+                if (waterContainer) waterContainer.style.display = 'block';
             }
 
-            // --- AGENDA LATERAL ---
-            // --- AGENDA LATERAL ---
-            function renderizarAbasLateral() {
-                const abasContainer = document.getElementById('abas-container');
-                if (!abasContainer) return;
-                abasContainer.innerHTML = '';
+            let waterCount = bancoAgua[dataAtiva] || 0;
 
-                dias.forEach(dia => {
-                    const btn = document.createElement('button');
-                    btn.className = `aba-btn ${dia === diaAtivoLateral ? 'ativa' : ''}`;
-                    let indicacao = temConcluidas(dia) ? ' •' : '';
-                    btn.innerText = dia + indicacao;
-                    btn.onclick = () => mudarAbaLateral(dia);
-                    abasContainer.appendChild(btn);
-                });
+            const grid = document.getElementById('water-grid');
+            const text = document.getElementById('water-text');
+            const bar = document.getElementById('water-bar');
+            if (!grid) return;
 
-                const btnConcluidas = document.createElement('button');
-                // CORRIGIDO: Padronizado para 'concluidas' minúsculo
-                btnConcluidas.className = `aba-btn ${diaAtivoLateral === 'concluidas' ? 'ativa' : ''}`;
-                btnConcluidas.innerText = '✓ concluídas';
-                btnConcluidas.style.color = diaAtivoLateral === 'concluidas' ? '#121212' : '#F5D742';
-                if (diaAtivoLateral === 'concluidas') btnConcluidas.style.backgroundColor = '#F5D742';
-                btnConcluidas.onclick = () => mudarAbaLateral('concluidas');
-                abasContainer.appendChild(btnConcluidas);
-
-                let sufixoVisualizacao = chaveSemanaVisualizada !== chaveSemanaReal ? " (histórico)" : "";
-                document.getElementById('dia-atual-label').innerText = nomesCompletos[diaAtivoLateral] + sufixoVisualizacao;
+            grid.innerHTML = '';
+            for (let i = 0; i < 7; i++) {
+                const box = document.createElement('div');
+                box.className = `water-box ${i < waterCount ? 'active' : ''}`;
+                box.innerHTML = i < waterCount ? '≈' : '';
+                box.onclick = () => alternarAgua(i);
+                grid.appendChild(box);
             }
 
-            function mudarAbaLateral(dia) {
-                diaAtivoLateral = dia;
-                renderizarAbasLateral();
-                renderizarTarefasLateral();
-                renderizarAgua(); // <--- ADCIONADO
-                renderizarDiaConcluido(); // <--- ADICIONADO
+            let mlTotal = waterCount * 300;
+            let litrosTexto = mlTotal >= 1000 ? `${(mlTotal / 1000).toFixed(1)} L` : `${mlTotal} ml`;
+            if (text) text.innerText = `${litrosTexto} / 2.1 L`;
+            if (bar) bar.style.width = `${(waterCount / 7) * 100}%`;
+        }
 
-                const divInput = document.getElementById('containerInputTarefa');
-                if (diaAtivoLateral === 'concluidas') {
-                    divInput.style.display = 'none';
-                } else {
-                    divInput.style.display = 'flex';
-                    document.getElementById('inputTarefa').focus();
+        async function alternarAgua(index) {
+            const dataAtiva = obterDataAtiva();
+            if (!dataAtiva) return;
+
+            let currentCount = bancoAgua[dataAtiva] || 0;
+
+            if (currentCount === index + 1) {
+                bancoAgua[dataAtiva] = index; // desmarca
+            } else {
+                bancoAgua[dataAtiva] = index + 1; // marca
+                const audio = document.getElementById('audio-agua');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
                 }
             }
 
-            function renderizarTarefasLateral() {
-                const lista = document.getElementById('listaTarefas');
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-                if (!lista) return;
-                lista.innerHTML = '';
+            localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
+            renderizarAgua();
 
-                // CORRIGIDO: Padronizado para 'concluidas' minúsculo
-                if (diaAtivoLateral === 'concluidas') {
-                    let totalConcluidas = 0;
-                    dias.forEach(dia => {
-                        const tarefasDia = dadosAgendaAtual[dia] || [];
-                        tarefasDia.forEach((tarefa, index) => {
-                            if (tarefa.concluida) {
-                                totalConcluidas++;
-                                const li = document.createElement('li');
-                                li.classList.add('concluida');
-                                li.innerHTML = `
+            if (!window.db || !dadosCarregadosDaNuvem) return;
+            try {
+                await window.setDoc(window.doc(window.db, "meu_sistema", "agua_historico"), {
+                    registros: bancoAgua
+                }, { merge: true });
+            } catch (e) {
+                console.error("Erro ao salvar água na nuvem: ", e);
+            }
+        }
+        // --- SISTEMA DE DIA CONCLUÍDO ---
+        // NOVA FUNÇÃO: Conta as medalhas e atualiza os lugares corretos diretamente
+        function atualizarPlacarMedalhas() {
+            let totalMedalhas = 0;
+
+            // Vasculha o histórico e conta cada dia concluído
+            for (let data in bancoDiaConcluido) {
+                if (bancoDiaConcluido[data] === true) {
+                    totalMedalhas++;
+                }
+            }
+
+            // 1. Atualiza o número gigante do Modal (usando o ID placar-medalhas)
+            const placarModal = document.getElementById('placar-medalhas');
+            if (placarModal) {
+                placarModal.innerText = totalMedalhas;
+            }
+
+            // 2. Atualiza TODOS os pequenos contadores da tela (Agenda Lateral e Topo)
+            const spansMedalhas = document.querySelectorAll('#num-medalhas');
+            spansMedalhas.forEach(span => {
+                span.innerText = totalMedalhas;
+            });
+
+            // 3. NOVO: Atualiza a aba do Quadro de Planejamento Semanal
+            const placarQuadro = document.getElementById('placar-medalhas-quadro');
+            if (placarQuadro) {
+                placarQuadro.innerText = '🏅 ' + totalMedalhas;
+            }
+        }
+        let diaConcluidoHoje = false;
+
+        function verificarResetDiaConcluido() {
+            const dataHoje = formatarDataChave(new Date());
+            const dataSalva = localStorage.getItem('dataUltimoDiaConcluido');
+
+            if (dataSalva !== dataHoje) {
+                diaConcluidoHoje = false;
+                localStorage.setItem('diaConcluidoStatus', 'false');
+                localStorage.setItem('dataUltimoDiaConcluido', dataHoje);
+            } else {
+                diaConcluidoHoje = localStorage.getItem('diaConcluidoStatus') === 'true';
+            }
+        }
+
+        function renderizarDiaConcluido() {
+            const dataAtiva = obterDataAtiva();
+            const box = document.getElementById('box-dia-concluido');
+            const texto = document.getElementById('text-dia-concluido');
+            if (!box || !texto) return;
+
+            if (!dataAtiva) {
+                box.style.display = 'none'; // Esconde na aba concluídas
+                return;
+            } else {
+                box.style.display = 'flex';
+            }
+
+            let concluido = bancoDiaConcluido[dataAtiva] || false;
+
+            if (concluido) {
+                box.classList.add('concluido');
+                texto.innerHTML = '✨ dia concluído com sucesso!';
+            } else {
+                box.classList.remove('concluido', 'animar-comemoracao');
+                texto.innerHTML = '✨ encerrar o dia';
+            }
+            // ADICIONE ESTA LINHA AQUI: Atualiza as medalhas sempre que a tela do dia concluído renderizar
+            atualizarPlacarMedalhas();
+        }
+
+        async function alternarDiaConcluido() {
+            const dataAtiva = obterDataAtiva();
+            if (!dataAtiva) return;
+
+            let concluido = !(bancoDiaConcluido[dataAtiva] || false);
+            bancoDiaConcluido[dataAtiva] = concluido;
+
+            const box = document.getElementById('box-dia-concluido');
+
+            if (concluido) {
+                if (box) {
+                    box.classList.remove('animar-comemoracao');
+                    void box.offsetWidth;
+                    box.classList.add('animar-comemoracao');
+                }
+                const audio = document.getElementById('audio-dia-concluido');
+                if (audio) {
+                    audio.currentTime = 0;
+                    audio.play().catch(e => console.log("Áudio bloqueado:", e));
+                }
+            }
+
+            localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
+            renderizarDiaConcluido();
+
+            if (!window.db || !dadosCarregadosDaNuvem) return;
+            try {
+                await window.setDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"), {
+                    registros: bancoDiaConcluido
+                }, { merge: true });
+            } catch (e) {
+                console.error("Erro ao salvar dia concluído na nuvem: ", e);
+            }
+        }
+
+        function migrarDadosAntigos() {
+            let agendaAntiga = JSON.parse(localStorage.getItem('minhaAgendaMinimalista'));
+            if (agendaAntiga && !bancoSemanas[chaveSemanaReal]) {
+                bancoSemanas[chaveSemanaReal] = agendaAntiga;
+                localStorage.removeItem('minhaAgendaMinimalista');
+                salvarBancoSemanas();
+            }
+        }
+
+        function garantirSemanaExiste() {
+            if (!bancoSemanas[chaveSemanaVisualizada]) {
+                bancoSemanas[chaveSemanaVisualizada] = {};
+            }
+        }
+
+        async function salvarBancoSemanas() {
+            atualizarPlacarSkos();
+            if (!window.db || !dadosCarregadosDaNuvem) return;
+            try {
+                await window.setDoc(window.doc(window.db, "meu_sistema", "tarefas"), {
+                    semanas: bancoSemanas
+                });
+            } catch (e) {
+                console.error("Erro ao salvar tarefas na nuvem: ", e);
+            }
+        }
+
+        function pegarDadosDaSemanaAtiva() {
+            return bancoSemanas[chaveSemanaVisualizada];
+        }
+
+        function temConcluidas(dia) {
+            let dados = pegarDadosDaSemanaAtiva();
+            if (!dados[dia]) return false;
+            return dados[dia].some(t => t.concluida);
+        }
+
+        function inicializarSistema() {
+            migrarDadosAntigos();
+            garantirSemanaExiste();
+            atualizarLabelsDeNavegacao();
+            renderizarAbasLateral();
+            renderizarTarefasLateral();
+            atualizarPlacarSkos();
+            renderizarAgua();
+            renderizarDiaConcluido();
+            atualizarResumosAutomaticamente();
+            abrirTema('principal');
+            mudarModoVisao('principal')
+        }
+
+        // --- CONTROLE DA NAVEGAÇÃO DE SEMANAS ---
+        function alterarSemanas(delta) {
+            semanaVisualizada.setDate(semanaVisualizada.getDate() + (delta * 7));
+            chaveSemanaVisualizada = formatarDataChave(semanaVisualizada);
+            garantirSemanaExiste();
+            atualizarLabelsDeNavegacao();
+            atualizarPlacarSkos(); // Atualiza o placar para refletir a nova semana exibida
+        }
+
+        function mudarSemanaLateral(delta) {
+            alterarSemanas(delta);
+            renderizarAbasLateral();
+            renderizarTarefasLateral();
+            renderizarAgua(); // <--- ADCIONADO
+            renderizarDiaConcluido(); // <--- ADICIONADO
+        }
+
+        function mudarSemanaQuadro(delta) {
+            alterarSemanas(delta);
+            renderizarQuadroSemanal();
+        }
+
+        function atualizarLabelsDeNavegacao() {
+            let label = (chaveSemanaVisualizada === chaveSemanaReal)
+                ? "semana atual"
+                : formatarLabelSemana(semanaVisualizada);
+
+            document.getElementById('nav-semana-label-lateral').innerText = label;
+
+            let labelQuadro = document.getElementById('nav-semana-label-quadro');
+            if (labelQuadro) labelQuadro.innerText = label;
+        }
+
+        // --- AGENDA LATERAL ---
+        // --- AGENDA LATERAL ---
+        function renderizarAbasLateral() {
+            const abasContainer = document.getElementById('abas-container');
+            if (!abasContainer) return;
+            abasContainer.innerHTML = '';
+
+            dias.forEach(dia => {
+                const btn = document.createElement('button');
+                btn.className = `aba-btn ${dia === diaAtivoLateral ? 'ativa' : ''}`;
+                let indicacao = temConcluidas(dia) ? ' •' : '';
+                btn.innerText = dia + indicacao;
+                btn.onclick = () => mudarAbaLateral(dia);
+                abasContainer.appendChild(btn);
+            });
+
+            const btnConcluidas = document.createElement('button');
+            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
+            btnConcluidas.className = `aba-btn ${diaAtivoLateral === 'concluidas' ? 'ativa' : ''}`;
+            btnConcluidas.innerText = '✓ concluídas';
+            btnConcluidas.style.color = diaAtivoLateral === 'concluidas' ? '#121212' : '#F5D742';
+            if (diaAtivoLateral === 'concluidas') btnConcluidas.style.backgroundColor = '#F5D742';
+            btnConcluidas.onclick = () => mudarAbaLateral('concluidas');
+            abasContainer.appendChild(btnConcluidas);
+
+            let sufixoVisualizacao = chaveSemanaVisualizada !== chaveSemanaReal ? " (histórico)" : "";
+            document.getElementById('dia-atual-label').innerText = nomesCompletos[diaAtivoLateral] + sufixoVisualizacao;
+        }
+
+        function mudarAbaLateral(dia) {
+            diaAtivoLateral = dia;
+            renderizarAbasLateral();
+            renderizarTarefasLateral();
+            renderizarAgua(); // <--- ADCIONADO
+            renderizarDiaConcluido(); // <--- ADICIONADO
+
+            const divInput = document.getElementById('containerInputTarefa');
+            if (diaAtivoLateral === 'concluidas') {
+                divInput.style.display = 'none';
+            } else {
+                divInput.style.display = 'flex';
+                document.getElementById('inputTarefa').focus();
+            }
+        }
+
+        function renderizarTarefasLateral() {
+            const lista = document.getElementById('listaTarefas');
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+            if (!lista) return;
+            lista.innerHTML = '';
+
+            // CORRIGIDO: Padronizado para 'concluidas' minúsculo
+            if (diaAtivoLateral === 'concluidas') {
+                let totalConcluidas = 0;
+                dias.forEach(dia => {
+                    const tarefasDia = dadosAgendaAtual[dia] || [];
+                    tarefasDia.forEach((tarefa, index) => {
+                        if (tarefa.concluida) {
+                            totalConcluidas++;
+                            const li = document.createElement('li');
+                            li.classList.add('concluida');
+                            li.innerHTML = `
                                 <span onclick="alternarConclusao('${dia}', ${index})">
                                     <strong class="tag-dia">${dia}</strong> ${tarefa.texto}
                                 </span>
                                 <button onclick="removerTarefa('${dia}', ${index})" title="Excluir">✕</button>
                             `;
-                                lista.appendChild(li);
-                            }
-                        });
+                            lista.appendChild(li);
+                        }
                     });
+                });
 
-                    if (totalConcluidas === 0) {
-                        lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa concluída nesta semana.</div>`;
-                    }
-                    return;
+                if (totalConcluidas === 0) {
+                    lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa concluída nesta semana.</div>`;
                 }
+                return;
+            }
 
-                const tarefasDia = dadosAgendaAtual[diaAtivoLateral] || [];
-                if (tarefasDia.length === 0) {
-                    lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa.</div>`;
-                    return;
-                }
+            const tarefasDia = dadosAgendaAtual[diaAtivoLateral] || [];
+            if (tarefasDia.length === 0) {
+                lista.innerHTML = `<div class="agenda-vazia">nenhuma tarefa.</div>`;
+                return;
+            }
 
-                tarefasDia.forEach((tarefa, index) => {
-                    const li = document.createElement('li');
-                    if (tarefa.concluida) li.classList.add('concluida');
-                    li.innerHTML = `
+            tarefasDia.forEach((tarefa, index) => {
+                const li = document.createElement('li');
+                if (tarefa.concluida) li.classList.add('concluida');
+                li.innerHTML = `
                     <span onclick="alternarConclusao('${diaAtivoLateral}', ${index})">${tarefa.texto}</span>
                     <button onclick="removerTarefa('${diaAtivoLateral}', ${index})" title="Excluir">✕</button>
                 `;
-                    lista.appendChild(li);
-                });
+                lista.appendChild(li);
+            });
+        }
+
+        function adicionarTarefaLateral() {
+            const input = document.getElementById('inputTarefa');
+            const texto = input.value.trim();
+            if (!texto || diaAtivoLateral === 'concluidas') return;
+
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+            if (!dadosAgendaAtual[diaAtivoLateral]) dadosAgendaAtual[diaAtivoLateral] = [];
+            dadosAgendaAtual[diaAtivoLateral].unshift({ texto: texto, concluida: false });
+
+            // --- TOCA O SOM DE NOVA TAREFA ---
+            const audio = document.getElementById('audio-nova-tarefa');
+            if (audio) {
+                audio.currentTime = 0; // Reinicia para poder tocar várias vezes seguidas
+                audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
             }
 
-            function adicionarTarefaLateral() {
-                const input = document.getElementById('inputTarefa');
-                const texto = input.value.trim();
-                if (!texto || diaAtivoLateral === 'concluidas') return;
+            input.value = '';
+            salvarBancoSemanas();
+            renderizarAbasLateral();
+            renderizarTarefasLateral();
+        }
 
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-                if (!dadosAgendaAtual[diaAtivoLateral]) dadosAgendaAtual[diaAtivoLateral] = [];
-                dadosAgendaAtual[diaAtivoLateral].unshift({ texto: texto, concluida: false });
+        // --- QUADRO SEMANAL EM 2 LINHAS ---
+        function renderizarQuadroSemanal() {
+            const grid = document.getElementById('quadro-grid-container');
+            if (!grid) return;
+            grid.innerHTML = '';
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
 
-                // --- TOCA O SOM DE NOVA TAREFA ---
-                const audio = document.getElementById('audio-nova-tarefa');
-                if (audio) {
-                    audio.currentTime = 0; // Reinicia para poder tocar várias vezes seguidas
-                    audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
+            dias.forEach(dia => {
+                const coluna = document.createElement('div');
+                let ehHoje = (dia === diaHojeLabel && chaveSemanaVisualizada === chaveSemanaReal);
+                coluna.className = `coluna-dia ${ehHoje ? 'hoje' : ''}`;
+                if (chaveSemanaVisualizada < chaveSemanaReal) {
+                    coluna.classList.add('passado');
                 }
 
-                input.value = '';
-                salvarBancoSemanas();
-                renderizarAbasLateral();
-                renderizarTarefasLateral();
-            }
+                let tagHoje = ehHoje ? ' <span style="font-size:0.65rem; background:#F5D742; padding:0.1rem 0.35rem; border-radius:4px; color:#121212; font-weight:bold;">Hoje</span>' : '';
 
-            // --- QUADRO SEMANAL EM 2 LINHAS ---
-            function renderizarQuadroSemanal() {
-                const grid = document.getElementById('quadro-grid-container');
-                if (!grid) return;
-                grid.innerHTML = '';
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-
-                dias.forEach(dia => {
-                    const coluna = document.createElement('div');
-                    let ehHoje = (dia === diaHojeLabel && chaveSemanaVisualizada === chaveSemanaReal);
-                    coluna.className = `coluna-dia ${ehHoje ? 'hoje' : ''}`;
-                    if (chaveSemanaVisualizada < chaveSemanaReal) {
-                        coluna.classList.add('passado');
-                    }
-
-                    let tagHoje = ehHoje ? ' <span style="font-size:0.65rem; background:#F5D742; padding:0.1rem 0.35rem; border-radius:4px; color:#121212; font-weight:bold;">Hoje</span>' : '';
-
-                    coluna.innerHTML = `
+                coluna.innerHTML = `
                     <div class="coluna-titulo">
                         <span>${nomesCompletos[dia].split('-')[0]}</span>
                         ${tagHoje}
@@ -10935,229 +10936,234 @@
                     </div>
                     <ul class="coluna-lista" id="lista-quadro-${dia}"></ul>
                 `;
-                    grid.appendChild(coluna);
+                grid.appendChild(coluna);
 
-                    const listaUl = coluna.querySelector(`#lista-quadro-${dia}`);
-                    const tarefasDia = dadosAgendaAtual[dia] || [];
+                const listaUl = coluna.querySelector(`#lista-quadro-${dia}`);
+                const tarefasDia = dadosAgendaAtual[dia] || [];
 
-                    if (tarefasDia.length === 0) {
-                        listaUl.innerHTML = `<li style="background:transparent; border:none; color:#666666; font-style:italic; font-size:0.75rem; justify-content:center;">sem tarefas</li>`;
-                    } else {
-                        tarefasDia.forEach((tarefa, index) => {
-                            const li = document.createElement('li');
-                            if (tarefa.concluida) li.classList.add('concluida');
-                            li.innerHTML = `
+                if (tarefasDia.length === 0) {
+                    listaUl.innerHTML = `<li style="background:transparent; border:none; color:#666666; font-style:italic; font-size:0.75rem; justify-content:center;">sem tarefas</li>`;
+                } else {
+                    tarefasDia.forEach((tarefa, index) => {
+                        const li = document.createElement('li');
+                        if (tarefa.concluida) li.classList.add('concluida');
+                        li.innerHTML = `
                             <span onclick="alternarConclusao('${dia}', ${index})">${tarefa.texto}</span>
                             <button onclick="removerTarefa('${dia}', ${index})" title="Excluir">✕</button>
                         `;
-                            listaUl.appendChild(li);
-                        });
-                    }
-                });
+                        listaUl.appendChild(li);
+                    });
+                }
+            });
+        }
+
+        function adicionarTarefaQuadro(dia) {
+            const input = document.getElementById(`input-quadro-${dia}`);
+            const texto = input.value.trim();
+            if (!texto) return;
+
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+            if (!dadosAgendaAtual[dia]) dadosAgendaAtual[dia] = [];
+            dadosAgendaAtual[dia].unshift({ texto: texto, concluida: false });
+
+            // --- TOCA O SOM DE NOVA TAREFA ---
+            const audio = document.getElementById('audio-nova-tarefa');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
             }
 
-            function adicionarTarefaQuadro(dia) {
-                const input = document.getElementById(`input-quadro-${dia}`);
-                const texto = input.value.trim();
-                if (!texto) return;
+            salvarBancoSemanas();
+            renderizarQuadroSemanal();
+            setTimeout(() => {
+                const novoInput = document.getElementById(`input-quadro-${dia}`);
+                if (novoInput) novoInput.focus();
+            }, 30);
+        }
 
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-                if (!dadosAgendaAtual[dia]) dadosAgendaAtual[dia] = [];
-                dadosAgendaAtual[dia].unshift({ texto: texto, concluida: false });
-
-                // --- TOCA O SOM DE NOVA TAREFA ---
-                const audio = document.getElementById('audio-nova-tarefa');
+        // --- AÇÕES GERAIS ---
+        function alternarConclusao(diaAlvo, index) {
+            // Toca o áudio apenas ao marcar como concluída
+            if (!bancoSemanas[chaveSemanaVisualizada][diaAlvo][index].concluida) {
+                const audio = document.getElementById('audio-conclusao');
                 if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.log("Áudio bloqueado ou não encontrado:", e));
+                    audio.currentTime = 0; // Reinicia o áudio caso ele toque várias vezes seguidas
+                    audio.play();
                 }
+            }
 
-                salvarBancoSemanas();
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+            dadosAgendaAtual[diaAlvo][index].concluida = !dadosAgendaAtual[diaAlvo][index].concluida;
+
+            salvarBancoSemanas();
+
+            // Atualiza a tela conforme o modo
+            const viewQuadro = document.getElementById('view-quadro');
+            if (viewQuadro && viewQuadro.style.display === 'block') {
                 renderizarQuadroSemanal();
-                setTimeout(() => {
-                    const novoInput = document.getElementById(`input-quadro-${dia}`);
-                    if (novoInput) novoInput.focus();
-                }, 30);
-            }
-
-            // --- AÇÕES GERAIS ---
-            function alternarConclusao(diaAlvo, index) {
-                // Toca o áudio apenas ao marcar como concluída
-                if (!bancoSemanas[chaveSemanaVisualizada][diaAlvo][index].concluida) {
-                    const audio = document.getElementById('audio-conclusao');
-                    if (audio) {
-                        audio.currentTime = 0; // Reinicia o áudio caso ele toque várias vezes seguidas
-                        audio.play();
-                    }
-                }
-
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-                dadosAgendaAtual[diaAlvo][index].concluida = !dadosAgendaAtual[diaAlvo][index].concluida;
-
-                salvarBancoSemanas();
-
-                // Atualiza a tela conforme o modo
-                const viewQuadro = document.getElementById('view-quadro');
-                if (viewQuadro && viewQuadro.style.display === 'block') {
-                    renderizarQuadroSemanal();
-                } else {
-                    renderizarAbasLateral();
-                    renderizarTarefasLateral();
-                }
-            }
-
-            function removerTarefa(diaAlvo, index) {
-                let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
-                dadosAgendaAtual[diaAlvo].splice(index, 1);
-                salvarBancoSemanas();
-
-                if (document.getElementById('view-quadro').style.display === 'block') {
-                    renderizarQuadroSemanal();
-                } else {
-                    renderizarAbasLateral();
-                    renderizarTarefasLateral();
-                }
-            }
-
-            async function carregarDadosDaNuvem() {
-                if (!window.db) return;
-                try {
-                    // 1. Busca as Tarefas da Nuvem
-                    const docTarefas = await window.getDoc(window.doc(window.db, "meu_sistema", "tarefas"));
-                    if (docTarefas.exists()) {
-                        bancoSemanas = docTarefas.data().semanas || {};
-                    }
-
-                    // 2. Busca o Histórico de Água da Nuvem
-                    const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua_historico"));
-                    if (docAgua.exists()) {
-                        bancoAgua = docAgua.data().registros || {};
-                        localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
-                    }
-
-                    /// 3. Busca o Histórico de "Dia Concluído" da Nuvem
-                    const docDia = await window.getDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"));
-                    if (docDia.exists()) {
-                        bancoDiaConcluido = docDia.data().registros || {};
-                        localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
-                    }
-
-                    dadosCarregadosDaNuvem = true;
-                    inicializarSistema();
-                } catch (e) {
-                    console.error("Erro ao buscar dados do Firebase:", e);
-                    inicializarSistema();
-                }
-            }
-
-            // Aguarda a conexão do Firebase no topo da página antes de carregar seus dados
-            window.addEventListener('firebasePronto', carregarDadosDaNuvem);
-
-            // Proteção e Pré-carregamento Visual Imediato
-            document.addEventListener('DOMContentLoaded', () => {
-                // --- NOVO: Desenha a estrutura instantaneamente para não ficar com a tela "vazia" ---
-                garantirSemanaExiste();
+            } else {
                 renderizarAbasLateral();
-                renderizarAgua();
-                renderizarDiaConcluido();
                 renderizarTarefasLateral();
-                // -----------------------------------------------------------------------------
+            }
+        }
 
+        function removerTarefa(diaAlvo, index) {
+            let dadosAgendaAtual = pegarDadosDaSemanaAtiva();
+            dadosAgendaAtual[diaAlvo].splice(index, 1);
+            salvarBancoSemanas();
+
+            if (document.getElementById('view-quadro').style.display === 'block') {
+                renderizarQuadroSemanal();
+            } else {
+                renderizarAbasLateral();
+                renderizarTarefasLateral();
+            }
+        }
+
+        async function carregarDadosDaNuvem() {
+            if (!window.db) return;
+            try {
+                // 1. Busca as Tarefas da Nuvem
+                const docTarefas = await window.getDoc(window.doc(window.db, "meu_sistema", "tarefas"));
+                if (docTarefas.exists()) {
+                    bancoSemanas = docTarefas.data().semanas || {};
+                }
+
+                // 2. Busca o Histórico de Água da Nuvem
+                const docAgua = await window.getDoc(window.doc(window.db, "meu_sistema", "agua_historico"));
+                if (docAgua.exists()) {
+                    bancoAgua = docAgua.data().registros || {};
+                    localStorage.setItem('bancoAguaHistorico', JSON.stringify(bancoAgua));
+                }
+
+                /// 3. Busca o Histórico de "Dia Concluído" da Nuvem
+                const docDia = await window.getDoc(window.doc(window.db, "meu_sistema", "dia_concluido_historico"));
+                if (docDia.exists()) {
+                    bancoDiaConcluido = docDia.data().registros || {};
+                    localStorage.setItem('bancoDiaConcluidoHistorico', JSON.stringify(bancoDiaConcluido));
+                }
+
+                dadosCarregadosDaNuvem = true;
+                inicializarSistema();
+            } catch (e) {
+                console.error("Erro ao buscar dados do Firebase:", e);
+                inicializarSistema();
+            }
+        }
+
+        // Aguarda a conexão do Firebase no topo da página antes de carregar seus dados
+        window.addEventListener('firebasePronto', carregarDadosDaNuvem);
+
+        // Proteção e Pré-carregamento Visual Imediato
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- NOVO: Desenha a estrutura instantaneamente para não ficar com a tela "vazia" ---
+            garantirSemanaExiste();
+            renderizarAbasLateral();
+            renderizarAgua();
+            renderizarDiaConcluido();
+            renderizarTarefasLateral();
+            // -----------------------------------------------------------------------------
+
+            setTimeout(() => {
+                if (!dadosCarregadosDaNuvem) inicializarSistema();
+            }, 2000);
+        });
+        // Função para salvar as medalhas na nuvem (Firebase) e no navegador
+        async function salvarMedalhasNuvem(quantidade) {
+            // 1. Salva localmente para acesso rápido
+            localStorage.setItem('planotes_medalhas', quantidade);
+
+            // 2. Salva no Firebase (se o banco estiver pronto)
+            if (window.db && window.setDoc && window.doc) {
+                try {
+                    // Usamos um ID de usuário padrão ou fixo para o seu painel pessoal
+                    const docRef = window.doc(window.db, "usuarios", "meu_perfil_planotes");
+                    await window.setDoc(docRef, { medalhas: quantidade }, { merge: true });
+                } catch (erro) {
+                    console.warn("Não foi possível salvar na nuvem, usando armazenamento local.", erro);
+                }
+            }
+        }
+
+        // Função que atualiza os elementos visuais na tela
+        // Função que atualiza os elementos visuais na tela
+        function renderizarMedalhasNaTela(totalMedalhas) {
+            const spanMedalhasTopo = document.getElementById('num-medalhas');
+            if (spanMedalhasTopo) {
+                spanMedalhasTopo.innerText = totalMedalhas;
+            }
+
+            // NOVO: Atualiza o contador de medalhas no quadro de planejamento semanal
+            const placarQuadro = document.getElementById('placar-medalhas-quadro');
+            if (placarQuadro) {
+                placarQuadro.innerText = '🏅 ' + totalMedalhas;
+            }
+        }
+
+        // Função para somar ou subtrair medalha do total perpétuo
+        async function atualizarTotalMedalhas(alteracao) {
+            let totalMedalhas = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
+
+            totalMedalhas += alteracao;
+            if (totalMedalhas < 0) totalMedalhas = 0; // Impede que fique negativo
+
+            // Atualiza localmente e na tela imediatamente
+            localStorage.setItem('planotes_medalhas', totalMedalhas);
+            renderizarMedalhasNaTela(totalMedalhas);
+
+            // Salva na nuvem
+            if (typeof salvarMedalhasNuvem === 'function') {
+                await salvarMedalhasNuvem(totalMedalhas);
+            }
+        }
+
+        // Carrega as medalhas salvas assim que a página abre
+        async function carregarMedalhas() {
+            let valorSalvo = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
+
+            // Busca do Firebase primeiro
+            if (window.db && window.getDoc && window.doc) {
+                try {
+                    const docRef = window.doc(window.db, "usuarios", "meu_perfil_planotes");
+                    const docSnap = await window.getDoc(docRef);
+                    if (docSnap.exists() && docSnap.data().medalhas !== undefined) {
+                        valorSalvo = parseInt(docSnap.data().medalhas);
+                        localStorage.setItem('planotes_medalhas', valorSalvo);
+                    }
+                } catch (erro) {
+                    console.warn("Modo offline: carregando dados salvos localmente.");
+                }
+            }
+
+            renderizarMedalhasNaTela(valorSalvo);
+        }
+
+        // Inicializadores
+        window.addEventListener('DOMContentLoaded', carregarMedalhas);
+        window.addEventListener('firebasePronto', carregarMedalhas);
+
+        // Aciona a adição/remoção ao clicar no dia
+        document.addEventListener('click', (e) => {
+            const box = e.target.closest('.day-completed-box');
+            if (box) {
+                // Verifica o estado atual ANTES do clique processar
+                const estavaConcluido = box.classList.contains('concluido');
+
+                // Aguarda a classe "concluido" ser alterada pelo seu outro script de interface
                 setTimeout(() => {
-                    if (!dadosCarregadosDaNuvem) inicializarSistema();
-                }, 2000);
-            });
-            // Função para salvar as medalhas na nuvem (Firebase) e no navegador
-            async function salvarMedalhasNuvem(quantidade) {
-                // 1. Salva localmente para acesso rápido
-                localStorage.setItem('planotes_medalhas', quantidade);
+                    const estaConcluido = box.classList.contains('concluido');
 
-                // 2. Salva no Firebase (se o banco estiver pronto)
-                if (window.db && window.setDoc && window.doc) {
-                    try {
-                        // Usamos um ID de usuário padrão ou fixo para o seu painel pessoal
-                        const docRef = window.doc(window.db, "usuarios", "meu_perfil_planotes");
-                        await window.setDoc(docRef, { medalhas: quantidade }, { merge: true });
-                    } catch (erro) {
-                        console.warn("Não foi possível salvar na nuvem, usando armazenamento local.", erro);
+                    // Só mexe no contador se o estado realmente mudou
+                    if (!estavaConcluido && estaConcluido) {
+                        atualizarTotalMedalhas(1); // Marcou o dia: ganha 1 medalha
+                    } else if (estavaConcluido && !estaConcluido) {
+                        atualizarTotalMedalhas(-1); // Desmarcou o dia: perde 1 medalha
                     }
-                }
+                }, 150);
             }
+        });
 
-            // Função que atualiza os elementos visuais na tela
-            function renderizarMedalhasNaTela(totalMedalhas) {
-                const spanMedalhasTopo = document.getElementById('num-medalhas');
-                if (spanMedalhasTopo) {
-                    spanMedalhasTopo.innerText = totalMedalhas;
-                }
-
-
-            }
-
-            // Função para somar ou subtrair medalha do total perpétuo
-            async function atualizarTotalMedalhas(alteracao) {
-                let totalMedalhas = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
-
-                totalMedalhas += alteracao;
-                if (totalMedalhas < 0) totalMedalhas = 0; // Impede que fique negativo
-
-                // Atualiza localmente e na tela imediatamente
-                localStorage.setItem('planotes_medalhas', totalMedalhas);
-                renderizarMedalhasNaTela(totalMedalhas);
-
-                // Salva na nuvem
-                if (typeof salvarMedalhasNuvem === 'function') {
-                    await salvarMedalhasNuvem(totalMedalhas);
-                }
-            }
-
-            // Carrega as medalhas salvas assim que a página abre
-            async function carregarMedalhas() {
-                let valorSalvo = parseInt(localStorage.getItem('planotes_medalhas')) || 0;
-
-                // Busca do Firebase primeiro
-                if (window.db && window.getDoc && window.doc) {
-                    try {
-                        const docRef = window.doc(window.db, "usuarios", "meu_perfil_planotes");
-                        const docSnap = await window.getDoc(docRef);
-                        if (docSnap.exists() && docSnap.data().medalhas !== undefined) {
-                            valorSalvo = parseInt(docSnap.data().medalhas);
-                            localStorage.setItem('planotes_medalhas', valorSalvo);
-                        }
-                    } catch (erro) {
-                        console.warn("Modo offline: carregando dados salvos localmente.");
-                    }
-                }
-
-                renderizarMedalhasNaTela(valorSalvo);
-            }
-
-            // Inicializadores
-            window.addEventListener('DOMContentLoaded', carregarMedalhas);
-            window.addEventListener('firebasePronto', carregarMedalhas);
-
-            // Aciona a adição/remoção ao clicar no dia
-            document.addEventListener('click', (e) => {
-                const box = e.target.closest('.day-completed-box');
-                if (box) {
-                    // Verifica o estado atual ANTES do clique processar
-                    const estavaConcluido = box.classList.contains('concluido');
-
-                    // Aguarda a classe "concluido" ser alterada pelo seu outro script de interface
-                    setTimeout(() => {
-                        const estaConcluido = box.classList.contains('concluido');
-
-                        // Só mexe no contador se o estado realmente mudou
-                        if (!estavaConcluido && estaConcluido) {
-                            atualizarTotalMedalhas(1); // Marcou o dia: ganha 1 medalha
-                        } else if (estavaConcluido && !estaConcluido) {
-                            atualizarTotalMedalhas(-1); // Desmarcou o dia: perde 1 medalha
-                        }
-                    }, 150);
-                }
-            });
-
-        </script>
+    </script>
 
 
 </body>

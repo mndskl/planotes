@@ -130,7 +130,7 @@
         display: flex;
         gap: 0.3rem;
         background: var(--cor-fundo);
-        padding: 0.2rem;
+        padding: 0.1 0.1rem;
         /* Bem fininho */
         border-radius: 8px;
         border: 1px solid var(--cor-borda);
@@ -141,7 +141,7 @@
         border: none;
         padding: 0.35rem 0.85rem;
         /* Reduz o espaço interno, deixando o botão bem compacto */
-        font-size: 0.78rem;
+        font-size: 0.85rem;
         /* Diminui levemente a letra para combinar com o topo */
         font-weight: 500;
         color: var(--cor-texto-mutado);
@@ -1266,9 +1266,9 @@
         /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
         .main-tabs {
             display: flex;
-            gap: 0.3rem;
+            gap: 0.1rem;
             background: var(--cor-fundo);
-            padding: 0.2rem;
+            padding: 0.1rem;
             /* Bem fininho */
             border-radius: 8px;
             border: 1px solid var(--cor-borda);
@@ -1278,7 +1278,7 @@
         .main-tab-btn {
             background: none;
             border: none;
-            font-size: 0.65rem !important;
+            font-size: 0.78rem !important;
             padding: 0.2rem 0.4rem !important;
             /* Letra bem sutil e minimalista */
             font-weight: 500;
@@ -1288,19 +1288,24 @@
             transition: all 0.2s;
         }
 
-        /* --- 3. LINHA DESLIZANTE DE MATÉRIAS (SEM ENCAVALAR E SEM BARRA) --- */
+        /* --- 3. LINHA DESLIZANTE DE MATÉRIAS (HARMONIZADA) --- */
         #nav-modulos {
             width: 100% !important;
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch !important;
-            padding-top: 0.2rem !important;
-            /* Respiro na parte de cima das pílulas */
-            padding-bottom: 0.4rem !important;
-            margin: 0 !important;
+
+            /* --- AJUSTE DE ESPAÇAMENTO VERTICAL --- */
+            padding-top: 0.5rem !important;
+            /* Deixa o respiro interno igual em cima e embaixo */
+            padding-bottom: 0.5rem !important;
+            margin-top: 1.2rem !important;
+            /* Empurra os botões mais para baixo, afastando do menu superior */
+            margin-bottom: 0.2rem !important;
+            /* Puxa os botões mais para perto da linha divisória */
+            /* -------------------------------------- */
+
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
         }
 
         #nav-modulos::-webkit-scrollbar,
@@ -1315,21 +1320,36 @@
         #nav-modulos ul {
             display: flex !important;
             flex-wrap: nowrap !important;
-            gap: 0.5rem !important;
+            gap: 1rem !important;
+            /* Espaçamento mais amplo e respirável entre os botões */
             width: max-content !important;
             margin: 0 !important;
+            padding: 0 0.5rem !important;
+            list-style: none !important;
+            align-items: center !important;
+            /* Mantém tudo alinhado perfeitamente no meio */
         }
 
         #nav-modulos a {
-            padding: 0.35rem 0.75rem !important;
-            /* Pílula mais compacta */
-            font-size: 0.75rem !important;
-            /* Fonte reduzida para caber melhor na tela */
+            padding: 0.4rem 1rem !important;
+            /* Encorpa o padding para uma pílula mais bonita */
+            font-size: 0.70rem !important;
+            color: #8b8b8b !important;
+            /* Cor suave para não brigar com o item ativo */
             white-space: nowrap !important;
-            background-color: var(--cor-card) !important;
-            border: 1px solid var(--cor-borda) !important;
+            background-color: transparent !important;
+            /* Remove o fundo dos itens inativos */
+            border: 1px solid transparent !important;
+            /* Remove a borda dos itens inativos */
             border-radius: 20px !important;
             transition: all 0.2s ease !important;
+            text-decoration: none !important;
+        }
+
+        #nav-modulos a:hover {
+            background-color: rgba(255, 255, 255, 0.05) !important;
+            /* Efeito sutil no mouse */
+            color: #ffffff !important;
         }
 
         #nav-modulos a.sub-nav-active {
@@ -1463,7 +1483,7 @@
 
     @media (max-width: 900px) {
         .main-tab-btn {
-            font-size: 0.70rem !important;
+            font-size: 0.78rem !important;
             /* Ajusta a fonte para os 3 botões superiores caberem perfeitamente no iPhone */
             padding: 0.4rem 0.2rem !important;
         }
