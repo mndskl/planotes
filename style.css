@@ -1210,36 +1210,6 @@
         background-color: rgba(121, 192, 255, 0.03) !important;
     }
 
-    /* Ajustes finos exclusivos para telas de celular pequenas */
-    @media (max-width: 600px) {
-        .table-responsive-wrapper table {
-            min-width: 460px !important;
-            /* Ativa a rolagem lateral na medida certa para o iPhone */
-            font-size: 0.82rem !important;
-            /* Letra ligeiramente mais delicada no celular */
-        }
-
-        .table-responsive-wrapper th,
-        .table-responsive-wrapper td {
-            padding: 0.55rem 0.65rem !important;
-            /* Ganha espaço na tela reduzindo o respiro interno */
-        }
-    }
-
-    /* RESPONSIVIDADE */
-    @media (max-width: 1000px) {
-        .quadro-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .coluna-dia,
-        .coluna-dia:nth-child(5),
-        .coluna-dia:nth-child(6),
-        .coluna-dia:nth-child(7) {
-            grid-column: span 1;
-        }
-    }
-
     @media (max-width: 900px) {
 
         /* --- 1. CABEÇALHO COMPACTO E BEM DISTRIBUÍDO --- */
@@ -1249,13 +1219,11 @@
 
         .header-content {
             gap: 0.6rem !important;
-            /* Aumenta ligeiramente o espaço entre as linhas */
             justify-content: center !important;
         }
 
         header h1 {
             font-size: 1rem !important;
-            /* Título mais delicado */
             margin-bottom: 0.1rem !important;
             width: 100% !important;
             text-align: center !important;
@@ -1263,13 +1231,11 @@
         }
 
         /* --- 2. CAIXA DOS BOTÕES PRINCIPAIS (ESTUDOS / PLANEJAMENTO) --- */
-        /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
         .main-tabs {
             display: flex;
             gap: 0.1rem;
             background: var(--cor-fundo);
             padding: 0.1rem;
-            /* Bem fininho */
             border-radius: 8px;
             border: 1px solid var(--cor-borda);
             margin-bottom: 0.5rem !important;
@@ -1280,7 +1246,6 @@
             border: none;
             font-size: 0.78rem !important;
             padding: 0.2rem 0.4rem !important;
-            /* Letra bem sutil e minimalista */
             font-weight: 500;
             color: var(--cor-texto-mutado);
             cursor: pointer;
@@ -1293,17 +1258,10 @@
             width: 100% !important;
             overflow-x: auto !important;
             -webkit-overflow-scrolling: touch !important;
-
-            /* --- AJUSTE DE ESPAÇAMENTO VERTICAL --- */
             padding-top: 0.5rem !important;
-            /* Deixa o respiro interno igual em cima e embaixo */
             padding-bottom: 0.5rem !important;
             margin-top: 1.2rem !important;
-            /* Empurra os botões mais para baixo, afastando do menu superior */
             margin-bottom: 0.2rem !important;
-            /* Puxa os botões mais para perto da linha divisória */
-            /* -------------------------------------- */
-
             scrollbar-width: none !important;
             -ms-overflow-style: none !important;
         }
@@ -1321,26 +1279,20 @@
             display: flex !important;
             flex-wrap: nowrap !important;
             gap: 1rem !important;
-            /* Espaçamento mais amplo e respirável entre os botões */
             width: max-content !important;
             margin: 0 !important;
             padding: 0 0.5rem !important;
             list-style: none !important;
             align-items: center !important;
-            /* Mantém tudo alinhado perfeitamente no meio */
         }
 
         #nav-modulos a {
             padding: 0.4rem 1rem !important;
-            /* Encorpa o padding para uma pílula mais bonita */
             font-size: 0.70rem !important;
             color: #8b8b8b !important;
-            /* Cor suave para não brigar com o item ativo */
             white-space: nowrap !important;
             background-color: transparent !important;
-            /* Remove o fundo dos itens inativos */
             border: 1px solid transparent !important;
-            /* Remove a borda dos itens inativos */
             border-radius: 20px !important;
             transition: all 0.2s ease !important;
             text-decoration: none !important;
@@ -1348,7 +1300,6 @@
 
         #nav-modulos a:hover {
             background-color: rgba(255, 255, 255, 0.05) !important;
-            /* Efeito sutil no mouse */
             color: #ffffff !important;
         }
 
@@ -1385,11 +1336,32 @@
         .quadro-grid {
             grid-template-columns: 1fr !important;
         }
-    }
 
-    @media (max-width: 600px) {
-        .quadro-grid {
-            grid-template-columns: 1fr;
+        /* --- 5. AJUSTE DE FONTES NO CELULAR (ANOTAÇÕES E RESUMO) --- */
+        /* Texto normal e parágrafos */
+        #home-resumo p,
+        #home-resumo li,
+        .tema-section p,
+        .tema-section li,
+        .content-block p {
+            font-size: 0.85rem !important;
+            /* Se ainda achar grande, mude para 0.8rem */
+            line-height: 1.4 !important;
+        }
+
+        /* Títulos Maiores */
+        #home-resumo h2,
+        .tema-section h2 {
+            font-size: 1.1rem !important;
+        }
+
+        /* Subtítulos */
+        #home-resumo h3,
+        .tema-section h3,
+        .tema-section h4,
+        .content-block h3,
+        .content-block h4 {
+            font-size: 0.95rem !important;
         }
     }
 
