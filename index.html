@@ -135,7 +135,7 @@
     <div class="container-estudos" id="view-estudos">
         <!-- COLUNA ESQUERDA: BANCO DE DADOS E RESUMOS -->
         <main class="estudos-area">
-
+            <br>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="pesquisar em todas as anotações..."
                     onkeypress="if(event.key === 'Enter') filtrarEstudos()">
@@ -12075,6 +12075,7 @@
 
     <!-- MODO 2: QUADRO DE PLANEJAMENTO SEMANAL -->
     <div class="container-quadro" id="view-quadro">
+
         <div class="quadro-header">
             <div class="quadro-header-titulos">
                 <!-- PLACARES DO QUADRO SEMANAL -->
@@ -12087,14 +12088,12 @@
                         style="color: #F5D742; cursor: default; margin: 0;" title="Dias totais concluídos com sucesso!">
                         🏅 0
                     </div>
-                    <br>
-                    <br>
-
                 </div>
-
             </div>
+            <br>
 
-            <div class="semana-nav" style="margin-bottom: 0.8;">
+            <!-- Adicionado 'rem' ao valor da margem -->
+            <div class="semana-nav" style="margin-bottom: 0.8rem;">
                 <button onclick="mudarSemanaQuadro(-1)" title="Semana Anterior">&#8592;</button>
                 <span id="nav-semana-label-quadro">semana atual</span>
                 <button onclick="mudarSemanaQuadro(1)" title="Próxima Semana">&#8594;</button>
