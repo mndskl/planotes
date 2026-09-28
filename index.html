@@ -10562,7 +10562,7 @@
                         </li>
                     </ul>
                 </div>
-                <h4>Produção dos quatro discursos (Lacan, 1969)</h4>
+                <h4>Texto 2 - Produção dos quatro discursos (Lacan, 1969)</h4>
                 <div class="content-block">
                     <p><strong><span style="color: var(--cor-acento);">A psicanálise pelo avesso e a primazia do
                                 discurso sem palavras</span></strong></p>
@@ -11528,7 +11528,7 @@
                             imagem de si, pode ser lido como uma irrupção do Real - o sujeito é tomado por um gozo que a
                             palavra não consegue domesticar</i></p>
                 </div>
-                <h4>A instância da letra no inconsciente ou a razão desde Freud (Lacan, 1957)</h4>
+                <h4>Texto 3 - A instância da letra no inconsciente ou a razão desde Freud (Lacan, 1957)</h4>
                 <div class="content-block">
                     <p><strong><span style="color: var(--cor-acento);">O sentido da letra - a primazia do
                                 significante</span></strong></p>
@@ -12004,7 +12004,7 @@
                     <p><strong>Conceitos centrais</strong></p>
 
                 </div>
-                <h4>O horror ao incesto (Freud, 1914)</h4>
+                <h4>Texto 4 - O horror ao incesto (Freud, 1914)</h4>
                 <div class="content-block">
                     <p><strong>Introdução</strong></p>
                     <ul class="estudos-lista">
@@ -13210,7 +13210,47 @@
 
     </script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Seleciona todos os títulos <h4> APENAS dentro da seção de psicanálise
+            const titulosPsicanalise = document.querySelectorAll('#psicanalise h4');
 
+            titulosPsicanalise.forEach(titulo => {
+                // Adiciona uma setinha indicativa ao lado do título
+                titulo.innerHTML += ' <span class="seta-toggle" style="display:inline-block; transition: transform 0.3s; font-size: 0.8rem; margin-left: 8px;">▼</span>';
+
+                let elementoSeguinte = titulo.nextElementSibling;
+                let conteudosAgrupados = [];
+
+                // Agrupa todos os blocos de conteúdo e textos abaixo do <h4> até esbarrar no próximo título (H4, H3 ou H2)
+                while (elementoSeguinte && !['H4', 'H3', 'H2'].includes(elementoSeguinte.tagName)) {
+                    conteudosAgrupados.push(elementoSeguinte);
+                    elementoSeguinte.classList.add('ocultar-psicanalise'); // Oculta os tópicos por padrão ao carregar
+                    elementoSeguinte = elementoSeguinte.nextElementSibling;
+                }
+
+                // Adiciona a mecânica de clique no <h4>
+                titulo.addEventListener('click', function () {
+                    const seta = this.querySelector('.seta-toggle');
+
+                    // Verifica se o primeiro elemento do bloco está escondido
+                    const estaFechado = conteudosAgrupados.length > 0 && conteudosAgrupados[0].classList.contains('ocultar-psicanalise');
+
+                    if (estaFechado) {
+                        // Abre o conteúdo e vira a seta para cima
+                        conteudosAgrupados.forEach(el => el.classList.remove('ocultar-psicanalise'));
+                        seta.style.transform = 'rotate(180deg)';
+                        titulo.style.color = 'var(--cor-acento)';
+                    } else {
+                        // Fecha o conteúdo e volta a seta para baixo
+                        conteudosAgrupados.forEach(el => el.classList.add('ocultar-psicanalise'));
+                        seta.style.transform = 'rotate(0deg)';
+                        titulo.style.color = '';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 

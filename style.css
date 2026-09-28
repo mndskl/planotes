@@ -2008,3 +2008,18 @@
     .agenda-sidebar .contador-medalhas span {
         margin-left: 4px !important;
     }
+
+    /* --- EFEITO SANFONA PARA A ABA DE PSICANÁLISE --- */
+    .ocultar-psicanalise {
+        display: none !important;
+    }
+
+    #psicanalise h4 {
+        cursor: pointer;
+        transition: color 0.2s;
+        user-select: none;
+    }
+
+    #psicanalise h4:hover {
+        color: var(--cor-acento);
+    }
