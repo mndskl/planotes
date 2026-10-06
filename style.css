@@ -251,7 +251,7 @@
 
     .grid-resumos {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 1.5rem;
     }
 
@@ -2022,4 +2022,44 @@
 
     #psicanalise h4:hover {
         color: var(--cor-acento);
+    }
+
+    /* --- EFEITO SANFONA PARA TODOS OS TÍTULOS H4 DAS ANOTAÇÕES --- */
+    .tema-section h4 {
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+        padding-left: 20px;
+        /* Cria espaço para a seta */
+        transition: color 0.2s ease;
+    }
+
+    .tema-section h4:hover {
+        color: var(--cor-acento);
+    }
+
+    /* Cria a seta indicadora fechada */
+    .tema-section h4::before {
+        content: '►';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.75rem;
+        color: var(--cor-acento);
+        transition: transform 0.2s ease;
+    }
+
+    /* Roda a seta quando a secção estiver aberta */
+    .tema-section h4.aberto::before {
+        transform: translateY(-50%) rotate(90deg);
+    }
+
+    /* --- EFEITO DE FOCO TEMPORÁRIO PARA O BOTÃO MAIS RECENTE --- */
+    .marcatexto-ativo {
+        background-color: #ffeb3b !important;
+        color: #000 !important;
+        border-radius: 4px;
+        padding-right: 10px;
+        transition: background-color 0.8s ease-out, color 0.8s ease-out;
     }
