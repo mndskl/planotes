@@ -2063,3 +2063,143 @@
         padding-right: 10px;
         transition: background-color 0.8s ease-out, color 0.8s ease-out;
     }
+
+    /* --- TELA DE BLOQUEIO POR SENHA (BLUR) --- */
+    body.bloqueado {
+        overflow: hidden !important;
+        /* Impede de rolar a página por trás do blur */
+        user-select: none !important;
+    }
+
+    .bloqueio-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(10, 12, 16, 0.65);
+        /* Escurece levemente o fundo */
+        backdrop-filter: blur(18px);
+        /* Efeito de blur forte para esconder os textos */
+        -webkit-backdrop-filter: blur(18px);
+        /* Suporte para iPhone / Safari */
+        z-index: 999999 !important;
+        /* Fica acima do cabeçalho e de qualquer outro modal */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .bloqueio-overlay.desbloqueado {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .bloqueio-modal {
+        background-color: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: 16px;
+        padding: 2rem 1.8rem;
+        width: 100%;
+        max-width: 340px;
+        text-align: center;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.85);
+        animation: modalEntrada 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .bloqueio-icone {
+        font-size: 2.2rem;
+        line-height: 1;
+        /* Remove a sobra vertical invisível do emoji */
+        margin-bottom: 0.15rem;
+        /* Espaçamento bem curtinho (se quiser mais colado ainda, pode usar 0) */
+    }
+
+    .bloqueio-modal h2 {
+        font-size: 1.35rem;
+        color: var(--cor-texto);
+        margin-bottom: 0.2rem;
+        font-weight: 600;
+    }
+
+    .bloqueio-modal p {
+        font-size: 0.85rem;
+        color: var(--cor-texto-mutado);
+        margin-top: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .bloqueio-input-group {
+        display: flex;
+        flex: 1;
+        gap: 0.5rem;
+    }
+
+    .bloqueio-input-group input {
+        flex: 1;
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto);
+        font-size: 1rem;
+        outline: none;
+        text-align: center;
+        letter-spacing: 3px;
+        transition: border-color 0.2s;
+    }
+
+    .bloqueio-input-group input:focus {
+        border-color: var(--cor-acento);
+    }
+
+    .bloqueio-input-group button {
+        background-color: var(--cor-acento);
+        color: #121212;
+        border: none;
+        padding: 0 1.2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .bloqueio-input-group button:hover {
+        background-color: var(--cor-acento-hover);
+    }
+
+    .bloqueio-erro {
+        display: none;
+        color: #FF6B6B;
+        font-size: 0.8rem;
+        margin-top: 0.8rem;
+        font-weight: 500;
+    }
+
+    /* Animação de erro ao errar a senha */
+    @keyframes tremerErro {
+
+        0%,
+        100% {
+            transform: translateX(0);
+        }
+
+        20%,
+        60% {
+            transform: translateX(-6px);
+        }
+
+        40%,
+        80% {
+            transform: translateX(6px);
+        }
+    }
+
+    .tremer {
+        animation: tremerErro 0.35s ease;
+    }

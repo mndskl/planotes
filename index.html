@@ -71,6 +71,22 @@
 </head>
 
 <body>
+    <!-- TELA DE BLOQUEIO COM SENHA -->
+    <div id="tela-bloqueio" class="bloqueio-overlay">
+        <div class="bloqueio-modal">
+            <div class="bloqueio-icone">🔒</div>
+            <h2>planotes</h2>
+            <p>digite sua senha para acessar as anotações</p>
+
+            <div class="bloqueio-input-group">
+                <input type="password" id="input-senha-app" placeholder="••••••"
+                    onkeypress="if(event.key === 'Enter') verificarSenhaApp()">
+                <button onclick="verificarSenhaApp()">entrar</button>
+            </div>
+
+            <span id="erro-senha-app" class="bloqueio-erro">senha incorreta. tente novamente.</span>
+        </div>
+    </div>
     <audio id="audio-conclusao" src="assets/tarefaconcluida.mp3" preload="auto"></audio>
     <audio id="audio-nova-tarefa" src="assets/novatarefa.mp3" preload="auto"></audio>
     <audio id="audio-agua" src="assets/agua.mp3" preload="auto"></audio>
@@ -2908,7 +2924,7 @@
                     <p style="margin-top: 0.6rem;">Questionário de autorrelato com 9 itens, diretamente baseado nos
                         critérios diagnósticos do DSM-5 para Transtorno Depressivo Maior</p>
                     <p style="margin-top: 0.6rem;"><strong>Funcionalidade dupla:</strong></p>
-                    <ul class="content-block">
+                    <ul class="estudos-lista">
                         <li>Rastreamento: identifica a presença e a gravidade dos sintomas depressivos</li>
                         <li>Monitoramento: avalia a eficácia do tratamento ao longo do tempo através da variação da
                             pontuação</li>
@@ -3279,7 +3295,7 @@
                         <li>Ausência de contraexemplo</li>
                     </ul>
                 </div>
-                <div class="conten-block">
+                <div class="content-block">
                     <p style="margin-top: 0.6rem;"><strong>Estresse tóxico:</strong> crianças em situação de AP sofrem
                         um bombardeio de cortisol que pode gerar déficits de atenção e dificuldades de aprendizado</p>
                     <p style="margin-top: 0.6rem;"><strong>Cisão psíquica:</strong> a alienação força a criança a
@@ -3794,55 +3810,7 @@
                         <li>Os dados transcritos da gravação são usados no laudo, mas não entregue ao juiz</li>
                     </ul>
                 </div>
-                <h4>Tópico 14 - Entrevistas semiestruturadas (preparação, condução e transcrição legal)</h4>
-                <div class="content-block">
-                    <p style="margin-top: 0.6rem;"><strong>Consentimento livre e esclarecido como processo
-                            autônomo:</strong> assume uma função de enquadramento técnico - processo interativo de
-                        checagem</p>
-                    <p style="margin-top: 0.6rem;">Regulação do entusiasmo técnico e controle do "hum" (concordâncias
-                        verbais) - quebra de linha na transcrição, infla o documento e introduz um viés de aprovação</p>
-                    <p style="margin-top: 0.6rem; margin-left: 1.0;">O acolhimento deve ser feito via linguagem corporal
-                        e o uso do silêncio funcional (pausas estratégicas de 7 segundos) para permitir que o sujeito
-                        expanda o relato espontaneamente</p>
-                </div>
-                <div class="content-block">
-                    <p style="margin-top: 0.6rem; color: var(--cor-acento);"><strong>Perguntas de ancoragem e
-                            aprofundamento forense</strong></p>
-                    <ul class="estudos-lista">
-                        <li>Para extrair dados concretos e afastar o autorelato ensaiado, o roteiro deve ser
-                            flexibilizado com perguntas de clarificação
-                            <ul class="estudos-lista">
-                                <li><strong>Investigação de hierarquia de relevância:</strong> "você listou alguns itens
-                                    diferentes; há algum em particular que você considera mais importante?"</li>
-                                <li><strong>Passagem do relato abstrato/ensaiado para o fato vivido:</strong> "pode me
-                                    dar algum exemplo específico do que acabou de descrever?"</li>
-                                <li><strong>Investigação de percepção de nexo causal:</strong> "como você acha que x
-                                    afetou o que aconteceu depois?"</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <div class="content-block">
-                    <p style="margin-top: 0.6rem;"><strong>Transcrição literal e captura de inconsistências:</strong>
-                        proibição de edição gramatical - erros de concordância, hesitações e lapsos de linguagem (atos
-                        falhos) devem ser mantidos exatamente como ocorreram = indicam carga emocional ou esforço
-                        cognitivo de fabricação</p>
-                    <ul class="estudos-lista">
-                        <li>Notação padronizada e consistente: toda comunicação não verbal relevante deve ser
-                            documentada entre parênteses de forma padronizada ao longo de todo o documento; trechos
-                            afetados por barulho externo ou dicção truncada recebem marcas (inaudível) ou (murmúrio
-                            indecifrável)</li>
-                    </ul>
-                </div>
-                <div class="content-block">
-                    <p style="margin-top: 0.6rem;"><strong>Anonimização dos dados:</strong> remover identificadores e
-                        substituir por códigos - documento de correlação (que diz quem é P1) deve ser mantido em arquivo
-                        separado, com acesso restrito e protegido com senha, armazenado localmente</p>
-                    <ul class="estudos-lista">
-                        <li>Os dados transcritos da gravação são usados no laudo, mas não entregue ao juiz</li>
-                    </ul>
-                </div>
-                <h4>Tópico 15 - Avaliação psicológica de transtornos de personalidade no contexto jurídico</h4>
+                <h4>Tópico 14 - Avaliação psicológica de transtornos de personalidade no contexto jurídico</h4>
                 <div class="content-block">
                     <p style="margin-top: 0.64rem;"><strong>Arquitetura metodológica para perícia da
                             personalidade</strong></p>
@@ -3973,7 +3941,7 @@
                         </ul>
                     </div>
                 </div>
-                <h4>Tópico 16 - Transtorno de personalidade borderline e transtorno bipolar (comorbidade e diferencial)
+                <h4>Tópico 15 - Transtorno de personalidade borderline e transtorno bipolar (comorbidade e diferencial)
                 </h4>
                 <div class="content-block">
                     <p style="margin-top: 0.6rem;"><strong>Natureza da comorbidade (diagnóstico duplo)</strong>
@@ -4050,7 +4018,7 @@
                             comorbidade com o TPB</li>
                     </ul>
                 </div>
-                <h4>Tópico 17 - Método de Rorschach</h4>
+                <h4>Tópico 16 - Método de Rorschach</h4>
                 <div class="content-block">
                     <p style="margin-top: 0.6rem;">Responder ao Rorschach não é apenas uma reação a manchas de tinta ->
                         é uma projeção da organização cognitiva e vincular do sujeito no campo do estímulo</p>
@@ -4095,7 +4063,7 @@
                         peças frenquentemente se encaixam de forma integrativa, desvelando a estrutura da personalidade
                         do avaliado</p>
                 </div>
-                <h4>Tópico 18 - Exame criminológico</h4>
+                <h4>Tópico 17 - Exame criminológico</h4>
                 <div class="content-block">
                     <p style="margin-top: 0.6rem;">Foco da avaliação: periculosidade endógena, capacidade de autocrítica
                         em relação ao crime cometido, tolerância à frustração e presença de traços psicopáticos que
@@ -4126,7 +4094,7 @@
                         </li>
                     </ul>
                 </div>
-                <h4>Tópico 19 - Nexo causal e gramática jurídica dos transtornos mentais</h4>
+                <h4>Tópico 18 - Nexo causal e gramática jurídica dos transtornos mentais</h4>
                 <div class="content-block">
                     <p style="margin-top: 0.6rem;"><strong>Critério biopsicológico (Art. 26 do Código Penal):</strong>
                         perito precisa provar duas coisas integradas:
@@ -4170,7 +4138,7 @@
                             fazê-lo</li>
                     </ul>
                 </div>
-                <h4>Tópico 20 - Nexo de causalidade psíquica e conceitos de concausa</h4>
+                <h4>Tópico 19 - Nexo de causalidade psíquica e conceitos de concausa</h4>
                 <div class="content-block">
                     <p style="margin-top: 0.6rem;"><strong>3 cenários de causalidade:</strong></p>
                     <ul class="estudos-lista">
@@ -4235,7 +4203,7 @@
                     </ul>
 
                 </div>
-                <div class="content=block">
+                <div class="content-block">
                     <p style="margin-top: 0.6rem;"><strong>Pirâmide do viés social (do topo até a base):</strong></p>
                     <ul class="estudos-lista">
                         <li>Viés do constructo</li>
@@ -4937,309 +4905,309 @@
                         plotados lado a lado - alguma dispersão é normal e esperada = a questão crítica é se o padrão de
                         dispersão é clinicamente significativo</p>
                 </div>
-                <h2>Avaliação Psicológica</h>
-                    <h3>Edune</h3>
-                    <h4>Tópico 1 - Avaliação e testagem psicológica - aspectos históricos</h4>
-                    <div class="content-block">
-                        <p style="margin-top: 0.6rem;"><strong>Definição e importância da avaliação psicológica</strong>
-                        </p>
-                        <p style="margin-top: 0.6rem;">Avaliação psicológica: amplo processo de investigação que visa
-                            compreender as funções psicológicas e comportamentais do indivíduo - com o objetivo de
-                            subsidiar a tomada de decisão do psicológo</p>
-                        <ul class="estudos-lista">
-                            <li>Consiste na coleta e interpretação de dados obtidos por meio de procedimentos confiáveis
-                                e aprovados pela ciência psicológica - os testes psicológicos são ferramentas centrais
-                            </li>
-                        </ul>
-                        <p>Marco legal no Brasil: a avaliação psicológica está incorporada na Lei Federal 4.119/1962
-                            (que regulamentam a profissão de psicólogo no país) - função privativa</p>
-                        <p>Significado histórico e político na área: adoção de testes baseados em processos americanos
-                            de seleção de soldados pós-guerra = nasceu com uma base psicométrica importada e não
-                            adaptada à realidade nacional - consultórios particulares = exclusão social</p>
-                    </div>
-                    <div class="content-block">
-                        <p style="color: var(--cor-acento);"><strong>Periodização histórica:</strong></p>
-                        <table class="tabela">
-                            <tr class="tabelahead">
-                                <th class="linhahead">Período inicial (1836)</th>
-                                <th class="linhahead">Declínio (1960-1970)</th>
-                                <th class="linhahead">Crise e crítica (1980)</th>
-                                <th class="linhahead">Retomada (2000)</th>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Entusiasmo excessivo com os instrumentos psicológicos americanos
-                                    do pós-guerra</td>
-                                <td class="linhadados">Escassez de formação profissional gerou cancelamento da
-                                    qualificação docente</td>
-                                <td class="linhadados">Radicalismo ideológico à difusão do humanismo e da dialética;
-                                    visão de rótulo e estigmatização dos testes</td>
-                                <td class="linhadados">Ações políticas geraram impacto positivo e novo impulso no
-                                    desenvolvimento</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="content-block">
-                        <p>Origens (contexto internacional) - Wundt (1832-1920): primeiro laboratório experimental na
-                            Alemanha para medir processos psicológicos por meio da introspecção = marco fundador da
-                            psicologia científica; Francis Galton (1822-1911): primeiro laboratório biométrico para
-                            avaliar funções mentais; James Cattel (1860-1944): cunhou o termo "teste psicológico" em
-                            1890</p>
-                        <ul class="estudos-lista">
-                            <li>Segunda Guerra Mundial: conflito entre demanda urgente para seleção de soldados e base
-                                psicométrica ainda incipiente</li>
-                        </ul>
-                        <p>Principais dificuldades no Brasil (primeiras décadas do século XX): (1) confusão conceitual
-                            avaliação psicológica x teste psicológico - teste é apenas um dos instrumentos utilizados no
-                            processo de avaliação; (2) má qualidade da psicometria dos instrumentos disponíveis</p>
-                    </div>
-                    <h4>Tópico 2 - Ferramentas de avaliação psicológica</h4>
-                    <div class="content-block">
-                        <p>Não se restringe apenas a práticas avaliativas</p>
-                        <ul class="estudos-lista">
-                            <li>Desenvolvimento de novos parâmetros psicométricos</li>
-                            <li>Novas maneiras de investigar e mensurar</li>
-                            <li>Técnicas inovadoras de análise e coleta de dados</li>
-                            <li>Pressuposições sobre práticas avaliativas legais, éticas e sociais</li>
-                            <li>Contribuição cientítica para criação de regulações e normas</li>
-                            <li>Planejamento de políticas públicas</li>
-                        </ul>
-                        <p style="color: var();"><strong>Avaliação x ferramentas:</strong></p>
-                        <ul class="estudos-lista">
-                            <li>Avaliação: atividade complexa que envolve busca sistemática de conhecimento sobre
-                                funções mentais</li>
-                            <li>Ferramentas: procedimentos sistemáticos de coleta de dados úteis e confiáveis</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Abordagens da avaliação psicológica</strong></p>
-                        <ul class="estudos-lista">
-                            <li>Abordagem psicométrica: baseada na tradição das teorias fatoriais de Cattel (1973) -
-                                analisa estrutura observada em 3 fontes de dados
-                                <ul class="estudos-lista">
-                                    <li>Dados Q: respostas a questionários</li>
-                                    <li>Dados L: observação e relatos de terceiros</li>
-                                    <li>Dados T: medição direta do comportamento em condições de teste - visa pesquisar
-                                        e descobrir leis gerais + baseada em variáveis interindividuais + descreve
-                                        perfil de parte das pessoas</li>
-                                </ul>
-                            </li>
-                            <li>Abordagem impressionista (clínica): busca compreensão profunda do indivíduo considerando
-                                todas as variáveis disponíveis
-                                <ul class="estudos-lista">
-                                    <li>Utiliza técnicas projetivas</li>
-                                    <li>Baseada em configurações intra-individuais</li>
-                                    <li>Coloca o indivíduo em primeiro plano</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Histórico dos testes psicológicos</strong></p>
-                        <ul class="estudos-lista">
-                            <li>Origem no império chinês: exames para candidatos ao serviço civil - avaliavam domínio de
-                                habilidades físicas e de inteligência</li>
-                            <li>Universidades europeias: exames formais para conferir títulos</li>
-                            <li>Século XIX: desenvolvimento de processos relevantes para testes contemporâneos</li>
-                            <li>Problemas na educação: impulso para desenvolvimento dos testes</li>
-                            <li>Teste Binet: pioneiro no exame de inteligência como forma de avaliação psicológica</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Objetivos iniciais:</strong></p>
-                        <ul class="estudos-lista">
-                            <li>Classificar crianças baseado em desempenho e inteligência na escola</li>
-                            <li>Identificar pessoas com deficiência intelectual e gênios</li>
-                            <li>Diagnóstico de fracasso escolar</li>
-                            <li>Aconselhamento educacional e profissional</li>
-                            <li>Seleção e classificação de funcionários em empresas</li>
-                            <li>Integração, atribuição de tarefas, transferência, promoção ou demissão</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p>Testes computadorizados: 2 pré-requisitos antes da informatização</p>
-                        <ul class="estudos-lista">
-                            <li>Avaliar se o teste é construído com base na teoria psicológica</li>
-                            <li>Determinar medição e parâmetros do instrumento - necessário pesquisa científica sobre
-                                impacto dos computadores nas respostas dos sujeitos</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong><span style="color: var(--cor-acento);">Propósitos do uso dos testes</span></strong>
-                        </p>
-                        <ul class="estudos-lista">
-                            <li>Classificação diagnóstica</li>
-                            <li>Descrição</li>
-                            <li>Predição</li>
-                            <li>Planejamento de intervenções</li>
-                            <li>Acompanhamento</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Escolha do teste</strong></p>
-                        <ul class="estudos-lista">
-                            <li>O psicólogo deve dominar o manual e pesquisas que envolvem o teste</li>
-                            <li>Ter certeza que o teste é adequado para a situação</li>
-                            <li>Verificar se o SATEPSI dá parecer favorável</li>
-                            <li>Para descrição: necessário estudo de validade (análise fatorial, correlação com outras
-                                variáveis)</li>
-                            <li>Para predição: necessários estudos de validade padrão para provar que prediz desempenho
-                                satisfatório</li>
-                        </ul>
-                    </div>
-                    <h4>Tópico 3 - Contextos de atuação</h4>
-                    <div class="content-block">
-                        <p><strong>Psicodiagnóstico clínico:</strong> conduzir processos de avaliação baseados na
-                            ciência para preparar relatório psicológico que descreve a saúde mental do indivíduo</p>
-                        <p><strong>Verificação da condição psicológica de indivíduos submetidos a exames, cirurgias ou
-                                tratamentos invasivos - avaliação planejada do psicólogo sobre condições psíquicas do
-                                paciente, compreensão do procedimento médico, consequências, pós-operatório, estado
-                                afetivo, social e pessoal</strong></p>
-                        <p><strong>Jurídico: auxiliar decisões judiciais por meio de pareceres e laudos sobre a
-                                estrutura psicológica do sujeito</strong></p>
-                        <p><strong>Trânsito: determinar quem pode obter a CNH - perfil mental avaliado em 4 níveis:
-                                inteligência, atenção, movimento mental e nível psicofísico</strong></p>
-                        <p><strong>Organizacional:</strong></p>
-                        <table class="tabela">
-                            <tr class="tabelahead">
-                                <th class="linhahead">Área</th>
-                                <th class="linhahead">Descrição</th>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Recrutamento e seleção</td>
-                                <td class="linhadados">Adequação ao perfil do colaborador, cultura e clima
-                                    organizacional - fases: análise de currículo, entrevista, dinâmicas, testes
-                                    psicológicos</td>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Avaliação de desempenho</td>
-                                <td class="linhadados">Baseada em descrição detalhada do trabalho - métodos: 360 graus,
-                                    180 graus, inversão, avaliação por gestores, pares e subordinados</td>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Avaliação de potencial</td>
-                                <td class="linhadados">Laudo avaliativo preciso de habilidades, aptidões e
-                                    características de personalidade</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <h4>Tópico 4 - Processo de avaliação psicológica</h4>
-                    <div class="content-block">
-                        <p><strong>Entrevista como técnica de avaliação:</strong> permite entender situação,
-                            comportamento, intenções, pensamentos ou atitudes</p>
-                        <table class="tabela">
-                            <tr class="tabelahead">
-                                <th class="linhahead">Modelo</th>
-                                <th class="linhahead">Caracteristicas</th>
-                                <th class="linhahead">Aplicação</th>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Estruturada</td>
-                                <td class="linhadados">Roteiros de perguntas ou questionários fixos</td>
-                                <td class="linhadados">Processos de seleção</td>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Semiestruturada</td>
-                                <td class="linhadados">Maior liberdade ao entrevistador, respostas mais espontâneas</td>
-                                <td class="linhadados">Diversos contextos que exigem flexibilidade mantendo
-                                    direcionamento</td>
-                            </tr>
-                            <tr class="tabeladados">
-                                <td class="linhadados">Não estruturada</td>
-                                <td class="linhadados">Método não roterizado</td>
-                                <td class="linhadados">Diferentes ambientes, risco de informações desnecessárias</td>
-                            </tr>
-                        </table>
-                        <p>Considerações sobre escolha do modelo:</p>
-                        <ul class="estudos-lista">
-                            <li>Revelações abertas: permitem aprofundamento amplo sobre personalidade</li>
-                            <li>Escolhas fechadas: possibilitam comparação sistemática de dados e outras vantagens de
-                                métodos padronizados</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong><span style="color: var(--cor-acento);">Tipos de entrevista por
-                                    objetivo</span></strong></p>
-                        <ul class="estudos-lista">
-                            <li>Entrevista diagnóstica: descrição e avaliação das informações coletadas para fornecer
-                                feedback ao entrevistado - ocorrem desdobramentos relativos à intenção inicial, podendo
-                                demandar novos tipos de entrevistas</li>
-                            <li>Entrevista devolutiva: ajudar pessoas a compreenderem seus resultados</li>
-                            <li>Entrevista de encaminhamento: indicar ao sujeito instituições/profissionais que podem
-                                dar continuidade ao processo de atendimento, tratamento ou avaliação psicológica - uso:
-                                triagens, ambientes clínicos, hospitalares e escolares</li>
-                            <li>Entrevista de orientação psicoterápica: ajudar pacientes a atender necessidades e
-                                alcançar mudanças desejadas
-                                <ul class="estudos-lista">
-                                    <li>Exemplo - entrevista motivacional: (1) inspiração: métodos comportamentais,
-                                        centrais no ser humano, sistêmicos; (2) técnica: usa persuasão em vez de
-                                        conforto; (3) aplicação: especialmente comportamento viciante; (4) combinação:
-                                        métodos estruturados/objetivos + menos estruturados/não diretivos; (5)
-                                        finalidade: ajudar a resolver conflitos e lidar com mudanças necessárias</li>
-                                </ul>
-                            </li>
-                            <li>Entrevista de qualificação pessoal: contexto organizacional</li>
-                            <li>Entrevista de desligamento</li>
-                            <li>Entrevista de pesquisa</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Aspectos transversais importantes</strong></p>
-                        <ul class="estudos-lista">
-                            <li>Primeiro contato: expectativa de recebimento ou tratamento depende de características do
-                                primeiro contato</li>
-                            <li>Flexibilidade no processo: o processo avaliativo é dinâmico e pode necessitar
-                                redirecionamentos</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong><span style="color: var(--cor-acento);">Psicodiagnóstico</span></strong></p>
-                        <p>Qualquer tipo de avaliação psicológica de caráter clínico que se apoie em: teoria psicológica
-                            de base e técnicas reconhecidas pela ciência (observação, entrevista, testes projetivos,
-                            testes psicométricos) - alicerce central: saber com clareza qual a finalidade do processo
-                        </p>
-                        <p><strong>Etapas do psicodiagnóstico</strong></p>
-                        <ol class="estudos-lista">
-                            <li>Momento da entrevista inicial</li>
-                            <li>Aplicação de projeções e testes técnicos</li>
-                            <li>Etapas dos intrumentos aplicados</li>
-                            <li>Término do processo</li>
-                            <li>Feedback ao paciente</li>
-                            <li>Entrega do relatório por escrito ao requerente</li>
-                        </ol>
-                        <p>Para que o processo seja denominado psicodiagnóstico há necessidade de:</p>
-                        <ul class="estudos-lista">
-                            <li>Utilização de testes</li>
-                            <li>Outras estratégias</li>
-                            <li>Avaliação sistemática, científica e orientada para resolução de problemas</li>
-                        </ul>
-                        <p><strong>Psicodiagnóstico interventivo:</strong> fundamentado no paradigma qualitativo de
-                            compreensão da realidade - referencial: psicanálise</p>
-                        <ul class="estudos-lista">
-                            <li>Efeito terapêutico: possibilita mudança e ajuda = uma vez que os conflitos do paciente
-                                vão se resolvendo</li>
-                        </ul>
-                    </div>
-                    <div class="content-block">
-                        <p><strong>Relatório x laudo</strong></p>
-                        <table class="tabela">
-                            <tr class="tabelahead">
-                                <th class="linhahead">Tipo</th>
-                                <th class="linhahead">Objetivo</th>
-                                <th class="linhahead">Foco</th>
-                            </tr>
-                            <tr class="tabelalinha">
-                                <td class="linhadados">Relatório psicológico</td>
-                                <td class="linhadados">Descrever o trabalho, sua evolução e propor rumos</td>
-                                <td class="linhadados">Atuação profissional desenvolvida</td>
-                            </tr>
-                            <tr class="tabelalinha">
-                                <td class="linhadados">Laudo psicológico</td>
-                                <td class="linhadados">Discutir processo de avaliação psicológica e fazer recomendações
-                                    a partir de resultados</td>
-                                <td class="linhadados">Avaliação e decisões sobre o quadro diagnósico</td>
-                            </tr>
-                        </table>
-                    </div>
+                <h2>Avaliação Psicológica</h2>
+                <h3>Edune</h3>
+                <h4>Tópico 1 - Avaliação e testagem psicológica - aspectos históricos</h4>
+                <div class="content-block">
+                    <p style="margin-top: 0.6rem;"><strong>Definição e importância da avaliação psicológica</strong>
+                    </p>
+                    <p style="margin-top: 0.6rem;">Avaliação psicológica: amplo processo de investigação que visa
+                        compreender as funções psicológicas e comportamentais do indivíduo - com o objetivo de
+                        subsidiar a tomada de decisão do psicológo</p>
+                    <ul class="estudos-lista">
+                        <li>Consiste na coleta e interpretação de dados obtidos por meio de procedimentos confiáveis
+                            e aprovados pela ciência psicológica - os testes psicológicos são ferramentas centrais
+                        </li>
+                    </ul>
+                    <p>Marco legal no Brasil: a avaliação psicológica está incorporada na Lei Federal 4.119/1962
+                        (que regulamentam a profissão de psicólogo no país) - função privativa</p>
+                    <p>Significado histórico e político na área: adoção de testes baseados em processos americanos
+                        de seleção de soldados pós-guerra = nasceu com uma base psicométrica importada e não
+                        adaptada à realidade nacional - consultórios particulares = exclusão social</p>
+                </div>
+                <div class="content-block">
+                    <p style="color: var(--cor-acento);"><strong>Periodização histórica:</strong></p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhahead">Período inicial (1836)</th>
+                            <th class="linhahead">Declínio (1960-1970)</th>
+                            <th class="linhahead">Crise e crítica (1980)</th>
+                            <th class="linhahead">Retomada (2000)</th>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Entusiasmo excessivo com os instrumentos psicológicos americanos
+                                do pós-guerra</td>
+                            <td class="linhadados">Escassez de formação profissional gerou cancelamento da
+                                qualificação docente</td>
+                            <td class="linhadados">Radicalismo ideológico à difusão do humanismo e da dialética;
+                                visão de rótulo e estigmatização dos testes</td>
+                            <td class="linhadados">Ações políticas geraram impacto positivo e novo impulso no
+                                desenvolvimento</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="content-block">
+                    <p>Origens (contexto internacional) - Wundt (1832-1920): primeiro laboratório experimental na
+                        Alemanha para medir processos psicológicos por meio da introspecção = marco fundador da
+                        psicologia científica; Francis Galton (1822-1911): primeiro laboratório biométrico para
+                        avaliar funções mentais; James Cattel (1860-1944): cunhou o termo "teste psicológico" em
+                        1890</p>
+                    <ul class="estudos-lista">
+                        <li>Segunda Guerra Mundial: conflito entre demanda urgente para seleção de soldados e base
+                            psicométrica ainda incipiente</li>
+                    </ul>
+                    <p>Principais dificuldades no Brasil (primeiras décadas do século XX): (1) confusão conceitual
+                        avaliação psicológica x teste psicológico - teste é apenas um dos instrumentos utilizados no
+                        processo de avaliação; (2) má qualidade da psicometria dos instrumentos disponíveis</p>
+                </div>
+                <h4>Tópico 2 - Ferramentas de avaliação psicológica</h4>
+                <div class="content-block">
+                    <p>Não se restringe apenas a práticas avaliativas</p>
+                    <ul class="estudos-lista">
+                        <li>Desenvolvimento de novos parâmetros psicométricos</li>
+                        <li>Novas maneiras de investigar e mensurar</li>
+                        <li>Técnicas inovadoras de análise e coleta de dados</li>
+                        <li>Pressuposições sobre práticas avaliativas legais, éticas e sociais</li>
+                        <li>Contribuição cientítica para criação de regulações e normas</li>
+                        <li>Planejamento de políticas públicas</li>
+                    </ul>
+                    <p style="color: var();"><strong>Avaliação x ferramentas:</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Avaliação: atividade complexa que envolve busca sistemática de conhecimento sobre
+                            funções mentais</li>
+                        <li>Ferramentas: procedimentos sistemáticos de coleta de dados úteis e confiáveis</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Abordagens da avaliação psicológica</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Abordagem psicométrica: baseada na tradição das teorias fatoriais de Cattel (1973) -
+                            analisa estrutura observada em 3 fontes de dados
+                            <ul class="estudos-lista">
+                                <li>Dados Q: respostas a questionários</li>
+                                <li>Dados L: observação e relatos de terceiros</li>
+                                <li>Dados T: medição direta do comportamento em condições de teste - visa pesquisar
+                                    e descobrir leis gerais + baseada em variáveis interindividuais + descreve
+                                    perfil de parte das pessoas</li>
+                            </ul>
+                        </li>
+                        <li>Abordagem impressionista (clínica): busca compreensão profunda do indivíduo considerando
+                            todas as variáveis disponíveis
+                            <ul class="estudos-lista">
+                                <li>Utiliza técnicas projetivas</li>
+                                <li>Baseada em configurações intra-individuais</li>
+                                <li>Coloca o indivíduo em primeiro plano</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Histórico dos testes psicológicos</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Origem no império chinês: exames para candidatos ao serviço civil - avaliavam domínio de
+                            habilidades físicas e de inteligência</li>
+                        <li>Universidades europeias: exames formais para conferir títulos</li>
+                        <li>Século XIX: desenvolvimento de processos relevantes para testes contemporâneos</li>
+                        <li>Problemas na educação: impulso para desenvolvimento dos testes</li>
+                        <li>Teste Binet: pioneiro no exame de inteligência como forma de avaliação psicológica</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Objetivos iniciais:</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Classificar crianças baseado em desempenho e inteligência na escola</li>
+                        <li>Identificar pessoas com deficiência intelectual e gênios</li>
+                        <li>Diagnóstico de fracasso escolar</li>
+                        <li>Aconselhamento educacional e profissional</li>
+                        <li>Seleção e classificação de funcionários em empresas</li>
+                        <li>Integração, atribuição de tarefas, transferência, promoção ou demissão</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p>Testes computadorizados: 2 pré-requisitos antes da informatização</p>
+                    <ul class="estudos-lista">
+                        <li>Avaliar se o teste é construído com base na teoria psicológica</li>
+                        <li>Determinar medição e parâmetros do instrumento - necessário pesquisa científica sobre
+                            impacto dos computadores nas respostas dos sujeitos</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">Propósitos do uso dos testes</span></strong>
+                    </p>
+                    <ul class="estudos-lista">
+                        <li>Classificação diagnóstica</li>
+                        <li>Descrição</li>
+                        <li>Predição</li>
+                        <li>Planejamento de intervenções</li>
+                        <li>Acompanhamento</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Escolha do teste</strong></p>
+                    <ul class="estudos-lista">
+                        <li>O psicólogo deve dominar o manual e pesquisas que envolvem o teste</li>
+                        <li>Ter certeza que o teste é adequado para a situação</li>
+                        <li>Verificar se o SATEPSI dá parecer favorável</li>
+                        <li>Para descrição: necessário estudo de validade (análise fatorial, correlação com outras
+                            variáveis)</li>
+                        <li>Para predição: necessários estudos de validade padrão para provar que prediz desempenho
+                            satisfatório</li>
+                    </ul>
+                </div>
+                <h4>Tópico 3 - Contextos de atuação</h4>
+                <div class="content-block">
+                    <p><strong>Psicodiagnóstico clínico:</strong> conduzir processos de avaliação baseados na
+                        ciência para preparar relatório psicológico que descreve a saúde mental do indivíduo</p>
+                    <p><strong>Verificação da condição psicológica de indivíduos submetidos a exames, cirurgias ou
+                            tratamentos invasivos - avaliação planejada do psicólogo sobre condições psíquicas do
+                            paciente, compreensão do procedimento médico, consequências, pós-operatório, estado
+                            afetivo, social e pessoal</strong></p>
+                    <p><strong>Jurídico: auxiliar decisões judiciais por meio de pareceres e laudos sobre a
+                            estrutura psicológica do sujeito</strong></p>
+                    <p><strong>Trânsito: determinar quem pode obter a CNH - perfil mental avaliado em 4 níveis:
+                            inteligência, atenção, movimento mental e nível psicofísico</strong></p>
+                    <p><strong>Organizacional:</strong></p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhahead">Área</th>
+                            <th class="linhahead">Descrição</th>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Recrutamento e seleção</td>
+                            <td class="linhadados">Adequação ao perfil do colaborador, cultura e clima
+                                organizacional - fases: análise de currículo, entrevista, dinâmicas, testes
+                                psicológicos</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Avaliação de desempenho</td>
+                            <td class="linhadados">Baseada em descrição detalhada do trabalho - métodos: 360 graus,
+                                180 graus, inversão, avaliação por gestores, pares e subordinados</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Avaliação de potencial</td>
+                            <td class="linhadados">Laudo avaliativo preciso de habilidades, aptidões e
+                                características de personalidade</td>
+                        </tr>
+                    </table>
+                </div>
+                <h4>Tópico 4 - Processo de avaliação psicológica</h4>
+                <div class="content-block">
+                    <p><strong>Entrevista como técnica de avaliação:</strong> permite entender situação,
+                        comportamento, intenções, pensamentos ou atitudes</p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhahead">Modelo</th>
+                            <th class="linhahead">Caracteristicas</th>
+                            <th class="linhahead">Aplicação</th>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Estruturada</td>
+                            <td class="linhadados">Roteiros de perguntas ou questionários fixos</td>
+                            <td class="linhadados">Processos de seleção</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Semiestruturada</td>
+                            <td class="linhadados">Maior liberdade ao entrevistador, respostas mais espontâneas</td>
+                            <td class="linhadados">Diversos contextos que exigem flexibilidade mantendo
+                                direcionamento</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">Não estruturada</td>
+                            <td class="linhadados">Método não roterizado</td>
+                            <td class="linhadados">Diferentes ambientes, risco de informações desnecessárias</td>
+                        </tr>
+                    </table>
+                    <p>Considerações sobre escolha do modelo:</p>
+                    <ul class="estudos-lista">
+                        <li>Revelações abertas: permitem aprofundamento amplo sobre personalidade</li>
+                        <li>Escolhas fechadas: possibilitam comparação sistemática de dados e outras vantagens de
+                            métodos padronizados</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">Tipos de entrevista por
+                                objetivo</span></strong></p>
+                    <ul class="estudos-lista">
+                        <li>Entrevista diagnóstica: descrição e avaliação das informações coletadas para fornecer
+                            feedback ao entrevistado - ocorrem desdobramentos relativos à intenção inicial, podendo
+                            demandar novos tipos de entrevistas</li>
+                        <li>Entrevista devolutiva: ajudar pessoas a compreenderem seus resultados</li>
+                        <li>Entrevista de encaminhamento: indicar ao sujeito instituições/profissionais que podem
+                            dar continuidade ao processo de atendimento, tratamento ou avaliação psicológica - uso:
+                            triagens, ambientes clínicos, hospitalares e escolares</li>
+                        <li>Entrevista de orientação psicoterápica: ajudar pacientes a atender necessidades e
+                            alcançar mudanças desejadas
+                            <ul class="estudos-lista">
+                                <li>Exemplo - entrevista motivacional: (1) inspiração: métodos comportamentais,
+                                    centrais no ser humano, sistêmicos; (2) técnica: usa persuasão em vez de
+                                    conforto; (3) aplicação: especialmente comportamento viciante; (4) combinação:
+                                    métodos estruturados/objetivos + menos estruturados/não diretivos; (5)
+                                    finalidade: ajudar a resolver conflitos e lidar com mudanças necessárias</li>
+                            </ul>
+                        </li>
+                        <li>Entrevista de qualificação pessoal: contexto organizacional</li>
+                        <li>Entrevista de desligamento</li>
+                        <li>Entrevista de pesquisa</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Aspectos transversais importantes</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Primeiro contato: expectativa de recebimento ou tratamento depende de características do
+                            primeiro contato</li>
+                        <li>Flexibilidade no processo: o processo avaliativo é dinâmico e pode necessitar
+                            redirecionamentos</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">Psicodiagnóstico</span></strong></p>
+                    <p>Qualquer tipo de avaliação psicológica de caráter clínico que se apoie em: teoria psicológica
+                        de base e técnicas reconhecidas pela ciência (observação, entrevista, testes projetivos,
+                        testes psicométricos) - alicerce central: saber com clareza qual a finalidade do processo
+                    </p>
+                    <p><strong>Etapas do psicodiagnóstico</strong></p>
+                    <ol class="estudos-lista">
+                        <li>Momento da entrevista inicial</li>
+                        <li>Aplicação de projeções e testes técnicos</li>
+                        <li>Etapas dos intrumentos aplicados</li>
+                        <li>Término do processo</li>
+                        <li>Feedback ao paciente</li>
+                        <li>Entrega do relatório por escrito ao requerente</li>
+                    </ol>
+                    <p>Para que o processo seja denominado psicodiagnóstico há necessidade de:</p>
+                    <ul class="estudos-lista">
+                        <li>Utilização de testes</li>
+                        <li>Outras estratégias</li>
+                        <li>Avaliação sistemática, científica e orientada para resolução de problemas</li>
+                    </ul>
+                    <p><strong>Psicodiagnóstico interventivo:</strong> fundamentado no paradigma qualitativo de
+                        compreensão da realidade - referencial: psicanálise</p>
+                    <ul class="estudos-lista">
+                        <li>Efeito terapêutico: possibilita mudança e ajuda = uma vez que os conflitos do paciente
+                            vão se resolvendo</li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p><strong>Relatório x laudo</strong></p>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhahead">Tipo</th>
+                            <th class="linhahead">Objetivo</th>
+                            <th class="linhahead">Foco</th>
+                        </tr>
+                        <tr class="tabelalinha">
+                            <td class="linhadados">Relatório psicológico</td>
+                            <td class="linhadados">Descrever o trabalho, sua evolução e propor rumos</td>
+                            <td class="linhadados">Atuação profissional desenvolvida</td>
+                        </tr>
+                        <tr class="tabelalinha">
+                            <td class="linhadados">Laudo psicológico</td>
+                            <td class="linhadados">Discutir processo de avaliação psicológica e fazer recomendações
+                                a partir de resultados</td>
+                            <td class="linhadados">Avaliação e decisões sobre o quadro diagnósico</td>
+                        </tr>
+                    </table>
+                </div>
             </section>
             <!-- SEÇÃO 1: PSICOLOGIA PSICOFARMACOLOGIA (COMPLETA) -->
             <section id="psicofarmacologia" class="tema-section">
@@ -5721,7 +5689,7 @@
                 <div class="content-block">
                     <p><strong>Diagnóstico diferencial das síndromes psicóticas</strong></p>
                     <p><strong><span style="color: var(--cor-acento);">Delirium</span></strong></p>
-                    <ul class="content-block">
+                    <ul class="estudos-lista">
                         <li>Aparecimento agudo, flutuação do quadro</li>
                         <li>Estado de confusão mental e agitação psicomotora</li>
                         <li>Atenção e consciência globalmente comprometidas</li>
@@ -9727,7 +9695,7 @@
                         </tr>
                     </table>
                     <p><strong>Critério C - sintomas de esquiva (≥ 1)</strong></p>
-                    <ul class="content-block">
+                    <ul class="estudos-lista">
                         <li>Esquiva interna: evitar pensamentos, sentimentos ou memórias associadas ao evento</li>
                         <li>Esquiva externa: evitar atividades, locais, conversas ou pessoas que desencadeiam memórias
                             do evento</li>
@@ -13408,6 +13376,48 @@
                 });
             });
         });
+        // --- LÓGICA DE BLOQUEIO POR SENHA ---
+        const SENHA_CORRETA = "mnkl"; // <-- Altere aqui para a senha que você desejar!
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const telaBloqueio = document.getElementById('tela-bloqueio');
+            const inputSenha = document.getElementById('input-senha-app');
+
+            // Verifica se você já digitou a senha nesta sessão (para não pedir de novo ao dar F5)
+            if (sessionStorage.getItem('planotes_desbloqueado') === 'sim') {
+                if (telaBloqueio) telaBloqueio.classList.add('desbloqueado');
+                document.body.classList.remove('bloqueado');
+            } else {
+                document.body.classList.add('bloqueado');
+                if (inputSenha) setTimeout(() => inputSenha.focus(), 100);
+            }
+        });
+
+        function verificarSenhaApp() {
+            const inputSenha = document.getElementById('input-senha-app');
+            const msgErro = document.getElementById('erro-senha-app');
+            const telaBloqueio = document.getElementById('tela-bloqueio');
+            const modal = document.querySelector('.bloqueio-modal');
+
+            if (inputSenha.value === SENHA_CORRETA) {
+                // Desbloqueia o app suavemente
+                telaBloqueio.classList.add('desbloqueado');
+                document.body.classList.remove('bloqueado');
+                msgErro.style.display = 'none';
+
+                // Salva na sessão atual do navegador
+                sessionStorage.setItem('planotes_desbloqueado', 'sim');
+            } else {
+                // Mostra aviso de erro e faz o card tremer
+                msgErro.style.display = 'block';
+                inputSenha.value = '';
+                inputSenha.focus();
+
+                modal.classList.remove('tremer');
+                void modal.offsetWidth; // Reinicia a animação
+                modal.classList.add('tremer');
+            }
+        }
     </script>
 </body>
 
