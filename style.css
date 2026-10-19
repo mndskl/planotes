@@ -1137,19 +1137,17 @@
         color: var(--cor-texto-mutado);
         font-size: 0.72rem;
         font-weight: 500;
-        padding: 0.3rem 0.4rem;
+        padding: 0.3rem 0.6rem;
+        /* Deixei o botão levemente mais largo e elegante */
         border-radius: 20px;
         cursor: pointer;
         transition: all 0.2s ease;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.1rem;
-        margin-left: -10rem;
-        /* Empurra para o canto direito */
+        gap: 0.2rem;
         white-space: nowrap;
-        margin-bottom: 0.3rem;
-
+        /* A margem negativa de -10rem que quebrava o layout foi removida daqui! */
     }
 
     .btn-rolar-fim:hover {
@@ -1158,14 +1156,19 @@
         background-color: rgba(121, 192, 255, 0.05);
     }
 
-    /* Container do título para manter o botão alinhado ao lado direito */
+    /* Container do título para manter os botões alinhados ao lado direito */
     .header-tema-flex {
         display: flex;
-        justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 0.3rem;
+        gap: 0.6rem;
+        margin-bottom: 0.8rem;
+    }
+
+    /* Essa regra empurra automaticamente TODOS os botões para a direita */
+    .header-tema-flex h2 {
+        margin-right: auto;
+        margin-bottom: 0 !important;
     }
 
     /* --- CORREÇÃO DEFINITIVA PARA TABELAS NO CELULAR (SEM VAZAMENTO) --- */
@@ -2204,4 +2207,167 @@
 
     .tremer {
         animation: tremerErro 0.35s ease;
+    }
+
+    /* --- CONTAINER PARA IMAGENS COM ROLAGEM HORIZONTAL --- */
+    .imagem-rolavel-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        /* Ativa o deslize suave nativo no celular */
+        margin-top: 1rem;
+        border-radius: 8px;
+        border: 1px solid var(--cor-borda);
+        background-color: var(--cor-fundo);
+        /* Fundo escuro caso a imagem tenha transparência */
+    }
+
+    .imagem-rolavel-wrapper img {
+        display: block;
+        max-width: none !important;
+        /* Mágica: impede a imagem de encolher! */
+        height: auto;
+        /* Se a sua imagem original for pequena e você quiser forçar ela a ficar grande para ler melhor, 
+       você pode descomentar a linha abaixo e ajustar o valor: */
+        /* min-width: 800px; */
+    }
+
+    /* --- BOTÃO DO CRONOGRAMA --- */
+    .btn-cronograma {
+        background-color: var(--cor-acento);
+        color: #121212;
+        border: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        box-shadow: 0 4px 12px rgba(121, 192, 255, 0.15);
+    }
+
+    .btn-cronograma:hover {
+        background-color: var(--cor-acento-hover);
+        transform: translateY(-2px);
+    }
+
+    /* --- MODAL LARGO PARA O CRONOGRAMA --- */
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(9, 9, 11, 0.85);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 999999 !important;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-conteudo-largo {
+        background-color: var(--cor-fundo);
+        border: 1px solid var(--cor-borda);
+        border-radius: 12px;
+        padding: 1.5rem;
+        width: 95%;
+        max-width: 800px;
+        max-height: 85vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 24px 48px rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-header-flex {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--cor-borda);
+        padding-bottom: 0.8rem;
+    }
+
+    .modal-body-scroll {
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    /* --- ADAPTAÇÃO AUTOMÁTICA DO HTML DO CRONOGRAMA PARA O TEMA DARK --- */
+    .modal-body-scroll .info-box {
+        background: var(--cor-card);
+        padding: 12px;
+        border-left: 4px solid var(--cor-acento);
+        margin-bottom: 25px;
+        border-radius: 4px;
+        text-align: center;
+        color: var(--cor-texto);
+        font-size: 0.9rem;
+    }
+
+    .modal-body-scroll .week-container {
+        background: var(--cor-card);
+        border: 1px solid var(--cor-borda);
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .modal-body-scroll .week-title {
+        color: var(--cor-acento);
+        border-bottom: 1px solid rgba(121, 192, 255, 0.2);
+        padding-bottom: 8px;
+        margin-top: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .modal-body-scroll table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        font-size: 0.85rem;
+    }
+
+    .modal-body-scroll th,
+    .modal-body-scroll td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid var(--cor-borda);
+    }
+
+    .modal-body-scroll th {
+        background-color: var(--cor-primaria);
+        color: var(--cor-acento);
+        width: 15%;
+        font-weight: 600;
+    }
+
+    .modal-body-scroll td {
+        background-color: var(--cor-fundo);
+        color: var(--cor-texto);
+    }
+
+    .modal-body-scroll .bloco-title {
+        font-weight: bold;
+        color: #7ee787;
+        /* Cor do seu marca-texto verde */
+        display: block;
+        font-size: 0.8rem;
+        margin-bottom: 4px;
+    }
+
+    .modal-body-scroll .bloco-topic {
+        color: var(--cor-texto-mutado);
+    }
+
+    .modal-body-scroll .sabado {
+        background-color: rgba(121, 192, 255, 0.1);
+        font-weight: 600;
+        text-align: center;
+        color: var(--cor-acento);
     }

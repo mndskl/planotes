@@ -66,6 +66,7 @@
         // Avisando seu script principal que a nuvem conectou com sucesso
         window.dispatchEvent(new Event('firebasePronto'));
 
+
     </script>
 
 </head>
@@ -143,6 +144,8 @@
                         id="btn-sub-psicofarmacologia">psicofarmacologia</a></li>
                 <li><a href="#" onclick="abrirTema('psicanalise'); return false;"
                         id="btn-sub-psicanalise">psicanálise</a></li>
+                <li><a href="#" onclick="abrirTema('concursos'); return false;" id="btn-sub-concursos">concursos</a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -229,6 +232,18 @@
                         <p id="card-texto-psicanalise">aguarde enquanto o sistema lê o caderno.</p>
                         <div class="card-resumo-footer">
                             <span class="btn-acessar">ler todas as anotações de psicanálise ➔</span>
+                        </div>
+                    </div>
+                    <!-- Resumo Concursos -->
+                    <div class="card-resumo" id="card-resumo-concursos" onclick="abrirTema('concursos')">
+                        <div class="card-resumo-top">
+                            <h3>Concursos</h3>
+                            <span class="badge-recente">Último Tópico Adicionado</span>
+                        </div>
+                        <h4 id="card-titulo-concursos">carregando última anotação...</h4>
+                        <p id="card-texto-concursos">aguarde enquanto o sistema lê o caderno.</p>
+                        <div class="card-resumo-footer">
+                            <span class="btn-acessar">ler todas as anotações de concursos ➔</span>
                         </div>
                     </div>
                 </div>
@@ -12179,7 +12194,22 @@
                     </ul>
                 </div>
             </section>
+            <!-- SEÇÃO: CONCURSOS -->
+            <section id="concursos" class="tema-section">
+                <div class="header-tema-flex">
+                    <h2>Concursos</h2>
+                    <!-- Botão para abrir o cronograma -->
+                    <button class="btn-cronograma" onclick="abrirModalCronograma()">Cronograma PC-SE</button>
+                </div>
+                <h3>Escrivão - PC-SE</h3>
+                <h4>Direito Penal</h4>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">Homicídio e Feminicídio (Art. 121 do Código
+                                Penal)</span></strong></p>
 
+                </div>
+
+            </section>
         </main>
 
         <!-- COLUNA DIREITA: AGENDA LATERAL -->
@@ -12333,11 +12363,17 @@
 
                     // Injeção do botão "rolar até anotação mais recente"
                     const h2 = secaoSelecionada.querySelector('h2');
+
                     if (h2 && !secaoSelecionada.querySelector('.btn-rolar-fim')) {
-                        const wrapper = document.createElement('div');
-                        wrapper.className = 'header-tema-flex';
-                        h2.parentNode.insertBefore(wrapper, h2);
-                        wrapper.appendChild(h2);
+                        let wrapper = h2.parentNode;
+
+                        // Verifica se o H2 já está numa caixa flex (como na aba de concursos). Se não estiver, cria uma.
+                        if (!wrapper.classList.contains('header-tema-flex')) {
+                            wrapper = document.createElement('div');
+                            wrapper.className = 'header-tema-flex';
+                            h2.parentNode.insertBefore(wrapper, h2);
+                            wrapper.appendChild(h2);
+                        }
 
                         const btnRolar = document.createElement('button');
                         btnRolar.className = 'btn-rolar-fim';
@@ -12347,28 +12383,17 @@
                         btnRolar.onclick = (e) => {
                             e.stopPropagation();
 
-                            // Pega todos os H4 (tópicos/anotações) da seção atual
                             const titulos = secaoSelecionada.querySelectorAll('h4');
-
                             if (titulos.length > 0) {
-                                // Foca sempre no último H4 (mais recente)
                                 const ultimoTitulo = titulos[titulos.length - 1];
 
-                                // 1. Abre a sanfona se estiver fechada
-                                // (Verifica se NÃO tem a classe que indica que está aberto; se não tiver, simula o clique)
                                 if (!ultimoTitulo.classList.contains('aberto')) {
                                     ultimoTitulo.click();
                                 }
 
-                                // 2. Aplica o efeito visual de marca-texto
                                 ultimoTitulo.classList.add('marcatexto-ativo');
+                                setTimeout(() => { ultimoTitulo.classList.remove('marcatexto-ativo'); }, 3000);
 
-                                // Remove o efeito após 3 segundos
-                                setTimeout(() => {
-                                    ultimoTitulo.classList.remove('marcatexto-ativo');
-                                }, 3000);
-
-                                // 3. Rola a tela até a posição usando a sua lógica original
                                 const alturaHeader = document.querySelector('header') ? document.querySelector('header').offsetHeight : 80;
                                 const posicaoFinal = (ultimoTitulo.getBoundingClientRect().top + window.scrollY) - (alturaHeader + 20);
 
@@ -12378,6 +12403,8 @@
                                 });
                             }
                         };
+
+                        // Adiciona o botão "mais recente" sempre no final da fileira
                         wrapper.appendChild(btnRolar);
                     }
 
@@ -12398,7 +12425,7 @@
 
         // --- ATUALIZAÇÃO AUTOMÁTICA DOS RESUMOS DA PÁGINA INICIAL ---
         function atualizarResumosAutomaticamente() {
-            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi', 'psicofarmacologia', 'psicanalise'];
+            const materias = ['psicologiaforense', 'pericia', 'avaliacaopsi', 'psicofarmacologia', 'psicanalise', 'concursos'];
 
             materias.forEach(idMateria => {
                 const secao = document.getElementById(idMateria);
@@ -13420,7 +13447,416 @@
                 modal.classList.add('tremer');
             }
         }
+        // --- FUNÇÕES DO MODAL DO CRONOGRAMA ---
+        function abrirModalCronograma() {
+            const modal = document.getElementById('modal-cronograma');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Impede o fundo de rolar
+        }
+
+        function fecharModalCronograma() {
+            const modal = document.getElementById('modal-cronograma');
+            modal.style.display = 'none';
+            document.body.style.overflow = ''; // Restaura a rolagem do fundo
+        }
     </script>
+    <!-- MODAL DO CRONOGRAMA DE CONCURSOS -->
+    <div class="modal-overlay" id="modal-cronograma">
+        <div class="modal-conteudo-largo">
+            <div class="modal-header-flex">
+                <h3 style="color: var(--cor-texto); font-size: 1.2rem; margin: 0;">Cronograma de Estudos - 8 Semanas
+                </h3>
+                <button class="modal-fechar-btn" onclick="fecharModalCronograma()">×</button>
+            </div>
+
+            <div class="modal-body-scroll">
+
+                <div class="info-box">
+                    <strong>A Regra Diária:</strong> 1 hora e 30 minutos por dia.<br>
+                    Em cada bloco de 45 min, faça <strong>30 minutos de Teoria/Lei</strong> e <strong>15 minutos de
+                        Questões</strong>.
+                </div>
+
+                <!-- SEMANA 1 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 1</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Ortografia Oficial (Letras e Hífen)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Internet
+                                    e Ferramentas (Browsers)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Introdução à CF/88 (Preâmbulo e ADCT)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Direitos Humanos</span><span
+                                    class="bloco-topic">Teoria Geral e Gerações</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra a Vida (Homicídio, Feminicídio)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Abuso de Autoridade (13.869)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Regime Jurídico, Fontes e LINDB</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span
+                                    class="bloco-topic">Conceitos Básicos e Objetivo</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Arquivologia</span><span
+                                    class="bloco-topic">Conceitos, Natureza e Princípios de Arquivo</span></td>
+                            <td><span class="bloco-title">Bloco 2: Raciocínio Lógico</span><span
+                                    class="bloco-topic">Lógica Sentencial (Proposições)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 1</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 2 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 2</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Morfossintaxe do Período (Orações e Classes)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Correio
+                                    Eletrônico e Protocolos</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Princípios Fundamentais</span></td>
+                            <td><span class="bloco-title">Bloco 2: Direitos Humanos</span><span
+                                    class="bloco-topic">Afirmação Histórica</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Lesões
+                                    Corporais</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Lavagem de Dinheiro (9.613)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Princípios da Administração (LIMPE)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span
+                                    class="bloco-topic">Patrimônio (Equação Fundamental)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Arquivologia</span><span
+                                    class="bloco-topic">Classificação Tipológica e Organização</span></td>
+                            <td><span class="bloco-title">Bloco 2: Raciocínio Lógico</span><span
+                                    class="bloco-topic">Operações com Conjuntos (Diagramas)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 2</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 3 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 3</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Tempos, Modos e Vozes Verbais</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Proteção
+                                    e Segurança (Malwares e Criptografia)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Direitos e Deveres Individuais (Art. 5º)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Direitos Humanos</span><span
+                                    class="bloco-topic">Tratados Internacionais</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra a Honra (Calúnia, Difamação, Injúria)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Racismo (7.716)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Poderes e Deveres (Polícia, Disciplinar)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Base
+                                    Normativa (Estrutura Conceitual CPC 00)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Arquivologia</span><span class="bloco-topic">Teoria
+                                    das 3 Idades</span></td>
+                            <td><span class="bloco-title">Bloco 2: Raciocínio Lógico</span><span
+                                    class="bloco-topic">Análise Combinatória e Probabilidade</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 3</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 4 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 4</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Regência Verbal e Nominal</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Redes de
+                                    Computadores (Arquitetura e Topologias)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Remédios Constitucionais (HC, MS, HD)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Direitos Humanos</span><span
+                                    class="bloco-topic">Direitos Humanos na CF/88 (Fim de D.H.)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra a Liberdade (Ameaça, Stalking)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Crimes de Trânsito (CTB)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Agentes e Servidores Públicos</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Contas
+                                    Contábeis (Natureza e Funcionamento)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Crase (Obrigatória, Proibida, Facultativa)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Raciocínio Lógico</span><span
+                                    class="bloco-topic">Lógica de Argumentação (Analogias, Deduções)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 4</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 5 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 5</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Colocação Pronominal (Próclise, Ênclise)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Microsoft
+                                    Office (Word e PowerPoint)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Direitos Sociais (Art. 6º)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Raciocínio Lógico</span><span
+                                    class="bloco-topic">Sequências Lógicas (Fim de R.L.M.)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span
+                                    class="bloco-topic">Inviolabilidade de Domicílio</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei Maria da Penha (11.340)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Controle da Administração Pública</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Atos e
+                                    Fatos Contábeis</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Concordância Verbal e Nominal</span></td>
+                            <td><span class="bloco-title">Bloco 2: Informática</span><span class="bloco-topic">Microsoft
+                                    Office (Excel) e Windows (Fim Info)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 5</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 6 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 6</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Pontuação (Uso da Vírgula)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span
+                                    class="bloco-topic">Escrituração Contábil (Livro Diário e Razão)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Nacionalidade</span></td>
+                            <td><span class="bloco-title">Bloco 2: Dir. Constitucional</span><span
+                                    class="bloco-topic">Direitos Políticos</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra o Patrimônio (Furto, Roubo, Extorsão)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Drogas (11.343)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Processo Administrativo</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Regimes
+                                    de Escrituração (Caixa e Competência)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Interpretação e Compreensão de Textos</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Organização Criminosa (12.850)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 6</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 7 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 7</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Tipos e Gêneros Textuais</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Ciclo
+                                    Contábil (Balancete de Verificação)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Partidos Políticos</span></td>
+                            <td><span class="bloco-title">Bloco 2: Dir. Constitucional</span><span
+                                    class="bloco-topic">Poder Legislativo</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra a Dignidade Sexual</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Tortura (9.455)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Serviços Públicos</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span class="bloco-topic">Balanço
+                                    Patrimonial</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Coesão Textual</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Interceptação Telefônica (9.296)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA: 1h30 refazendo questões erradas e simulado da
+                                Semana 7</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <!-- SEMANA 8 -->
+                <div class="week-container">
+                    <h3 class="week-title">Semana 8</h3>
+                    <table>
+                        <tr>
+                            <th>Segunda</th>
+                            <td><span class="bloco-title">Bloco 1: Língua Portuguesa</span><span
+                                    class="bloco-topic">Reescrita de Frases e Paralelismo</span></td>
+                            <td><span class="bloco-title">Bloco 2: Contabilidade</span><span
+                                    class="bloco-topic">Patrimônio Líquido</span></td>
+                        </tr>
+                        <tr>
+                            <th>Terça</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Constitucional</span><span
+                                    class="bloco-topic">Poder Executivo</span></td>
+                            <td><span class="bloco-title">Bloco 2: Dir. Constitucional</span><span
+                                    class="bloco-topic">Defesa do Estado (Art. 144 - Segurança Pública)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quarta</th>
+                            <td><span class="bloco-title">Bloco 1: Direito Penal</span><span class="bloco-topic">Crimes
+                                    Contra a Administração Pública</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Lei de Crimes Hediondos (8.072)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Quinta</th>
+                            <td><span class="bloco-title">Bloco 1: Dir. Administrativo</span><span
+                                    class="bloco-topic">Responsabilidade Civil do Estado</span></td>
+                            <td><span class="bloco-title">Bloco 2: Dir. Administrativo</span><span
+                                    class="bloco-topic">Licitações (Lei 14.133)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sexta</th>
+                            <td><span class="bloco-title">Bloco 1: Contabilidade</span><span class="bloco-topic">DRE
+                                    (Demonstração do Resultado)</span></td>
+                            <td><span class="bloco-title">Bloco 2: Legislação Especial</span><span
+                                    class="bloco-topic">Estatuto do Desarmamento (10.826)</span></td>
+                        </tr>
+                        <tr>
+                            <th>Sábado</th>
+                            <td colspan="2" class="sabado">REVISÃO ATIVA FINAL: Simulado Completo de 80 Questões
+                                cobrindo todo o Edital</td>
+                        </tr>
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
