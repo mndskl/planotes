@@ -2371,3 +2371,58 @@
         text-align: center;
         color: var(--cor-acento);
     }
+
+    /* --- SISTEMA DE CHECK DO CRONOGRAMA --- */
+    .td-clicavel {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding-left: 38px !important;
+        /* Cria um espaço no canto esquerdo para caber a caixinha */
+    }
+
+    .td-clicavel:hover {
+        background-color: rgba(121, 192, 255, 0.05) !important;
+    }
+
+    /* A caixinha de marcar */
+    .check-cronograma {
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        /* Centraliza verticalmente ao lado do texto */
+        width: 18px;
+        height: 18px;
+        border: 2px solid var(--cor-borda);
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: transparent;
+        font-size: 14px;
+        font-weight: bold;
+        transition: all 0.2s ease;
+    }
+
+    /* ESTADO: BLOCO CONCLUÍDO */
+    .td-clicavel.bloco-concluido {
+        opacity: 0.4;
+        /* Fica mais apagadinho para não chamar a atenção */
+        background-color: rgba(126, 231, 135, 0.05) !important;
+    }
+
+    /* Caixinha verde com o certinho */
+    .td-clicavel.bloco-concluido .check-cronograma {
+        background-color: #7ee787;
+        /* Cor verde de sucesso */
+        border-color: #7ee787;
+        color: #121212;
+    }
+
+    /* Riscando o texto do título e do tópico */
+    .td-clicavel.bloco-concluido .bloco-title,
+    .td-clicavel.bloco-concluido .bloco-topic,
+    .td-clicavel.bloco-concluido.sabado {
+        text-decoration: line-through;
+    }

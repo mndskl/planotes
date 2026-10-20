@@ -13530,6 +13530,69 @@
             modal.style.display = 'none';
             document.body.style.overflow = ''; // Restaura a rolagem do fundo
         }
+        // --- SISTEMA DE CHECKS DO CRONOGRAMA AUTOMATIZADO ---
+        function inicializarChecksCronograma() {
+            // Puxa da memória do seu navegador o que já foi concluído
+            let checksSalvos = JSON.parse(localStorage.getItem('planotes_cronograma_checks')) || {};
+
+            // Procura todas as células da tabela do cronograma
+            const celulas = document.querySelectorAll('.modal-body-scroll td');
+
+            let contadorBlocos = 0;
+
+            celulas.forEach(td => {
+                // Se a célula for um bloco normal ou o sábado de revisão, aplicamos o check
+                if (td.querySelector('.bloco-title') || td.classList.contains('sabado')) {
+
+                    const idBloco = 'cronograma-bloco-' + contadorBlocos;
+                    contadorBlocos++;
+
+                    // Transforma a célula em clicável
+                    td.classList.add('td-clicavel');
+
+                    // Cria o HTML da caixinha (o quadradinho)
+                    const checkDiv = document.createElement('div');
+                    checkDiv.className = 'check-cronograma';
+                    checkDiv.innerHTML = '✓';
+
+                    // Coloca a caixinha dentro do bloco
+                    td.insertBefore(checkDiv, td.firstChild);
+
+                    // Se já estiver salvo como concluído antes, aplica a classe
+                    if (checksSalvos[idBloco]) {
+                        td.classList.add('bloco-concluido');
+                    }
+
+                    // O que acontece quando você clica no bloco:
+                    td.onclick = function () {
+                        const estaConcluido = td.classList.contains('bloco-concluido');
+
+                        if (estaConcluido) {
+                            // Se já estava concluído, desmarca
+                            td.classList.remove('bloco-concluido');
+                            checksSalvos[idBloco] = false;
+                        } else {
+                            // Se não estava, marca como concluído!
+                            td.classList.add('bloco-concluido');
+                            checksSalvos[idBloco] = true;
+
+                            // Toca o sonzinho de sucesso!
+                            const audio = document.getElementById('audio-conclusao');
+                            if (audio) {
+                                audio.currentTime = 0;
+                                audio.play().catch(e => console.log("Áudio bloqueado:", e));
+                            }
+                        }
+
+                        // Salva imediatamente no armazenamento local do navegador
+                        localStorage.setItem('planotes_cronograma_checks', JSON.stringify(checksSalvos));
+                    };
+                }
+            });
+        }
+
+        // Faz essa injeção acontecer automaticamente assim que o aplicativo carrega
+        document.addEventListener('DOMContentLoaded', inicializarChecksCronograma);
     </script>
     <!-- MODAL DO CRONOGRAMA DE CONCURSOS -->
     <div class="modal-overlay" id="modal-cronograma">
