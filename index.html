@@ -101,13 +101,11 @@
             </div>
 
             <nav class="main-tabs" aria-label="navegação principal">
-                <button class="main-tab-btn ativo" id="btn-tab-principal" data-abrev="principal"
+                <button class="main-tab-btn ativo" id="btn-tab-principal"
                     onclick="mudarModoVisao('principal')">principal</button>
-                <button class="main-tab-btn" id="btn-tab-estudos" data-abrev="estudos"
-                    onclick="mudarModoVisao('estudos')">anotações de
+                <button class="main-tab-btn" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')">anotações de
                     estudos</button>
-                <button class="main-tab-btn" id="btn-tab-quadro" data-abrev="planejamento"
-                    onclick="mudarModoVisao('quadro')">planejamento
+                <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')">planejamento
                     semanal</button>
             </nav>
 
@@ -147,7 +145,7 @@
         </div>
         <!-- MENU DE SUB-ABAS (EXCLUSIVO DA ABA DE ESTUDOS) -->
         <nav id="nav-modulos" style="display: none; width: 100%;">
-            <ul style="justify-content: center; margin-top: 0.8rem; gap: 1.5rem;">
+            <ul class="sub-abas-lista">
                 <li><a href="#" onclick="abrirTema('psicologiaforense'); return false;"
                         id="btn-sub-psicologiaforense">psicologia forense</a></li>
                 <li><a href="#" onclick="abrirTema('pericia'); return false;" id="btn-sub-pericia">perícia judicial
@@ -12504,6 +12502,8 @@
                                 puramente documental e objetivo da vítima ser uma criança ou pré-adolescente</td>
                         </tr>
                     </table>
+                </div>
+                <div class="content-block">
                     <p><strong>Comentários sobre questões</strong></p>
                     <ul class="estudos-lista">
                         <li><span style="color: red;">1)</span> Caio e Tício, na condução de seus respectivos veículos
@@ -12592,7 +12592,7 @@
                         <li><i>Importante: leitura da lei seca é obrigatória, mas com foco na parte geral (Artigos 1º ao
                                 8º) - acesso Lei 13.869/2019 no portal do Planalto</i></li>
                         <li><span class="marcatexto">O Dolo Específico (Art. 1º, § 1º - o mais cobrado):</span> não
-                            existe abuso de autoridade culposo (sem intenção) - para ser crime, o agente público tem que
+                            existe abuso de autoridade culposo (sem intensão) - para ser crime, o agente público tem que
                             agir com a finalidade específica de prejudicar outrem, beneficiar a si mesmo ou a terceiro,
                             ou por mero capricho ou satisfação pessoal - sem isso, não há crime</li>
                         <li><span class="marcatexto">Crime de Hermenêutica (Art. 1º, § 2º):</span> a divergência na
@@ -12606,7 +12606,9 @@
                             pública (que deve ser exercida em até 6 meses)</li>
 
                     </ul>
-                    <p><strong>Comentários sobre questões</strong></p>
+                </div>
+                <div class="content-block">
+                    <p><strong>Comentários de questões</strong></p>
                     <ul class="estudos-lista">
                         <li><span style="color: greenyellow;">1)</span> Com base no Código Penal e na legislação
                             especial penal pertinente, julgue o item a seguir. Conforme o microssistema de proteção
