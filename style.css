@@ -85,14 +85,28 @@
         padding-bottom: 3rem;
     }
 
-    /* CABEÇALHO CLEAN COM ABAS PRINCIPAIS */
+    /* ============================================
+       CABEÇALHO REDESENHADO (v2)
+       - Blur de fundo + linha de brilho sutil
+       - Marca com dot em gradiente e tagline
+       - Abas em "segmented control" (pills)
+       - Chip de data à direita
+       ============================================ */
     header {
-        background-color: var(--cor-card);
-        border-bottom: 1px solid var(--cor-borda);
-        padding: 1.2rem 2rem;
+        background-color: rgba(1, 4, 9, 0.82);
+        /* leve transparência para o blur funcionar */
+        backdrop-filter: blur(12px) saturate(140%);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        border-bottom: 1px solid rgba(122, 130, 142, 0.45);
+        padding: 0.9rem 2rem;
         position: sticky;
         top: 0;
         z-index: 100;
+        box-shadow:
+            inset 0 1px 0 rgba(121, 192, 255, 0.07),
+            /* fio de luz no topo */
+            0 4px 20px rgba(0, 0, 0, 0.45);
+        /* sombra suave ao rolar */
     }
 
     .header-content {
@@ -101,8 +115,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
         gap: 1.5rem;
+    }
+
+    /* MARCA (logo + tagline) */
+    .header-brand {
+        display: flex;
+        align-items: baseline;
+        gap: 0.7rem;
+        flex-shrink: 0;
     }
 
     header h1 {
@@ -120,45 +141,85 @@
         display: inline-block;
         width: 12px;
         height: 12px;
-        background-color: var(--cor-acento);
+        background: linear-gradient(135deg, var(--cor-acento) 0%, var(--cor-acento-hover) 100%);
         border-radius: 50%;
+        box-shadow: 0 0 10px rgba(121, 192, 255, 0.55);
+        /* o dot agora "brilha" */
     }
 
-    /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
-    /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) */
+    .header-tagline {
+        font-size: 0.78rem;
+        color: var(--cor-texto-mutado);
+        white-space: nowrap;
+    }
+
+    /* CHIP DE DATA (preenchido pelo script inline) */
+    .header-date {
+        font-size: 0.78rem;
+        color: var(--cor-texto-mutado);
+        background: var(--cor-fundo);
+        border: 1px solid rgba(122, 130, 142, 0.35);
+        padding: 0.4rem 0.9rem;
+        border-radius: 999px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* NAVEGAÇÃO SUPERIOR (ABAS DE MODO DE VISÃO) - "SEGMENTED CONTROL" */
     .main-tabs {
         display: flex;
-        gap: 0.3rem;
+        gap: 0.25rem;
         background: var(--cor-fundo);
-        padding: 0.1 0.1rem;
-        /* Bem fininho */
-        border-radius: 8px;
-        border: 1px solid var(--cor-borda);
+        padding: 0.3rem;
+        border-radius: 999px;
+        /* formato de pílula */
+        border: 1px solid rgba(122, 130, 142, 0.35);
+        max-width: 100%;
+        overflow-x: auto;
+        /* em telas pequenas as abas rolam horizontalmente */
+        scrollbar-width: none;
+        /* esconde a barra de rolagem do contêiner de abas */
+    }
+
+    .main-tabs::-webkit-scrollbar {
+        display: none;
     }
 
     .main-tab-btn {
         background: none;
         border: none;
-        padding: 0.35rem 0.85rem;
-        /* Reduz o espaço interno, deixando o botão bem compacto */
+        padding: 0.45rem 1rem;
         font-size: 0.85rem;
-        /* Diminui levemente a letra para combinar com o topo */
         font-weight: 500;
         color: var(--cor-texto-mutado);
         cursor: pointer;
-        border-radius: 6px;
-        transition: all 0.2s;
+        border-radius: 999px;
+        white-space: nowrap;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
     }
 
-    .main-tab-btn:hover {
+    .main-tab-btn:not(.ativo):hover {
+        background: rgba(121, 192, 255, 0.08);
         color: var(--cor-texto);
     }
 
+    .main-tab-btn:active {
+        transform: scale(0.97);
+        /* micro-feedback de clique */
+    }
+
+    .main-tab-btn:focus-visible {
+        outline: 2px solid var(--cor-acento);
+        outline-offset: 2px;
+    }
+
     .main-tab-btn.ativo {
-        background-color: var(--cor-acento);
-        color: #121212;
+        background: linear-gradient(135deg, var(--cor-acento) 0%, #a5d6ff 100%);
+        color: #0d1117;
         font-weight: 600;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        box-shadow:
+            0 0 14px rgba(121, 192, 255, 0.35),
+            0 2px 6px rgba(0, 0, 0, 0.35);
     }
 
     nav ul {
@@ -187,6 +248,66 @@
         color: #121212;
         background: var(--cor-acento);
         font-weight: 600;
+    }
+
+    /* SEPARADOR VISUAL DAS SUB-ABAS (quando a aba "estudos" está ativa) */
+    #nav-modulos {
+        border-top: 1px solid rgba(122, 130, 142, 0.25);
+        padding-top: 0.8rem;
+    }
+
+    /* ============================================
+       RESPONSIVIDADE DO CABEÇALHO
+       ============================================ */
+    @media (max-width: 900px) {
+        header {
+            padding: 0.8rem 1rem;
+        }
+
+        .header-tagline {
+            display: none;
+            /* tagline some para dar espaço às abas */
+        }
+
+        .header-date {
+            display: none;
+            /* data some em telas médias */
+        }
+    }
+
+    @media (max-width: 640px) {
+        header {
+            padding: 0.7rem 0.9rem;
+        }
+
+        .header-content {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 0.7rem;
+        }
+
+        .header-brand {
+            justify-content: center;
+        }
+
+        /* as abas ficam em uma única linha rolável — nada de texto espremido */
+        .main-tabs {
+            width: 100%;
+            padding: 0.25rem;
+        }
+
+        .main-tab-btn {
+            flex: 1 1 0;
+            /* botões dividem igualmente a largura disponível — nunca estouram a tela */
+            min-width: 0;
+            padding: 0.45rem 0.3rem;
+            font-size: 0.78rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     /* LAYOUT GERAL E CONTAINERS */
@@ -1550,9 +1671,21 @@
 
     @media (max-width: 900px) {
         .main-tab-btn {
-            font-size: 0.78rem !important;
-            /* Ajusta a fonte para os 3 botões superiores caberem perfeitamente no iPhone */
-            padding: 0.4rem 0.2rem !important;
+            font-size: clamp(0.66rem, 2.7vw, 0.8rem) !important;
+            /* fonte fluida: cresce/encolhe conforme a tela, sempre cabendo */
+            padding: 0.45rem 0.25rem !important;
+            flex: 1 1 0 !important;
+            min-width: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+
+        .main-tabs {
+            width: 100% !important;
+            flex-shrink: 1 !important;
         }
 
         .agenda-sidebar {
@@ -2425,4 +2558,57 @@
     .td-clicavel.bloco-concluido .bloco-topic,
     .td-clicavel.bloco-concluido.sabado {
         text-decoration: line-through;
+    }
+
+    /* ============================================
+       HEADER MOBILE — BLOCO FINAL CONSOLIDADO
+       Resolve o conflito das media queries duplicadas
+       e garante que as abas nunca estourem a tela.
+       ============================================ */
+    @media (max-width: 900px) {
+        header {
+            padding: 0.7rem 0.9rem !important;
+        }
+
+        .header-content {
+            gap: 0.6rem !important;
+        }
+
+        .main-tabs {
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            flex-shrink: 1 !important;
+            overflow: hidden !important;
+        }
+
+        .main-tab-btn {
+            flex: 1 1 0 !important;
+            min-width: 0 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            padding: 0.45rem 0.35rem !important;
+            font-size: clamp(0.68rem, 2.6vw, 0.82rem) !important;
+        }
+    }
+
+    /* Em telas muito estreitas, as abas usam rótulos curtos
+       (definidos no atributo data-abrev do HTML) para nunca cortar texto */
+    @media (max-width: 400px) {
+        .main-tab-btn {
+            font-size: 0 !important;
+            padding-left: 0.25rem !important;
+            padding-right: 0.25rem !important;
+        }
+
+        .main-tab-btn::before {
+            content: attr(data-abrev);
+            font-size: 0.78rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }

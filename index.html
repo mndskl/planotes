@@ -92,24 +92,38 @@
     <audio id="audio-nova-tarefa" src="assets/novatarefa.mp3" preload="auto"></audio>
     <audio id="audio-agua" src="assets/agua.mp3" preload="auto"></audio>
     <audio id="audio-dia-concluido" src="assets/diaconcluido.mp3" preload="auto"></audio>
-    <!-- CABEÇALHO LIMPO COM AS 3 ABAS PRINCIPAIS -->
+    <!-- CABEÇALHO REDESENHADO (PILLS + BLUR + DATA) -->
     <header>
-        <div class="header-content"
-            style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-            <h1 style="flex-shrink: 0;">planotes</h1>
-
-            <div class="main-tabs" style="display: flex; flex-shrink: 0; gap: 5px; flex-wrap: nowrap;">
-                <button class="main-tab-btn ativo" id="btn-tab-principal" onclick="mudarModoVisao('principal')"
-                    style="white-space: nowrap;">principal</button>
-                <button class="main-tab-btn" id="btn-tab-estudos" onclick="mudarModoVisao('estudos')"
-                    style="white-space: nowrap;">anotações de
-                    estudos</button>
-                <button class="main-tab-btn" id="btn-tab-quadro" onclick="mudarModoVisao('quadro')"
-                    style="white-space: nowrap;">planejamento
-                    semanal</button>
+        <div class="header-content">
+            <div class="header-brand">
+                <h1>planotes</h1>
+                <span class="header-tagline">seu organizador de estudos</span>
             </div>
 
+            <nav class="main-tabs" aria-label="navegação principal">
+                <button class="main-tab-btn ativo" id="btn-tab-principal" data-abrev="principal"
+                    onclick="mudarModoVisao('principal')">principal</button>
+                <button class="main-tab-btn" id="btn-tab-estudos" data-abrev="estudos"
+                    onclick="mudarModoVisao('estudos')">anotações de
+                    estudos</button>
+                <button class="main-tab-btn" id="btn-tab-quadro" data-abrev="planejamento"
+                    onclick="mudarModoVisao('quadro')">planejamento
+                    semanal</button>
+            </nav>
+
+            <span class="header-date" id="header-data" aria-label="data de hoje"></span>
         </div>
+
+        <!-- SCRIPT SIMPLES: APENAS PREENCHE A DATA DO TOPO -->
+        <script>
+            (function () {
+                var el = document.getElementById('header-data');
+                if (!el) return;
+                el.textContent = new Date().toLocaleDateString('pt-BR', {
+                    weekday: 'long', day: 'numeric', month: 'long'
+                });
+            })();
+        </script>
         <!-- MODAL DE CONQUISTAS (VERSÃO PRO) -->
         <div class="modal-conquistas-overlay" id="modal-conquistas">
             <div class="modal-conquistas-conteudo">
