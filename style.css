@@ -1903,6 +1903,14 @@
         /* No High Contrast, pesos maiores ajudam na leitura */
     }
 
+    .acertei {
+        color: greenyellow;
+    }
+
+    .errei {
+        color: red;
+    }
+
     /* --- ABA INDIVIDUAL DE MEDALHAS --- */
     .contador-medalhas {
         display: inline-flex;
