@@ -1911,6 +1911,10 @@
         color: red;
     }
 
+    .exp {
+        color: aqua;
+    }
+
     /* --- ABA INDIVIDUAL DE MEDALHAS --- */
     .contador-medalhas {
         display: inline-flex;
