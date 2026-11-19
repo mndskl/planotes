@@ -2631,3 +2631,40 @@
     .td-clicavel.bloco-concluido.sabado {
         text-decoration: line-through;
     }
+
+    /* --- SANFONA PARA COMENTÁRIOS SOBRE QUESTÕES (CONCURSOS) --- */
+    .comentarios-toggle {
+        cursor: pointer;
+        user-select: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.4rem 0.75rem;
+        margin-top: 0.8rem;
+        background-color: var(--cor-fundo);
+        border: 1px solid rgba(121, 192, 255, 0.35);
+        border-radius: 6px;
+        color: var(--cor-acento);
+        transition: all 0.2s ease;
+    }
+
+    .comentarios-toggle:hover {
+        border-color: var(--cor-acento);
+        background-color: rgba(121, 192, 255, 0.08);
+    }
+
+    .comentarios-toggle::before {
+        content: '►';
+        font-size: 0.7rem;
+        color: var(--cor-acento);
+        transition: transform 0.2s ease;
+        display: inline-block;
+    }
+
+    .comentarios-toggle.aberto::before {
+        transform: rotate(90deg);
+    }
+
+    .comentarios-ocultos {
+        display: none !important;
+    }
