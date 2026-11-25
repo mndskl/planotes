@@ -14551,7 +14551,7 @@
                     </ul>
                 </div>
 
-                <h4 class="recente">Contabilidade</h4>
+                <h4>Contabilidade</h4>
                 <div class="content-block">
                     <p><strong><span style="color: var(--cor-acento);">1.Conceitos Básicos e
                                 Objetivo</span></strong></p>
@@ -15769,7 +15769,7 @@
                             ou não de hífen. - Errado</li>
                     </ul>
                 </div>
-                <h4>Informática</h4>
+                <h4 class="recente">Informática</h4>
                 <div class="content-block">
                     <p><strong><span style="color: var(--cor-acento);">1. Internet e Ferramentas:
                                 Browsers</span></strong></p>
@@ -15858,7 +15858,69 @@
 
                     </ul>
                 </div>
+                <div class="content-block">
+                    <p><strong><span style="color: var(--cor-acento);">2. Correio Eletrônico e
+                                Protocolos</span></strong></p>
+                    <p><strong>Protocolos de E-mail</strong></p>
+                    <ul class="estudos-lista">
+                        <li>Função, comportamento no servidor e as portas (com e sem criptografia)</li>
+                    </ul>
+                    <table class="tabela">
+                        <tr class="tabelahead">
+                            <th class="linhahead">Protocolo</th>
+                            <th class="linhahead">Função</th>
+                            <th class="linhahead">Como funciona (prática)</th>
+                            <th class="linhahead">Porta Padrão (Sem cript.)</th>
+                            <th class="linhahead">Porta Segura (SSL/TLS)</th>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">SMTP</td>
+                            <td class="linhadados">Envio</td>
+                            <td class="linhadados">Envia e-mails do cliente para o servidor e entre servidores</td>
+                            <td class="linhadados">25 ou 587 (submissão)</td>
+                            <td class="linhadados">465 (ou 587 c/ STARTTLS)</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">POP3</td>
+                            <td class="linhadados">Recebimento</td>
+                            <td class="linhadados">Baixa as mensagens para o dispositivo, e por padrão, apaga o servidor
+                            </td>
+                            <td class="linhadados">110</td>
+                            <td class="linhadados">995</td>
+                        </tr>
+                        <tr class="tabeladados">
+                            <td class="linhadados">IMAP</td>
+                            <td class="linhadados">Recebimento</td>
+                            <td class="linhadados">Mantém as mensagens sincronizadas no servidor (acesso em vários
+                                dispositivos)</td>
+                            <td class="linhadados">143</td>
+                            <td class="linhadados">993</td>
+                        </tr>
+                    </table>
 
+                    <ul class="estudos-lista">
+                        <li><i>Pegadinhas clássicas dos protocolos:</i>
+                            <ul class="estudos-lista">
+                                <li>POP3 apaga sempre? Falso - por padrão, ele baixa e apaga, mas o usuário pode
+                                    configurá-lo para manter uma cópia no servidor</li>
+                                <li>IMAP permite leitura offline? Sim, os clientes modernos fazem cache local,
+                                    permitindo
+                                    ler mensagens já baixadas mesmo sem internet; porém, a característica principal do
+                                    IMAP
+                                    e a sincronização de pastas e status (lido/não lido) entre celular, tablet e
+                                    computador
+                                </li>
+                                <li>Webmail usa POP3/IMAP? Na comunicação entre o seu navegador e o serviço de webmail
+                                    (ex.:
+                                    Gmail no Chrome), usa-se HTTP/HTTPS (portas 80/443)</li>
+                                <li>Protocolo MIME: o SMTP original só entendia o texto puro (ASCII) - o MIME
+                                    (multipurpose
+                                    internet mail extensions) é o padrão que permite enviar anexos (PDF, imagens, áudio,
+                                    vídeo) e caracteres acentuados no e-mail</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </section>
         </main>
 
